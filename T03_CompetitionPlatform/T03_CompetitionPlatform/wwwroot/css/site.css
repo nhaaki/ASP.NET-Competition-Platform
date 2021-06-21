@@ -74,6 +74,16 @@ body {
 
 /* Index.cshtml */
 
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    align-content:center;
+}
+
 .myLoginButton {
     background-color: #FFA500;
     border: none;
@@ -83,7 +93,7 @@ body {
     margin: 4px 2px;
     cursor: pointer;
     width:150px;
-    height:150px;
+    height:219px;
     font-size: 25px;
 }
 
@@ -96,28 +106,101 @@ body {
     margin: 4px 2px;
     cursor: pointer;
     width: 150px;
-    height: 150px;
+    height: 219px;
     font-size: 25px;
 }
 
 .textClass p {
-    font-family:Arial;
+    font-family: Arial;
     border: 3px;
     border-style: solid;
     border-color: black;
-    padding: 1em;
+    padding-top: 36px;
+    padding-bottom: 36px;
+    padding-left: 100px;
+    padding-right: 100px;
     text-align: center;
-    font-size: 1100%;
+    font-size: 2000%;
     color: white;
-    -webkit-text-stroke:5px black;
+    -webkit-text-stroke: 15px black;
     -webkit-text-fill-color: transparent;
+    margin-left:5px;
+}
+
+
+/*Reponsive media css below*/
+
+@media screen and (max-width:985px) {
+
+    .button-container {
+        margin-bottom: -285px;
+    }
+
+}
+
+@media screen and (max-width:767px) {
+
+    .button-container {
+        margin-bottom: -235px;
+    }
+}
+
+
+
+@media screen and (max-width:600px) {
+
+    .button-container {
+        margin-bottom: -95px;
+    }
+
+    .textClass p {
+        -webkit-text-stroke: 7px black;
+        font-size: 900%;
+        padding: 115px;
+    }
 }
 
 @media screen and (max-width:500px) {
 
     .textClass p {
-
+        -webkit-text-stroke: 7px black;
         font-size: 900%;
+        padding: 115px;
+    }
+}
 
+@media screen and (max-width:476px) {
+
+    .textClass p {
+        -webkit-text-stroke: 7px black;
+        font-size: 900%;
+        padding: 86px;
+    }
+}
+
+@media screen and (max-width:425px) {
+
+    .textClass p {
+        -webkit-text-stroke: 7px black;
+        font-size: 800%;
+        padding: 50px;
+    }
+}
+
+@media screen and (max-width:330px) {
+
+    .textClass p {
+        -webkit-text-stroke: 7px black;
+        font-size: 800%;
+        padding: 35px;
+    }
+}
+
+@media screen and (max-width:290px) {
+
+    .textClass p {
+        -webkit-text-stroke: 7px black;
+        font-size: 800%;
+        padding: 25px;
     }
 }
