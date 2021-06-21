@@ -69,3 +69,55 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/* Custom css here*/
+
+/* Index.cshtml */
+
+.myLoginButton {
+    background-color: #FFA500;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    width:150px;
+    height:150px;
+    font-size: 25px;
+}
+
+.myRegisterButton {
+    background-color: #4169E1;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 150px;
+    height: 150px;
+    font-size: 25px;
+}
+
+.textClass p {
+    font-family:Arial;
+    border: 3px;
+    border-style: solid;
+    border-color: black;
+    padding: 1em;
+    text-align: center;
+    font-size: 1100%;
+    color: white;
+    -webkit-text-stroke:5px black;
+    -webkit-text-fill-color: transparent;
+}
+
+@media screen and (max-width:500px) {
+
+    .textClass p {
+
+        font-size: 900%;
+
+    }
+}

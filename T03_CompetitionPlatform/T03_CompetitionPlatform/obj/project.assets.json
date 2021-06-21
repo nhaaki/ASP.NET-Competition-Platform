@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Drake\\Desktop\\School\\Web\\ASSIGNMENT\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+      "projectUniqueName": "C:\\Users\\Drake\\Desktop\\School\\Web\\Assignment1\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
       "projectName": "T03_CompetitionPlatform",
-      "projectPath": "C:\\Users\\Drake\\Desktop\\School\\Web\\ASSIGNMENT\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+      "projectPath": "C:\\Users\\Drake\\Desktop\\School\\Web\\Assignment1\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
       "packagesPath": "C:\\Users\\Drake\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Drake\\Desktop\\School\\Web\\ASSIGNMENT\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
+      "outputPath": "C:\\Users\\Drake\\Desktop\\School\\Web\\Assignment1\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Drake\\AppData\\Roaming\\NuGet\\NuGet.Config",
