@@ -9,7 +9,7 @@
     <!-- Set the initial view zooming scale for mobile device -->
     <meta name="viewport" content="width = device-width,
  initial-scale = 1" />
-    <title>CJP Homepage</title>
+    <title>CJP Login</title>
 
     <!-- offline
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -53,17 +53,13 @@
             <!-- Links in the navbar, displayed as drop-down list when collapsed -->
             <div class="collapse navbar-collapse" id="staffNavbar">
                 <!-- Links that are aligned to the left,
-                mr-auto: right margin auto-adjusted -->
-                <ul class="navbar-nav mr-auto">
+    mr-auto: right margin auto-adjusted -->
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Home/About Us"
+                        <a class="nav-link" href="~/Home/Index"
                            style="font-size: 20px;color: white;">
-                            About Us
+                            Return
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Home/ContactUs"
-                           style="font-size: 20px;color: white">Contact Us</a>
                     </li>
 
                 </ul>
@@ -73,47 +69,39 @@
     <!-- -->
     <!--Start of containers -->
     <div class="container">
-
-        <div class="row">
-            <div class="col-md">
-                <form method="post" action="~/Home/redirectLogin">
-                    <button type="submit"
-                            class="btn btn-warning btn-lg"
-                            style="min-width: 50%;
-                    height: 200px;
-                    font-size: 120%;
-                    margin-top: 100px;">
-                        Login
-                    </button>
-                </form>
-
-                <form method="post" action="~/Home/redirectRegister">
-                    <button type="submit"
-                            class="btn btn-primary btn-lg"
-                            style="min-width: 50%;
-          height: 200px; font-size: 120%;">
-                        Register
-                    </button>
-                </form>
-            </div>
-
-            <div class="col-md">
-                <p style="margin-top: 110px;
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <p style="margin-top: 70px;
         font-family: Arial;
-        padding-top:20%;
-        padding-bottom:20%;
-        border: 3px;
-        color: white;
-        font-size: 700%;
-        -webkit-text-stroke: 7px black;
-        -webkit-text-fill-color: transparent;
-        border-style: solid;
-        border-color: black;
-        text-align: center;">CJP</p>
+        font-size: 300%;
+        text-align: center;">Login</p>
             </div>
         </div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <form method="post" action="~/Home/cjpLogin">
+                    <fieldset class="loginFieldset" style="        border: 2px;
+        border-style: solid;
+        border-color: black;
+        padding: 8em 8em 8em 8em;">
 
-    </div>
+                        <label for="txtLoginID">Email</label>
+                        <input type="email" name="txtLoginID"
+                               id="txtLoginID" required /><br />
+                        <label for="txtPassword">Password</label>
+                        <input type="password" name="txtPassword"
+                               id="txtPassword" style="width:100px"
+                               required />
+                        <br />
+                        <input type="submit" id="btnStaffLogin"
+                               class="myButton" value="Login" style="align-content:center; align-items:center;
+                                justify-content:center;"/>
+                        <br />
+                        <span style="color:red;">@TempData["Message"]</span>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>
