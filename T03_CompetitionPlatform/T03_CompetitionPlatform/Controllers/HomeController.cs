@@ -83,6 +83,14 @@ namespace T03_CompetitionPlatform.Controllers
             return View();
         }
 
+        public ActionResult adminLogout()
+        {
+            HttpContext.Session.Clear();
+
+            //Call the index action of Home Controller 
+            return RedirectToAction("Index");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

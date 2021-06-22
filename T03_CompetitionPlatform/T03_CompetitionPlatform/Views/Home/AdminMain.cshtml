@@ -54,11 +54,42 @@
             <div class="collapse navbar-collapse" id="staffNavbar">
                 <!-- Links that are aligned to the left,
                 mr-auto: right margin auto-adjusted -->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Admin/AreasOfInterests"
+                           style="font-size: 20px;color: white;">
+                            Areas of Interest
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Admin/CompetitionRecords"
+                           style="font-size: 20px;color: white">Competition Records</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Admin/ManageJudges"
+                           style="font-size: 20px;color: white">Manage Judges</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Admin/CompetitiorWorks"
+                           style="font-size: 20px;color: white">Competitor Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Admin/CompetitionRankings"
+                           style="font-size: 20px;color: white">Competitor Rankings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Admin/CompetitionResults"
+                           style="font-size: 20px;color: white">Competitor Results</a>
+                    </li>
+
+                </ul>
+
+
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Home/Index"
+                        <a class="nav-link" href="~/Home/adminLogOut"
                            style="font-size: 20px;color: white;">
-                            Return
+                            Log Out
                         </a>
                     </li>
 
@@ -68,40 +99,55 @@
     </header>
     <!-- -->
     <!--Start of containers -->
+    <!--
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-md-auto">
                 <p style="margin-top: 70px;
         font-family: Arial;
         font-size: 300%;
-        text-align: center;">Login</p>
-            </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-md-auto">
-                <form method="post" action="~/Home/cjpLogin">
-                    <fieldset class="loginFieldset" style="        border: 2px;
-        border-style: solid;
-        border-color: black;
-        padding: 8em 8em 8em 8em;">
-
-                        <label for="txtLoginID">Email</label>
-                        <input type="email" name="txtLoginID"
-                               id="txtLoginID" required /><br />
-                        <label for="txtPassword">Password</label>
-                        <input type="password" name="txtPassword"
-                               id="txtPassword" style="width:100px"
-                               required />
-                        <br />
-                        <input type="submit" id="btnStaffLogin"
-                               class="myButton" value="Login" style="align-content:center; align-items:center;
-                                justify-content:center;" />
-                        <br />
-                        <span style="color:red;">@TempData["Message"]</span>
-                    </fieldset>
-                </form>
+        text-align: center;">Statistics</p>
             </div>
         </div>
     </div>
+
+    <div class="container-fluid" style="border: 2px;
+         border-style: solid;
+         border-color: black;
+         padding: 8em 8em 8em 8em;>
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-auto">
+                <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Areas of Interest</u></p>
+
+                <partial name="~/Views/Admin/_AreaSummary.cshtml" />
+
+
+            </div>
+            <div class="col-md-auto">
+                <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Competition Records</u></p>
+
+
+
+            </div>
+            <div class="col-md-auto">
+                <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Amount of Judges</u></p>
+
+
+
+            </div>
+            <div class="col-md-auto">
+                <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Amount of Competitors</u></p>
+
+
+
+            </div>
+        </div>
+
+    </div>
+        -->
+
+
 </body>
 </html>
