@@ -1,7 +1,4 @@
-﻿@{
-    Layout = null;
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <!-- Use Unicode character encoding - multi-language compatibity -->
@@ -54,7 +51,6 @@
             <div class="collapse navbar-collapse" id="staffNavbar">
                 <!-- Links that are aligned to the left,
                 mr-auto: right margin auto-adjusted -->
-
                 <!-- Start of display summaries, count using AdminSummary Model and retrieval
                     From AdminController-->
                 <ul class="navbar-nav mr-auto">
@@ -62,7 +58,7 @@
                         <a class="nav-link" href="~/Admin/Index"
                            style="font-size: 20px;color: white;">
                             Areas of Interest
-                            
+
                         </a>
                     </li>
                     <li class="nav-item">
@@ -92,6 +88,12 @@
 
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
+                        <a class="nav-link" href="~/Admin/AdminMain"
+                           style="font-size: 20px;color: white;">
+                            Return
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="~/Home/adminLogOut"
                            style="font-size: 20px;color: white;">
                             Log Out
@@ -102,56 +104,4 @@
             </div>
         </nav>
     </header>
-    <!-- -->
-    <!--Start of containers -->
-    
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-md-auto">
-                <p style="margin-top: 70px;
-        font-family: Arial;
-        font-size: 300%;
-        text-align: center;">Statistics</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid" style="border: 2px;
-         border-style: solid;
-         border-color: black;
-         padding: 8em 8em 8em 8em;>
-
-        <div class="row justify-content-center">
-
-            <div class="col-md-auto">
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Areas of Interest</u></p>
-
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["areaCount"]</b></p>
-
-            </div>
-            <div class="col-md-auto">
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Competition Records</u></p>
-
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["competitionCount"]</b></p>
-
-            </div>
-            <div class="col-md-auto">
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Amount of Judges</u></p>
-
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["judgesCount"]</b></p>
-
-            </div>
-            <div class="col-md-auto">
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Amount of Competitors</u></p>
-
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["competitorsCount"]</b></p>
-
-            </div>
-        </div>
-
-    </div>
-        
-
-
 </body>
-</html>

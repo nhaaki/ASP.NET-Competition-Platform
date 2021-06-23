@@ -14,6 +14,8 @@ namespace T03_CompetitionPlatform.Controllers
     {
         private AreaInterestDAL areaContext = new AreaInterestDAL();
         private CompetitionDAL competitionContext = new CompetitionDAL();
+        private JudgesDAL judgeContext = new JudgesDAL();
+        private CompetitorDAL competitorContext = new CompetitorDAL();
 
 
         // GET: AdminController
@@ -61,6 +63,28 @@ namespace T03_CompetitionPlatform.Controllers
             }
 
             TempData["competitionCount"] = Convert.ToString(count1);
+
+            // Get count of total judge
+            List<Judge> judgeList = judgeContext.GetAllJudges();
+
+            int count2 = 0;
+            foreach (Judge judges in judgeList)
+            {
+                count2 += 1;
+            }
+
+            TempData["judgesCount"] = Convert.ToString(count2);
+
+            // Get count of total competitors
+            List<Competitor> competitorsList = competitorContext.GetAllCompetitors();
+
+            int count3 = 0;
+            foreach (Competitor competitors in competitorsList)
+            {
+                count3 += 1;
+            }
+
+            TempData["competitorsCount"] = Convert.ToString(count3);
 
 
 
