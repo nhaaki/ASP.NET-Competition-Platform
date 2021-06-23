@@ -21,8 +21,7 @@ namespace T03_CompetitionPlatform.DAL
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json");
             Configuration = builder.Build();
-            string strConn = Configuration.GetConnectionString(
-            "CJP_DBConnectionString");
+            string strConn = Configuration.GetConnectionString("NPBookConnectionString");
             //Instantiate a SqlConnection object with the
             //Connection String read.
             conn = new SqlConnection(strConn);
@@ -30,6 +29,7 @@ namespace T03_CompetitionPlatform.DAL
 
         public List<AreaInterest> GetAllArea()
         {
+
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SELECT SQL statement
