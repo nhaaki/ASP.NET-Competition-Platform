@@ -44,7 +44,7 @@ namespace T03_CompetitionPlatform.Controllers
         }
 
         [HttpPost]
-        public ActionResult  cjpLogin(IFormCollection formData)
+        public ActionResult cjpLogin(IFormCollection formData)
         {
             // Read inputs from textboxes
             // Email address converted to lowercase
@@ -59,7 +59,8 @@ namespace T03_CompetitionPlatform.Controllers
                 HttpContext.Session.SetString("Role", "Admin");
 
                 // Redirect user to the "AdminMain" view through an action
-                return RedirectToAction("AdminMain");
+                return RedirectToAction("AdminMain", "Admin");
+
             }
 
             else
@@ -74,11 +75,6 @@ namespace T03_CompetitionPlatform.Controllers
         }
 
         public ActionResult Login()
-        {
-            return View();
-        }
-
-        public ActionResult AdminMain()
         {
             return View();
         }

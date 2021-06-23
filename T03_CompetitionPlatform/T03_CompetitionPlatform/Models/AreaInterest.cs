@@ -8,7 +8,6 @@ namespace T03_CompetitionPlatform.Models
 {
     public class AreaInterest
     {
-        [Display(Name = "ID")]
         public int AreaInterestID { get; set; }
 
         [StringLength(50)]

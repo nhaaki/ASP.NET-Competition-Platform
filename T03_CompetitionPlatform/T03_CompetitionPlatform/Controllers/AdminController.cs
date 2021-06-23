@@ -13,6 +13,9 @@ namespace T03_CompetitionPlatform.Controllers
     public class AdminController : Controller
     {
         private AreaInterestDAL areaContext = new AreaInterestDAL();
+        private CompetitionDAL competitionContext = new CompetitionDAL();
+
+
         // GET: AdminController
         public ActionResult Index()
         {
@@ -25,6 +28,45 @@ namespace T03_CompetitionPlatform.Controllers
             }
             List<AreaInterest> areaList = areaContext.GetAllArea();
             return View(areaList);
+        }
+
+        public ActionResult AdminMain()
+        {
+            // Stop accessing the action if not logged in
+            // or account not in the "Staff" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Get count of totala areas
+            List<AreaInterest> areaList = areaContext.GetAllArea();
+
+            int count = 0;
+            foreach (AreaInterest area in areaList)
+            {
+                count += 1;
+            }
+
+            TempData["areaCount"] = Convert.ToString(count);
+
+            // Get count of total competitions
+            List<Competition> competitionList = competitionContext.GetAllCompetitions();
+
+            int count1 = 0;
+            foreach (Competition competitions in competitionList)
+            {
+                count1 += 1;
+            }
+
+            TempData["competitionCount"] = Convert.ToString(count1);
+
+
+
+            return View("/Views/Admin/AdminMain.cshtml");
+
+            
         }
 
         // GET: AdminController/Details/5

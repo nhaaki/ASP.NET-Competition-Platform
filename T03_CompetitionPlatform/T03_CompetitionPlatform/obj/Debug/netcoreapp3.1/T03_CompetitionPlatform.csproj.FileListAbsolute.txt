@@ -117,4 +117,4 @@ C:\Users\Drake\Desktop\School\Web\Assignment1\T03_CompetitionPlatform\T03_Compet
 C:\Users\Drake\Desktop\School\Web\Assignment1\T03_CompetitionPlatform\T03_CompetitionPlatform\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Drake\Desktop\School\Web\Assignment1\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\_ViewArea.cshtml.g.cs
 C:\Users\Drake\Desktop\School\Web\Assignment1\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
-C:\Users\Drake\Desktop\School\Web\Assignment1\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\AdminMain.cshtml.g.cs
+C:\Users\Drake\Desktop\School\Web\Assignment1\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AdminMain.cshtml.g.cs

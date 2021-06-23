@@ -54,11 +54,15 @@
             <div class="collapse navbar-collapse" id="staffNavbar">
                 <!-- Links that are aligned to the left,
                 mr-auto: right margin auto-adjusted -->
+
+                <!-- Start of display summaries, count using AdminSummary Model and retrieval
+                    From AdminController-->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="~/Admin/Index"
                            style="font-size: 20px;color: white;">
                             Areas of Interest
+                            
                         </a>
                     </li>
                     <li class="nav-item">
@@ -100,7 +104,7 @@
     </header>
     <!-- -->
     <!--Start of containers -->
-    <!--
+    
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-md-auto">
@@ -122,14 +126,13 @@
             <div class="col-md-auto">
                 <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Areas of Interest</u></p>
 
-                <partial name="~/Views/Admin/_AreaSummary.cshtml" />
-
+                <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["areaCount"]</b></p>
 
             </div>
             <div class="col-md-auto">
                 <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Competition Records</u></p>
 
-
+                <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["competitionCount"]</b></p>
 
             </div>
             <div class="col-md-auto">
@@ -147,7 +150,7 @@
         </div>
 
     </div>
-        -->
+        
 
 
 </body>
