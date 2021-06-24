@@ -13,6 +13,7 @@
 <h4 class="PageTitle" style="margin-top: 70px; font-size:200%; text-align:center;">Areas Of Interest</h4>
 <br />
 <p style="text-align: center;font-size: 175%;"><a asp-action="CreateAreaView">Create</a></p>
+<span style="color:red;">@TempData["AreaDeleteMessage"]</span>
 
 
 <partial name="~/Views/Admin/_ViewArea.cshtml" model="@Model" />

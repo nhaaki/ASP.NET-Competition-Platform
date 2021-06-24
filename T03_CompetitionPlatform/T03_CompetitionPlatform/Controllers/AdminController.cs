@@ -153,24 +153,58 @@ namespace T03_CompetitionPlatform.Controllers
         }
 
         // GET: AdminController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteArea(int? id)
         {
-            return View();
+            // Stop accessing the action if not logged in
+            // or account not in the "Staff" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index", "Admin");
+            }
+
+            AreaInterest area = areaContext.GetDetails(id.Value);
+
+            if (area == null)
+            {
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index", "Admin");
+            }
+
+            if (id != null)
+            {
+                int theId = Convert.ToInt32(id);
+
+                bool checkCompetitions = competitionContext.checkIfCompetitionExists(theId);
+
+                bool checkJudges = judgeContext.checkIfJudgeExists(theId);
+
+                if (checkCompetitions == true || checkJudges == true)
+                {
+                    TempData["AreaDeleteMessage"] = "Area has competition(s)! or judge(s) assigned!";
+
+                    return RedirectToAction("Index", "Admin");
+                }
+            }
+
+
+
+            return View(area);
         }
 
         // POST: AdminController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteArea(AreaInterest area)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            // Delete the area record from database
+            areaContext.DeleteArea(area.AreaInterestID);
+            return RedirectToAction("Index", "Admin");
         }
 
         public ActionResult AreasOfInterests()

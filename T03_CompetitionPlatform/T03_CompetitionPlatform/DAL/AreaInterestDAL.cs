@@ -111,6 +111,64 @@ namespace T03_CompetitionPlatform.DAL
             return nameFound;
         }
 
+        public AreaInterest GetDetails(int areaInterestID)
+        {
+            AreaInterest area = new AreaInterest();
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a staff record.
+            cmd.CommandText = @"SELECT * FROM AreaInterest
+                    WHERE AreaInterestID = @selectedAreaInterestID";
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “areainterestId”.
+            cmd.Parameters.AddWithValue("@selectedAreaInterestID", areaInterestID);
+            //Open a database connection
+            conn.Open();
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    // Fill staff object with values from the data reader
+                    area.AreaInterestID = areaInterestID;
+                    area.Name = !reader.IsDBNull(1) ? reader.GetString(1) : null;
+                    // (char) 0 - ASCII Code 0 - null value
+                }
+            }
+            //Close data reader
+            reader.Close();
+            //Close database connection
+            conn.Close();
+            return area;
+        }
+
+        public int DeleteArea(int areaInterestID)
+        {
+            //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
+            //to delete a staff record specified by a Staff ID
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Step 1 update record in staff where StaffID = supervisorID in Staff
+            cmd.CommandText = @"DELETE FROM AreaInterest
+            WHERE AreaInterestID = @selectareaInterestID";
+
+            cmd.Parameters.AddWithValue("@selectareaInterestID", areaInterestID);
+
+            //Open a database connection
+            conn.Open();
+            int rowAffected = 0;
+            //Execute the DELETE SQL to remove the staff record
+            rowAffected += cmd.ExecuteNonQuery();
+
+            //Close database connection
+            conn.Close();
+            //Return number of row of staff record updated or deleted
+            return rowAffected;
+        }
+
 
     }
 }

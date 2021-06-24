@@ -120,3 +120,4 @@ C:\Users\Drake\Desktop\School\Web\Assignment1\T03_CompetitionPlatform\T03_Compet
 C:\Users\Drake\Desktop\School\Web\Assignment1\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AdminMain.cshtml.g.cs
 C:\Users\Drake\Desktop\School\Web\Assignment1\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\_AdminNav.cshtml.g.cs
 C:\Users\Drake\Desktop\School\Web\Assignment1\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CreateAreaView.cshtml.g.cs
+C:\Users\Drake\Desktop\School\Web\Assignment1\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\DeleteArea.cshtml.g.cs

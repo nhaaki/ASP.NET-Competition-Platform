@@ -14,10 +14,14 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>@item.AreaInterestID.ToString()</td>
-                        <td>@item.Name</td>
-                    </tr>
+                <tr>
+                    <td>@item.AreaInterestID.ToString()</td>
+                    <td>@item.Name</td>
+
+                    <td>
+                        <a asp-action="DeleteArea" asp-controller="Admin" asp-route-id="@item.AreaInterestID">Delete</a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

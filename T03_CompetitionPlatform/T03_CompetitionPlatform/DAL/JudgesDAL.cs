@@ -61,5 +61,45 @@ namespace T03_CompetitionPlatform.DAL
             conn.Close();
             return judgesList;
         }
+
+        public bool checkIfJudgeExists(int judgeId)
+        {
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement
+            cmd.CommandText = @"SELECT * FROM Judge ORDER BY JudgeID";
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            //Read all records until the end, save data into a staff list
+            List<Judge> judgeList = new List<Judge>();
+            while (reader.Read())
+            {
+                judgeList.Add(
+                new Judge
+                {
+                    JudgeID = reader.GetInt32(0), //0: 1st column and + 1 per column 
+                    AreaInterestID = reader.GetInt32(3),
+                }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            bool itExists = false;
+            foreach (Judge judges in judgeList)
+            {
+                if (judges.AreaInterestID == judgeId)
+                {
+                    itExists = true;
+                }
+            }
+
+            return itExists;
+        }
     }
 }

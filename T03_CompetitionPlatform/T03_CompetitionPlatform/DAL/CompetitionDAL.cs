@@ -62,5 +62,45 @@ namespace T03_CompetitionPlatform.DAL
             return competitionList;
         }
 
+        public bool checkIfCompetitionExists(int theId)
+        {
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement
+            cmd.CommandText = @"SELECT * FROM Competition ORDER BY CompetitionID";
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            //Read all records until the end, save data into a staff list
+            List<Competition> competitionList = new List<Competition>();
+            while (reader.Read())
+            {
+                competitionList.Add(
+                new Competition
+                {
+                    CompetitionID = reader.GetInt32(0), //0: 1st column and + 1 per column 
+                    AreaInterestID = reader.GetInt32(1),
+                    CompetitionName = reader.GetString(2),
+                }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            bool itExists = false;
+            foreach (Competition competitions in competitionList)
+            {
+                if (competitions.AreaInterestID == theId)
+                {
+                    itExists = true;
+                }
+            }
+
+            return itExists;
+        }
     }
 }
