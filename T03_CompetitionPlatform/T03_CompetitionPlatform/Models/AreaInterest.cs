@@ -12,6 +12,8 @@ namespace T03_CompetitionPlatform.Models
 
         [StringLength(50)]
         [Required]
+        // Custom Validation Attribute for checking area exist
+        [ValidateAreaNameExists]
         public string Name { get; set; }
 
     }

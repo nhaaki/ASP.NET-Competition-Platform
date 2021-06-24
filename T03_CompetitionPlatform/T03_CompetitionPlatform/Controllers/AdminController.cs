@@ -105,19 +105,30 @@ namespace T03_CompetitionPlatform.Controllers
             return View();
         }
 
+        public ActionResult CreateAreaView()
+        {
+            return View("/Views/Admin/CreateAreaView.cshtml");
+        }
+
         // POST: AdminController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult CreateArea(AreaInterest area)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                //Add staff record to database
+                area.AreaInterestID = areaContext.Add(area);
+                //Redirect user to Staff/Index view
+                return RedirectToAction("Index", "Admin");
             }
-            catch
+            else
             {
-                return View();
+                //Input validation fails, return to the Create view
+                //to display error message
+                return View("/Views/Admin/CreateAreaView.cshtml",area);
             }
+
         }
 
         // GET: AdminController/Edit/5
