@@ -62,6 +62,33 @@ namespace T03_CompetitionPlatform.DAL
             return competitionList;
         }
 
+        public int Add(Competition competitions)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify an INSERT SQL statement which will
+            //return the auto-generated StaffID after insertion
+            cmd.CommandText = @"INSERT INTO Competition (CompetitionName,StartDate,EndDate,ResultReleasedDate)
+                                OUTPUT INSERTED.AreaInterestID
+                                VALUES(@competitionName,@startDate,@endDate,@resultReleasedDate)";
+            //Define the parameters used in SQL statement, value for each parameter
+            //is retrieved from respective class's property.
+            cmd.Parameters.AddWithValue("@competitionName", competitions.CompetitionName);
+            cmd.Parameters.AddWithValue("@startDate", competitions.StartDate);
+            cmd.Parameters.AddWithValue("@endDate", competitions.EndDate);
+            cmd.Parameters.AddWithValue("@resultReleasedDate", competitions.ResultReleasedDate);
+            //A connection to database must be opened before any operations made.
+            conn.Open();
+            //ExecuteScalar is used to retrieve the auto-generated
+            //StaffID after executing the INSERT SQL statement
+            competitions.CompetitionID = (int)cmd.ExecuteScalar();
+            //A connection should be closed after operations.
+            conn.Close();
+            //Return id when no error occurs.
+            return competitions.CompetitionID;
+        }
+
+        // For DeleteArea if ID is not null!
         public bool checkIfCompetitionExists(int theId)
         {
 
@@ -101,6 +128,38 @@ namespace T03_CompetitionPlatform.DAL
             }
 
             return itExists;
+        }
+
+        // For CreateCompetition itself!!
+        public bool IsCompetitionNameExist(string name, int competitionID)
+        {
+            bool nameFound = false;
+            //Create a SqlCommand object and specify the SQL statement
+            //to get a areaInterest record with the name to be validated
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT CompetitionID FROM Competition
+                                WHERE Name=@selectedName";
+            cmd.Parameters.AddWithValue("@selectedName", name);
+            //Open a database connection and execute the SQL statement
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            { //Records found
+                while (reader.Read())
+                {
+                    if (reader.GetInt32(0) != competitionID)
+                        //The name is used
+                        nameFound = true;
+                }
+            }
+            else
+            { //No record
+                nameFound = false; // The name given does not exist
+            }
+            reader.Close();
+            conn.Close();
+
+            return nameFound;
         }
     }
 }

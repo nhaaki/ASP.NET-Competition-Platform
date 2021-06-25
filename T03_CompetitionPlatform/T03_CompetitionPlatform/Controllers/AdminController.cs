@@ -93,6 +93,20 @@ namespace T03_CompetitionPlatform.Controllers
             
         }
 
+        public ActionResult CompetitionRecordsView()
+        {
+            // Stop accessing the action if not logged in
+            // or account not in the "Staff" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            List<Competition> competitionList = competitionContext.GetAllCompetitions();
+            return View(competitionList);
+        }
+
         // GET: AdminController/Details/5
         public ActionResult Details(int id)
         {
@@ -108,6 +122,11 @@ namespace T03_CompetitionPlatform.Controllers
         public ActionResult CreateAreaView()
         {
             return View("/Views/Admin/CreateAreaView.cshtml");
+        }
+
+        public ActionResult CreateCompetitionsView()
+        {
+            return View("/Views/Admin/CreateCompetitionsView.cshtml");
         }
 
         // POST: AdminController/Create
@@ -127,6 +146,46 @@ namespace T03_CompetitionPlatform.Controllers
                 //Input validation fails, return to the Create view
                 //to display error message
                 return View("/Views/Admin/CreateAreaView.cshtml",area);
+            }
+
+        }
+
+        // POST: AdminController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateCompetition(Competition competitions)
+        {
+            if (ModelState.IsValid)
+            {
+
+                // YOU ARE BASICALLY DOING CHECKS OF DATES BRO IF STARTDATE IS NULL WHAT HAPPENS ETYC GP EAT
+
+                if (competitions.StartDate != null || compe)
+                //Perform checks on dates
+                if (competitions.StartDate >= competitions.EndDate)
+                {
+                    TempData["StartDate>EndDate"] = "StartDate cannot be set after EndDate!";
+                    return View("/Views/Admin/CreateCompetitionsView.cshtml");
+                }
+
+                if (competitions.EndDate <= competitions.StartDate)
+                {
+                    TempData["StartDate<EndDate"] = "EndDate cannot be set before StartDate!";
+                    return View("/Views/Admin/CreateCompetitionsView.cshtml");
+                }
+
+                if (competitions.ResultReleasedDate <)
+
+                //Add staff record to database
+                competitions.CompetitionID = competitionContext.Add(competitions);
+                //Redirect user to Staff/Index view
+                return RedirectToAction("Index", "Admin");
+            }
+            else
+            {
+                //Input validation fails, return to the Create view
+                //to display error message
+                return View("/Views/Admin/CreateCompetitionsView.cshtml", competitions);
             }
 
         }
