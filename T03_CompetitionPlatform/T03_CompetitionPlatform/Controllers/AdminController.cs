@@ -121,11 +121,25 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult CreateAreaView()
         {
+
             return View("/Views/Admin/CreateAreaView.cshtml");
         }
 
         public ActionResult CreateCompetitionsView()
         {
+            List<AreaInterest> areaList = areaContext.GetAllArea();
+
+            string theTotal = "";
+            foreach(AreaInterest area in areaList)
+            {
+                string areaID = Convert.ToString(area.AreaInterestID);
+                string areaName = Convert.ToString(area.Name);
+
+                theTotal += "AreaID: " + areaID + "\t" + "AreaName: " + areaName + "\n";
+            }
+
+            TempData["theResults"] = theTotal;
+
             return View("/Views/Admin/CreateCompetitionsView.cshtml");
         }
 
@@ -157,35 +171,154 @@ namespace T03_CompetitionPlatform.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Check if area ID exists
+                List<AreaInterest> areaList = areaContext.GetAllArea();
 
-                // YOU ARE BASICALLY DOING CHECKS OF DATES BRO IF STARTDATE IS NULL WHAT HAPPENS ETYC GP EAT
+                bool checkIfAreaIdExists = false;
 
-                if (competitions.StartDate != null || compe)
+                foreach(AreaInterest area in areaList)
+                {
+                    if(competitions.AreaInterestID == area.AreaInterestID)
+                    {
+                        checkIfAreaIdExists = true;
+                    }
+                }
+
+                if (checkIfAreaIdExists == false)
+                {
+                    TempData["AreaIDFalse"] = "AreaID does not exist!";
+
+                    return RedirectToAction("CreateCompetitionsView", "Admin");
+                }
+
+                // basic checks
+                if (competitions.AreaInterestID == null)
+                {
+                    TempData["IDnull"] = "Input AreaID!";
+
+                    return RedirectToAction("CreateCompetitionsView", "Admin");
+                }
+
+                if (competitions.CompetitionName == null)
+                {
+                    TempData["NameNull"] = "Input CompetitionName!";
+
+                    return RedirectToAction("CreateCompetitionsView", "Admin");
+                }
+
                 //Perform checks on dates
-                if (competitions.StartDate >= competitions.EndDate)
+
+                if (competitions.StartDate != null || competitions.EndDate != null || competitions.ResultReleasedDate !=null)
                 {
-                    TempData["StartDate>EndDate"] = "StartDate cannot be set after EndDate!";
-                    return View("/Views/Admin/CreateCompetitionsView.cshtml");
+                    DateTime theDate = DateTime.Now;
+
+                    if (competitions.StartDate != null)
+                    {
+                        if (competitions.StartDate <= theDate)
+                        {
+                            TempData["TodayDateError"] = "StartDate cannot be set before today's Date!";
+
+                            return RedirectToAction("CreateCompetitionsView", "Admin");
+                        }
+                    }
+
+                    if (competitions.EndDate != null && competitions.StartDate != null)
+                    {
+                        if (competitions.StartDate >= competitions.EndDate)
+                        {
+                            TempData["StartDate>EndDate"] = "StartDate cannot be set after EndDate!";
+
+                            return RedirectToAction("CreateCompetitionsView", "Admin");
+                        }
+
+                        else if(competitions.EndDate <= competitions.StartDate)
+                        {
+                            TempData["StartDate<EndDate"] = "EndDate cannot be set before StartDate!";
+
+                            return RedirectToAction("CreateCompetitionsView", "Admin");
+                        }
+
+                        if (competitions.ResultReleasedDate != null)
+                        {
+                            if (competitions.ResultReleasedDate <= competitions.StartDate)
+                            {
+                                TempData["ResultDate<StartDate"] = "ResultDate Cannot be before Start Date!";
+
+                                return RedirectToAction("CreateCompetitionsView", "Admin");
+                            }
+
+                            if (competitions.ResultReleasedDate <= competitions.EndDate)
+                            {
+                                TempData["ResultDate<EndDate"] = "ResultDate Cannot be before End Date!";
+
+                                return RedirectToAction("CreateCompetitionsView", "Admin");
+                            }
+                        }
+
+                    }
+
+                    if (competitions.ResultReleasedDate != null && competitions.StartDate != null ||
+                        competitions.ResultReleasedDate != null && competitions.EndDate != null)
+                    {
+                        if (competitions.ResultReleasedDate <= competitions.StartDate)
+                        {
+                            TempData["ResultDate<StartDate"] = "ResultDate Cannot be before Start Date!";
+
+                            return RedirectToAction("CreateCompetitionsView", "Admin");
+                        }
+
+                        if (competitions.ResultReleasedDate <= competitions.EndDate)
+                        {
+                            TempData["ResultDate<EndDate"] = "ResultDate Cannot be before End Date!";
+
+                            return RedirectToAction("CreateCompetitionsView", "Admin");
+                        }
+                    }
+
+                    if (competitions.ResultReleasedDate != null && competitions.StartDate != null && competitions.EndDate == null)
+                    {
+                        TempData["EndDateMissing"] = "EndDate is missing!";
+
+                        return RedirectToAction("CreateCompetitionsView", "Admin");
+                    }
                 }
 
-                if (competitions.EndDate <= competitions.StartDate)
-                {
-                    TempData["StartDate<EndDate"] = "EndDate cannot be set before StartDate!";
-                    return View("/Views/Admin/CreateCompetitionsView.cshtml");
-                }
-
-                if (competitions.ResultReleasedDate <)
 
                 //Add staff record to database
                 competitions.CompetitionID = competitionContext.Add(competitions);
                 //Redirect user to Staff/Index view
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("CompetitionRecordsView", "Admin");
             }
             else
             {
-                //Input validation fails, return to the Create view
-                //to display error message
-                return View("/Views/Admin/CreateCompetitionsView.cshtml", competitions);
+                // check if Competition Name already exist
+                List<Competition> competitionList = competitionContext.GetAllCompetitions();
+
+
+                bool checkIfCompetitionNameExists = false;
+
+                foreach (Competition competitionsInList in competitionList)
+                {
+                    if (competitions.CompetitionName == competitionsInList.CompetitionName)
+                    {
+                        checkIfCompetitionNameExists = true;
+                    }
+                }
+
+                if (checkIfCompetitionNameExists == true)
+                {
+                    TempData["CompetitionNameExist"] = "Competition name already exists!";
+
+                    return RedirectToAction("CreateCompetitionsView", "Admin");
+                }
+
+                else
+                {
+                    TempData["InputEmpty"] = "AreaofInterestID and CompetitionName CANNOT be empty!";
+                    //Input validation fails, return to the Create view
+                    //to display error message
+                    return RedirectToAction("CreateCompetitionsView", "Admin");
+                }
             }
 
         }

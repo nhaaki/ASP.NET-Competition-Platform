@@ -15,12 +15,12 @@ namespace T03_CompetitionPlatform.Models
         object value, ValidationContext validationContext)
         {
             // Get the email value to validate
-            string name = Convert.ToString(value);
+            string competitionName = Convert.ToString(value);
             // Casting the validation context to the "Staff" model class
             Competition competition = (Competition)validationContext.ObjectInstance;
             // Get the Staff Id from the staff instance
             int competitionID = competition.CompetitionID;
-            if (competitionContext.IsCompetitionNameExist(name, competitionID))
+            if (competitionContext.IsCompetitionNameExist(competitionName, competitionID))
                 // validation failed
                 return new ValidationResult
                 ("Competition name already exists!");
