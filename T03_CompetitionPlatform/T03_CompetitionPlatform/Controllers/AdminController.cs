@@ -453,7 +453,132 @@ namespace T03_CompetitionPlatform.Controllers
             return RedirectToAction("CompetitionRecordsView", "Admin");
         }
 
+        // GET: StaffController/Edit/5
+        public ActionResult EditCompetition(int? id)
+        {
+            // Stop accessing the action if not logged in
+            // or account not in the "Staff" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            { //Query string parameter not provided
+              //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
 
+            List<Competition> competitionList = competitionContext.GetAllCompetitions();
+
+            ViewData["CompetitionList"] = competitionList;
+
+            Competition competitions = competitionContext.GetDetails(id.Value);
+
+            if (competitions == null)
+            {
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            return View(competitions);
+        }
+
+        // POST: StaffController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCompetition(Competition competitions)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (competitions.CompetitionName == null || competitions.CompetitionName == "")
+                {
+                    TempData["NameMissing"] = "Competition name is empty!";
+                    return RedirectToAction("EditCompetition", "Admin");
+                }
+
+                //Perform checks on dates
+
+                if (competitions.StartDate != null || competitions.EndDate != null || competitions.ResultReleasedDate != null)
+                {
+
+                    if (competitions.EndDate != null && competitions.StartDate != null)
+                    {
+                        if (competitions.StartDate >= competitions.EndDate)
+                        {
+                            TempData["StartDate>EndDate"] = "StartDate cannot be set after EndDate!";
+
+                            return RedirectToAction("EditCompetition", "Admin");
+                        }
+
+                        else if (competitions.EndDate <= competitions.StartDate)
+                        {
+                            TempData["StartDate<EndDate"] = "EndDate cannot be set before StartDate!";
+
+                            return RedirectToAction("EditCompetition", "Admin");
+                        }
+
+                        if (competitions.ResultReleasedDate != null)
+                        {
+                            if (competitions.ResultReleasedDate <= competitions.StartDate)
+                            {
+                                TempData["ResultDate<StartDate"] = "ResultDate Cannot be before Start Date!";
+
+                                return RedirectToAction("EditCompetition", "Admin");
+                            }
+
+                            if (competitions.ResultReleasedDate <= competitions.EndDate)
+                            {
+                                TempData["ResultDate<EndDate"] = "ResultDate Cannot be before End Date!";
+
+                                return RedirectToAction("EditCompetition", "Admin");
+                            }
+                        }
+
+                    }
+
+                    if (competitions.ResultReleasedDate != null && competitions.StartDate != null ||
+                        competitions.ResultReleasedDate != null && competitions.EndDate != null)
+                    {
+                        if (competitions.ResultReleasedDate <= competitions.StartDate)
+                        {
+                            TempData["ResultDate<StartDate"] = "ResultDate Cannot be before Start Date!";
+
+                            return RedirectToAction("EditCompetition", "Admin");
+                        }
+
+                        if (competitions.ResultReleasedDate <= competitions.EndDate)
+                        {
+                            TempData["ResultDate<EndDate"] = "ResultDate Cannot be before End Date!";
+
+                            return RedirectToAction("EditCompetition", "Admin");
+                        }
+                    }
+
+                    if (competitions.ResultReleasedDate != null && competitions.StartDate != null && competitions.EndDate == null)
+                    {
+                        TempData["EndDateMissing"] = "EndDate is missing!";
+
+                        return RedirectToAction("EditCompetition", "Admin");
+                    }
+                }
+
+                //Update staff record to database
+                competitionContext.Update(competitions);
+                return RedirectToAction("CompetitionRecordsView", "Admin");
+            }
+            else
+            {
+                if (competitions.CompetitionName == null || competitions.CompetitionName == "")
+                {
+                    TempData["NameMissing"] = "Competition name is empty!";
+                    return RedirectToAction("EditCompetition", "Admin");
+                }
+                //Input validation fails, return to the view
+                //to display error message
+                return RedirectToAction("EditCompetition", "Admin");
+            }
+        }
 
         public ActionResult AreasOfInterests()
         {

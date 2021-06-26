@@ -342,9 +342,13 @@ namespace T03_CompetitionPlatform.DAL
                 //Read the record from database
                 while (reader.Read())
                 {
-                    // Fill staff object with values from the data reader
+                    // Fill staff object with values from the data reader.
                     competitions.CompetitionID = competitionID;
+                    competitions.AreaInterestID = reader.GetInt32(1);
                     competitions.CompetitionName = !reader.IsDBNull(2) ? reader.GetString(2) : null;
+                    competitions.StartDate = !reader.IsDBNull(3) ? reader.GetDateTime(3) : (DateTime?)null;
+                    competitions.EndDate = !reader.IsDBNull(4) ? reader.GetDateTime(4) : (DateTime?)null;
+                    competitions.ResultReleasedDate = !reader.IsDBNull(5) ? reader.GetDateTime(5) : (DateTime?)null;
                     // (char) 0 - ASCII Code 0 - null value
                 }
             }
@@ -378,5 +382,87 @@ namespace T03_CompetitionPlatform.DAL
             //Return number of row of staff record updated or deleted
             return rowAffected;
         }
+
+        //Return number of row updated
+        public int Update(Competition competition)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify an UPDATE SQL statement
+            cmd.CommandText = @"UPDATE Competition SET CompetitionName=@competitionName,
+            StartDate=@startDate, EndDate=@endDate, ResultReleasedDate =@resultReleasedDate
+            WHERE CompetitionID = @selectedCompetitionID";
+            //Define the parameters used in SQL statement, value for each parameter
+            //is retrieved from respective class's property.
+            cmd.Parameters.AddWithValue("@selectedCompetitionID", competition.CompetitionID);
+            cmd.Parameters.AddWithValue("@competitionName", competition.CompetitionName);
+
+            if (competition.StartDate != null && competition.EndDate != null && competition.ResultReleasedDate != null)
+            {
+                cmd.Parameters.AddWithValue("@startDate", competition.StartDate);
+                cmd.Parameters.AddWithValue("@endDate", competition.EndDate);
+                cmd.Parameters.AddWithValue("@resultReleasedDate", competition.ResultReleasedDate);
+            }
+
+            else if (competition.StartDate != null && competition.EndDate != null && competition.ResultReleasedDate == null)
+            {
+                cmd.Parameters.AddWithValue("@startDate", competition.StartDate);
+                cmd.Parameters.AddWithValue("@endDate", competition.EndDate);
+                cmd.Parameters.AddWithValue("@resultReleasedDate", DBNull.Value);
+            }
+
+            else if (competition.StartDate != null && competition.EndDate == null && competition.ResultReleasedDate != null)
+            {
+                cmd.Parameters.AddWithValue("@startDate", competition.StartDate);
+                cmd.Parameters.AddWithValue("@endDate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@resultReleasedDate", competition.ResultReleasedDate);
+            }
+
+            else if (competition.StartDate == null && competition.EndDate != null && competition.ResultReleasedDate != null)
+            {
+                cmd.Parameters.AddWithValue("@startDate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@endDate", competition.EndDate);
+                cmd.Parameters.AddWithValue("@resultReleasedDate", competition.ResultReleasedDate);
+            }
+
+            else if(competition.StartDate == null && competition.EndDate == null && competition.ResultReleasedDate != null)
+            {
+                cmd.Parameters.AddWithValue("@startDate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@endDate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@resultReleasedDate", competition.ResultReleasedDate);
+            }
+
+            else if(competition.StartDate != null && competition.EndDate == null && competition.ResultReleasedDate == null)
+            {
+                cmd.Parameters.AddWithValue("@startDate", competition.StartDate);
+                cmd.Parameters.AddWithValue("@endDate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@resultReleasedDate", DBNull.Value);
+            }
+
+            else if(competition.StartDate == null && competition.EndDate != null && competition.ResultReleasedDate == null)
+            {
+                cmd.Parameters.AddWithValue("@startDate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@endDate", competition.EndDate);
+                cmd.Parameters.AddWithValue("@resultReleasedDate", DBNull.Value);
+            }
+
+
+            else // No branch is assigned
+            {
+                cmd.Parameters.AddWithValue("@startDate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@endDate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@resultReleasedDate", DBNull.Value);
+            }
+            //Open a database connection
+            conn.Open();
+            //ExecuteNonQuery is used for UPDATE and DELETE
+            int count = cmd.ExecuteNonQuery();
+            //Close the database connection
+            conn.Close();
+            return count;
+
+        }
+
     }
 }

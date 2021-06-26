@@ -44,6 +44,8 @@
                     <td>@item.ResultReleasedDate.ToString()</td>
                     <td>
                         <a asp-action="DeleteCompetition" asp-controller="Admin" asp-route-id="@item.CompetitionID">Delete</a>
+
+                        <a asp-action="EditCompetition" asp-controller="Admin" asp-route-id="@item.CompetitionID">Edit</a>
                     </td>
                 </tr>
                 }
