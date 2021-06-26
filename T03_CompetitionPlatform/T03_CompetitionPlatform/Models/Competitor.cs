@@ -13,7 +13,7 @@ namespace T03_CompetitionPlatform.Models
         [StringLength(50)]
         [Required]
         public string CompetitorName { get; set; }
-        sdsDdS
+        
         [StringLength(5)]
         [RegularExpression(@"[A-Za-z]{1,4}")]
         public string? Salutation { get; set; }
