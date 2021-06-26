@@ -1,0 +1,11 @@
+﻿@model IEnumerable<T03_CompetitionPlatform.Models.Competition>
+
+@if (Model.ToList().Count > 0)
+{
+    @foreach (var item in Model)
+    {
+        <div class="container-fluid" style="border: 2px">
+            <p>@item.CompetitionName</p>
+        </div>
+    }
+}

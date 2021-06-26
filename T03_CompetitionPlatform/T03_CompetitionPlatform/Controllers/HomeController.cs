@@ -62,7 +62,17 @@ namespace T03_CompetitionPlatform.Controllers
                 return RedirectToAction("AdminMain", "Admin");
 
             }
+            else if (loginID == "judge1@lcu.edu.sg" && password == "p@55Admin")
+            {
+                //Store login ID in session with the key "LoginID"
+                HttpContext.Session.SetString("LoginID", loginID);
 
+                //Store user role "Judge" as a string in session with the key "Role"
+                HttpContext.Session.SetString("Role", "Judge");
+
+                // Redirect user to the "Index" view through an action
+                return RedirectToAction("Index", "Judge");
+            }
             else
             {
                 // Store an error message in TempData for display at the index view

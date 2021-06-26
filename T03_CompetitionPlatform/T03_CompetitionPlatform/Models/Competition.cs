@@ -26,5 +26,7 @@ namespace T03_CompetitionPlatform.Models
 
         [DataType(DataType.DateTime)]
         public DateTime? ResultReleasedDate { get; set; }
+
+        public Criteria CompCriterias { get; set; }
     }
 }
