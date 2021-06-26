@@ -320,5 +320,63 @@ namespace T03_CompetitionPlatform.DAL
 
             return nameFound;
         }
+
+        public Competition GetDetails(int competitionID)
+        {
+            Competition competitions = new Competition();
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a staff record.
+            cmd.CommandText = @"SELECT * FROM Competition
+                    WHERE CompetitionID = @selectedCompetitionID";
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “areainterestId”.
+            cmd.Parameters.AddWithValue("@selectedCompetitionID", competitionID);
+            //Open a database connection
+            conn.Open();
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    // Fill staff object with values from the data reader
+                    competitions.CompetitionID = competitionID;
+                    competitions.CompetitionName = !reader.IsDBNull(2) ? reader.GetString(2) : null;
+                    // (char) 0 - ASCII Code 0 - null value
+                }
+            }
+            //Close data reader
+            reader.Close();
+            //Close database connection
+            conn.Close();
+            return competitions;
+        }
+
+        public int DeleteCompetition(int CompetitionID)
+        {
+            //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
+            //to delete a staff record specified by a Staff ID
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Step 1 update record in staff where StaffID = supervisorID in Staff
+            cmd.CommandText = @"DELETE FROM Competition
+            WHERE CompetitionID = @selectcompetitionID";
+
+            cmd.Parameters.AddWithValue("@selectcompetitionID", CompetitionID);
+
+            //Open a database connection
+            conn.Open();
+            int rowAffected = 0;
+            //Execute the DELETE SQL to remove the staff record
+            rowAffected += cmd.ExecuteNonQuery();
+
+            //Close database connection
+            conn.Close();
+            //Return number of row of staff record updated or deleted
+            return rowAffected;
+        }
     }
 }

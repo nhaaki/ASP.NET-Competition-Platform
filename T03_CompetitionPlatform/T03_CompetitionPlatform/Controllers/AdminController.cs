@@ -16,6 +16,7 @@ namespace T03_CompetitionPlatform.Controllers
         private CompetitionDAL competitionContext = new CompetitionDAL();
         private JudgesDAL judgeContext = new JudgesDAL();
         private CompetitorDAL competitorContext = new CompetitorDAL();
+        private CompetitionSubmissionDAL competitorSubmissionContext = new CompetitionSubmissionDAL();
 
 
         // GET: AdminController
@@ -398,6 +399,61 @@ namespace T03_CompetitionPlatform.Controllers
             areaContext.DeleteArea(area.AreaInterestID);
             return RedirectToAction("Index", "Admin");
         }
+
+        // GET: AdminController/Delete/5
+        public ActionResult DeleteCompetition(int? id)
+        {
+            // Stop accessing the action if not logged in
+            // or account not in the "Staff" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index", "Admin");
+            }
+
+            Competition competition = competitionContext.GetDetails(id.Value);
+
+            if (competition == null)
+            {
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index", "Admin");
+            }
+
+            if (id != null)
+            {
+                int theId = Convert.ToInt32(id);
+
+                bool checkSubmissions = competitorSubmissionContext.checkIfCompetitorSubmissionExists(theId);
+
+                if (checkSubmissions == true)
+                {
+                    TempData["CompetitionDeleteMessage"] = "Competition has competitor(s)!";
+
+                    return RedirectToAction("CompetitionRecordsView", "Admin");
+                }
+            }
+
+
+
+            return View(competition);
+        }
+
+        // POST: AdminController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteCompetition(Competition competition)
+        {
+            // Delete the area record from database
+            competitionContext.DeleteCompetition(competition.CompetitionID);
+            return RedirectToAction("CompetitionRecordsView", "Admin");
+        }
+
+
 
         public ActionResult AreasOfInterests()
         {

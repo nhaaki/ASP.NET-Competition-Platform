@@ -9,13 +9,13 @@ using T03_CompetitionPlatform.Models;
 
 namespace T03_CompetitionPlatform.DAL
 {
-    public class CompetitorDAL
+    public class CompetitionSubmissionDAL
     {
         private IConfiguration Configuration { get; }
         private SqlConnection conn;
 
         //Constructor
-        public CompetitorDAL()
+        public CompetitionSubmissionDAL()
         {
             //Read ConnectionString from appsettings.json file
             var builder = new ConfigurationBuilder()
@@ -28,60 +28,60 @@ namespace T03_CompetitionPlatform.DAL
             conn = new SqlConnection(strConn);
         }
 
-        public List<Competitor> GetAllCompetitors()
+        public CompetitionSubmission GetDetails(int competitionID)
         {
-
+            CompetitionSubmission competitionSubmission = new CompetitionSubmission();
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
-            //Specify the SELECT SQL statement
-            cmd.CommandText = @"SELECT * FROM Competitor ORDER BY CompetitorID";
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a staff record.
+            cmd.CommandText = @"SELECT * FROM CompetitionSubmission
+                    WHERE CompetitionID = @selectedCompetitionID";
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “areainterestId”.
+            cmd.Parameters.AddWithValue("@selectedCompetitionID", competitionID);
             //Open a database connection
             conn.Open();
-            //Execute the SELECT SQL through a DataReader
+            //Execute SELCT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
-            //Read all records until the end, save data into a staff list
-            List<Competitor> competitorList = new List<Competitor>();
-            while (reader.Read())
+            if (reader.HasRows)
             {
-                competitorList.Add(
-                new Competitor
+                //Read the record from database
+                while (reader.Read())
                 {
-                    CompetitorID = reader.GetInt32(0),  //0: 1st column and + 1 per column 
-                    CompetitorName = reader.GetString(1),
-                    Salutation = reader.GetString(2),
-                    EmailAddr = reader.GetString(3),
-                    Password = reader.GetString(4),
+                    // Fill staff object with values from the data reader
+                    competitionSubmission.CompetitionID = competitionID;
+                    competitionSubmission.CompetitorID = reader.GetInt32(1);
+                    // (char) 0 - ASCII Code 0 - null value
                 }
-                );
             }
-            //Close DataReader
+            //Close data reader
             reader.Close();
-            //Close the database connection
+            //Close database connection
             conn.Close();
-            return competitorList;
+            return competitionSubmission;
         }
 
-        public bool checkIfCompetitorExists(int theId)
+        public bool checkIfCompetitorSubmissionExists(int theId)
         {
 
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SELECT SQL statement
-            cmd.CommandText = @"SELECT * FROM Competition ORDER BY CompetitionID";
+            cmd.CommandText = @"SELECT * FROM CompetitionSubmission ORDER BY CompetitionID";
             //Open a database connection
             conn.Open();
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
             //Read all records until the end, save data into a staff list
-            List<Competition> competitionList = new List<Competition>();
+            List<CompetitionSubmission> competitionList = new List<CompetitionSubmission>();
             while (reader.Read())
             {
                 competitionList.Add(
-                new Competition
+                new CompetitionSubmission
                 {
                     CompetitionID = reader.GetInt32(0), //0: 1st column and + 1 per column 
-                    AreaInterestID = reader.GetInt32(1),
-                    CompetitionName = reader.GetString(2),
+                    CompetitorID = reader.GetInt32(1),
                 }
                 );
             }
@@ -91,11 +91,15 @@ namespace T03_CompetitionPlatform.DAL
             conn.Close();
 
             bool itExists = false;
-            foreach (Competition competitions in competitionList)
+
+            foreach (CompetitionSubmission competitions in competitionList)
             {
-                if (competitions.AreaInterestID == theId)
+                if (competitions.CompetitionID == theId)
                 {
-                    itExists = true;
+                    if(competitions.CompetitorID != null)
+                    {
+                        itExists = true;
+                    }
                 }
             }
 
