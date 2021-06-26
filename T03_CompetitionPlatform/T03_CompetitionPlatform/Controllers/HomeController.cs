@@ -84,6 +84,11 @@ namespace T03_CompetitionPlatform.Controllers
             }
         }
 
+        public ActionResult GuestLogin()
+        {
+            return RedirectToAction("Index", "Guest");
+        }
+
         public ActionResult Login()
         {
             return View();
