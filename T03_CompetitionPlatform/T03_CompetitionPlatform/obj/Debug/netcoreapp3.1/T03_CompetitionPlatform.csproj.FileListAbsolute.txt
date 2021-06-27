@@ -516,3 +516,7 @@ C:\Users\Drake\Desktop\WEBASSIGNMENT\sundaypull\T03_CompetitionPlatform\T03_Comp
 C:\Users\Drake\Desktop\WEBASSIGNMENT\sundaypull\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.genruntimeconfig.cache
 C:\Users\Drake\Desktop\WEBASSIGNMENT\sundaypull\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AddJudges.cshtml.g.cs
 C:\Users\Drake\Desktop\WEBASSIGNMENT\sundaypull\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\ManageJudgesView.cshtml.g.cs
+C:\Users\Ng Hung Meng\source\repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AddJudges.cshtml.g.cs
+C:\Users\Ng Hung Meng\source\repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\ManageJudgesView.cshtml.g.cs
+C:\Users\Ng Hung Meng\source\repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Guest\Index.cshtml.g.cs
+C:\Users\Ng Hung Meng\source\repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\CreateCriteria.cshtml.g.cs

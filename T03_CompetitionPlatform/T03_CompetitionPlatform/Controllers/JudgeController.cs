@@ -23,6 +23,8 @@ namespace T03_CompetitionPlatform.Controllers
         // GET: JudgeController
         public ActionResult Index()
         {
+            
+
             List<Competition> compList = competitionContext.GetAllCompetitions();
             return View(compList);
         }
@@ -36,9 +38,11 @@ namespace T03_CompetitionPlatform.Controllers
         }
 
         // GET: JudgeController/Create
-        public ActionResult Create()
+        public ActionResult CreateCriteria(int? id)
         {
-            return View();
+            Competition competition = competitionContext.GetDetails(id.Value);
+            ViewData["CompName"] = competition.CompetitionName;
+            return View(competition);
         }
 
         // POST: JudgeController/Create

@@ -4,8 +4,12 @@
 {
     @foreach (var item in Model)
     {
-        <div class="container-fluid" style="border: 2px">
-            <p>@item.CompetitionName</p>
-        </div>
+        <a asp-action="CreateCriteria" asp-route-id="@item.CompetitionID">
+
+            <div class="container-fluid" style="border: 2px; border-color:black; border-style:solid; margin-bottom:20px">
+              <p>@item.CompetitionName</p>
+            </div>
+
+        </a>
     }
 }
