@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ng Hung Meng\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj": {}
+    "C:\\Users\\Ng Hung Meng\\source\\repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ng Hung Meng\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj": {
+    "C:\\Users\\Ng Hung Meng\\source\\repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ng Hung Meng\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+        "projectUniqueName": "C:\\Users\\Ng Hung Meng\\source\\repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
         "projectName": "T03_CompetitionPlatform",
-        "projectPath": "C:\\Users\\Ng Hung Meng\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+        "projectPath": "C:\\Users\\Ng Hung Meng\\source\\repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
         "packagesPath": "C:\\Users\\Ng Hung Meng\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ng Hung Meng\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
+        "outputPath": "C:\\Users\\Ng Hung Meng\\source\\repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ng Hung Meng\\AppData\\Roaming\\NuGet\\NuGet.Config",
