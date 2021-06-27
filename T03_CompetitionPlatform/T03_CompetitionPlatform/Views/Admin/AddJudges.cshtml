@@ -1,0 +1,60 @@
+﻿@model T03_CompetitionPlatform.Models.CompetitionJudge
+
+@{
+    ViewData["Title"] = "AddJudges";
+}
+
+@{
+    Layout = null;
+}
+
+<partial name="~/Views/Admin/_AdminNav.cshtml" />
+
+<h4 class="PageTitle" style="margin-top: 70px; font-size:200%; text-align:center;">AddJudges</h4>
+<br />
+
+<hr />
+<p class="text-center" style="font-family: Arial;font-size: 150%;"><b><pre>@TempData["theResults"]</pre></b></p>
+<hr />
+<p class="text-center" style="font-family: Arial;font-size: 150%;"><b><pre>@TempData["TheCompetitions"]</pre></b></p>
+<hr />
+<p class="text-center" style="font-family: Arial;font-size: 150%;"><b><pre>@TempData["TheJudges"]</pre></b></p>
+<hr />
+<p class="text-center" style="font-family: Arial;font-size: 150%;"><b><pre>@TempData["TheCompJudges"]</pre></b></p>
+<hr />
+<p class="text-center" style="font-family: Arial;font-size: 150%;"><b><pre>@TempData["MissingInput1"]</pre></b></p>
+<hr />
+<p class="text-center" style="font-family: Arial;font-size: 150%;"><b><pre>@TempData["Duplicate"]</pre></b></p>
+<hr />
+<p class="text-center" style="font-family: Arial;font-size: 150%;"><b><pre>@TempData["WrongInterest"]</pre></b></p>
+<hr />
+<p class="text-center" style="font-family: Arial;font-size: 150%;"><b><pre>@TempData["CompetitionNull"]</pre></b></p>
+<hr />
+<p class="text-center" style="font-family: Arial;font-size: 150%;"><b><pre>@TempData["JudgeNull"]</pre></b></p>
+<hr />
+
+
+<div class="row justify-content-center">
+    <div class="col-md-auto justify-content-center">
+        <form asp-action="AddJudges" style="text-align:center; align-content:center; align-items:center;">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+
+                <label asp-for="CompetitionID" class="control-label" style="text-align:center;"></label>
+                <input asp-for="CompetitionID" class="form-control" />
+
+                <span asp-validation-for="CompetitionID" class="text-danger"></span>
+
+                <label asp-for="JudgeID" class="control-label" style="text-align:center;"></label>
+                <input asp-for="JudgeID" class="form-control" />
+
+                <span asp-validation-for="JudgeID" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

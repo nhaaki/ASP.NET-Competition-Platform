@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nhaak\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj": {}
+    "C:\\Users\\Drake\\Desktop\\WEBASSIGNMENT\\sundaypull\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nhaak\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj": {
+    "C:\\Users\\Drake\\Desktop\\WEBASSIGNMENT\\sundaypull\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nhaak\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+        "projectUniqueName": "C:\\Users\\Drake\\Desktop\\WEBASSIGNMENT\\sundaypull\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
         "projectName": "T03_CompetitionPlatform",
-        "projectPath": "C:\\Users\\nhaak\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
-        "packagesPath": "C:\\Users\\nhaak\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nhaak\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
+        "projectPath": "C:\\Users\\Drake\\Desktop\\WEBASSIGNMENT\\sundaypull\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+        "packagesPath": "C:\\Users\\Drake\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Drake\\Desktop\\WEBASSIGNMENT\\sundaypull\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\nhaak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Drake\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

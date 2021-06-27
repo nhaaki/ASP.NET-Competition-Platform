@@ -4,51 +4,51 @@
 
 <partial name="~/Views/Admin/_AdminNav.cshtml" />
 
-    <!-- -->
-    <!--Start of containers -->
-    
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-md-auto">
-                <p style="margin-top: 70px;
+<!-- -->
+<!--Start of containers -->
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <p style="margin-top: 70px;
         font-family: Arial;
         font-size: 300%;
         text-align: center;">Statistics</p>
-            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="border: 2px;
+     border-style: solid;
+     border-color: black;
+     padding: 8em 8em 8em 8em;>
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-auto">
+            <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Areas of Interest</u></p>
+
+            <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["areaCount"]</b></p>
+
+        </div>
+        <div class="col-md-auto">
+            <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Competition Records</u></p>
+
+            <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["competitionCount"]</b></p>
+
+        </div>
+        <div class="col-md-auto">
+            <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Amount of Judges</u></p>
+
+            <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["judgesCount"]</b></p>
+
+        </div>
+        <div class="col-md-auto">
+            <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Amount of Competitors</u></p>
+
+            <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["competitorsCount"]</b></p>
+
         </div>
     </div>
 
-    <div class="container-fluid" style="border: 2px;
-         border-style: solid;
-         border-color: black;
-         padding: 8em 8em 8em 8em;>
-
-        <div class="row justify-content-center">
-
-            <div class="col-md-auto">
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Areas of Interest</u></p>
-
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["areaCount"]</b></p>
-
-            </div>
-            <div class="col-md-auto">
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Competition Records</u></p>
-
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["competitionCount"]</b></p>
-
-            </div>
-            <div class="col-md-auto">
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Amount of Judges</u></p>
-
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["judgesCount"]</b></p>
-
-            </div>
-            <div class="col-md-auto">
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Amount of Competitors</u></p>
-
-                <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["competitorsCount"]</b></p>
-
-            </div>
-        </div>
-
-    </div>
+</div>
