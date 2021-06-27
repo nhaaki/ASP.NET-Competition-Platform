@@ -96,7 +96,7 @@ namespace T03_CompetitionPlatform.DAL
             {
                 if (competitions.CompetitionID == theId)
                 {
-                    if(competitions.CompetitorID != null)
+                    if (competitions.CompetitorID != null)
                     {
                         itExists = true;
                     }

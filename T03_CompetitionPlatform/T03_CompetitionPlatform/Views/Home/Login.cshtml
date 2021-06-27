@@ -97,6 +97,9 @@
                                class="myButton" value="Login" style="align-content:center; align-items:center;
                                 justify-content:center;"/>
                         <br />
+                        <br />
+                        <p>Don't have an account? <a asp-action="redirectRegister">Sign up</a></p>
+                        <a asp-action="GuestLogin">Continue as guest</a>
                         <span style="color:red;">@TempData["Message"]</span>
                     </fieldset>
                 </form>

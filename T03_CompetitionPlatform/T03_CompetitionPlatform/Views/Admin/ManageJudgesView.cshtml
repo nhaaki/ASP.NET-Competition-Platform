@@ -1,0 +1,59 @@
+﻿@model IEnumerable<T03_CompetitionPlatform.Models.Judge>
+
+@{
+    ViewData["Title"] = "ManageJudgesView";
+}
+
+@{
+    Layout = null;
+}
+
+<partial name="~/Views/Admin/_AdminNav.cshtml" />
+
+<h4 class="PageTitle" style="margin-top: 70px; font-size:200%; text-align:center;">ManageJudgesView</h4>
+<br />
+<hr />
+<p class="text-center" style="font-family: Arial;font-size: 150%;"><b><pre>@TempData["theResults"]</pre></b></p>
+<hr />
+<p class="text-center" style="font-family: Arial;font-size: 150%;"><b><pre>@TempData["TheCompetitions"]</pre></b></p>
+<hr />
+<p class="text-center" style="font-family: Arial;font-size: 150%;"><b>Assign or remove judges to/from competitions</b></p>
+<hr />
+@if (Model.ToList().Count > 0)
+{
+    <div class="table-responsive">
+        <table id="viewJudge" class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>JudgeID</th>
+                    <th>JudgeName</th>
+                    <th>Salutation</th>
+                    <th>AreaInterestID</th>
+                    <th>EmailAddr</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.JudgeID.ToString()</td>
+                        <td>@item.JudgeName.ToString()</td>
+                        <td>@item.Salutation.ToString()</td>
+                        <td>@item.AreaInterestID.ToString()</td>
+                        <td>@item.EmailAddr.ToString()</td>
+                        <td>
+                            <a href="~/Admin/AddJudges" style="font-size: 20px;color: blue">Add</a>
+
+                            <a href="~/Admin/RemoveJudges" style="font-size: 20px;color: blue">Remove</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <span style="color:red">No record found!</span>
+}

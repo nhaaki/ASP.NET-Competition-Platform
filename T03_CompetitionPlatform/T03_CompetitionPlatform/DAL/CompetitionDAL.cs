@@ -64,7 +64,7 @@ namespace T03_CompetitionPlatform.DAL
             //Close the database connection
             conn.Close();
 
-            return competitionList; 
+            return competitionList;
         }
 
         public int Add(Competition competitions)
@@ -426,21 +426,21 @@ namespace T03_CompetitionPlatform.DAL
                 cmd.Parameters.AddWithValue("@resultReleasedDate", competition.ResultReleasedDate);
             }
 
-            else if(competition.StartDate == null && competition.EndDate == null && competition.ResultReleasedDate != null)
+            else if (competition.StartDate == null && competition.EndDate == null && competition.ResultReleasedDate != null)
             {
                 cmd.Parameters.AddWithValue("@startDate", DBNull.Value);
                 cmd.Parameters.AddWithValue("@endDate", DBNull.Value);
                 cmd.Parameters.AddWithValue("@resultReleasedDate", competition.ResultReleasedDate);
             }
 
-            else if(competition.StartDate != null && competition.EndDate == null && competition.ResultReleasedDate == null)
+            else if (competition.StartDate != null && competition.EndDate == null && competition.ResultReleasedDate == null)
             {
                 cmd.Parameters.AddWithValue("@startDate", competition.StartDate);
                 cmd.Parameters.AddWithValue("@endDate", DBNull.Value);
                 cmd.Parameters.AddWithValue("@resultReleasedDate", DBNull.Value);
             }
 
-            else if(competition.StartDate == null && competition.EndDate != null && competition.ResultReleasedDate == null)
+            else if (competition.StartDate == null && competition.EndDate != null && competition.ResultReleasedDate == null)
             {
                 cmd.Parameters.AddWithValue("@startDate", DBNull.Value);
                 cmd.Parameters.AddWithValue("@endDate", competition.EndDate);

@@ -101,5 +101,39 @@ namespace T03_CompetitionPlatform.DAL
 
             return itExists;
         }
+
+        public Judge GetDetails(int JudgeID)
+        {
+            Judge judge = new Judge();
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a staff record.
+            cmd.CommandText = @"SELECT * FROM Judge
+                    WHERE JudgeID = @selectedJudgeID";
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “areainterestId”.
+            cmd.Parameters.AddWithValue("@selectedJudgeID", JudgeID);
+            //Open a database connection
+            conn.Open();
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    // Fill staff object with values from the data reader
+                    judge.JudgeID = JudgeID;
+                    judge.AreaInterestID = reader.GetInt32(3);
+                    // (char) 0 - ASCII Code 0 - null value
+                }
+            }
+            //Close data reader
+            reader.Close();
+            //Close database connection
+            conn.Close();
+            return judge;
+        }
     }
 }
