@@ -31,14 +31,5 @@ namespace T03_CompetitionPlatform.Models
         public string Password { get; set; }
     } 
 
-    // Need this for default value?
-    //public class YOURMODEL
-       // {
-        //     public int MyId { get; set; }
-
-         //       public YOURMODEL()
-         //       {
-        //        MyId = 1;
-        //   }
-         //   }
+    
 }

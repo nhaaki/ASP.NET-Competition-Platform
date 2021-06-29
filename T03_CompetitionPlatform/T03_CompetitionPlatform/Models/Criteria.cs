@@ -15,5 +15,9 @@ namespace T03_CompetitionPlatform.Models
         [Required]
         [Range(1, 100)]
         public int Weightage { get; set; }
+
+        public int CriteriaID { get; set; }
+
+        public int CompetitionID { get; set; }
     }
 }

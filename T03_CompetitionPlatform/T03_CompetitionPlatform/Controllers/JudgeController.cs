@@ -16,6 +16,7 @@ namespace T03_CompetitionPlatform.Controllers
         private JudgesDAL judgeContext = new JudgesDAL();
         private CompetitorDAL competitorContext = new CompetitorDAL();
         private CompetitionSubmissionDAL competitorSubmissionContext = new CompetitionSubmissionDAL();
+        private CriteriaDAL criteriaContext = new CriteriaDAL();
 
 
 
@@ -29,20 +30,39 @@ namespace T03_CompetitionPlatform.Controllers
             return View(compList);
         }
 
-        
 
-        // GET: JudgeController/Details/5
-        public ActionResult Details(int id)
+
+        // GET: JudgeController/ViewCriteria/5
+        public ActionResult ViewCriteria(int? id)
         {
-            return View();
+            // Stop accessing the action if not logged in
+            // or account not in the "Staff" role
+            
+            
+            CompetitionViewModel compVM = new CompetitionViewModel();
+            compVM.compList = competitionContext.GetAllCompetitions();
+            
+            
+            
+            ViewData["selectedCompID"] = id.Value;
+            // Get list of staff working in the branch
+            compVM.criteriaList = competitionContext.GetCompCriteria(id.Value);
+            
+            
+            return View(compVM);
         }
+
+        
 
         // GET: JudgeController/Create
         public ActionResult CreateCriteria(int? id)
         {
             Competition competition = competitionContext.GetDetails(id.Value);
             ViewData["CompName"] = competition.CompetitionName;
+            TempData["CompID"] = id.Value;
             return View(competition);
+
+            
         }
 
         // POST: JudgeController/Create

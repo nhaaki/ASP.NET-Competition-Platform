@@ -1,0 +1,16 @@
+﻿@model T03_CompetitionPlatform.Models.CompetitionViewModel
+
+@{
+    Layout = null;
+}
+
+
+<partial name="~/Views/Judge/_JudgeNav.cshtml" model="@Model" />
+
+
+@foreach (var item in Model.criteriaList)
+{
+    <p>@item.CriteriaName</p>
+    <p>@item.Weightage</p>
+    <p>@item.CompetitionID</p>
+}

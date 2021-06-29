@@ -464,5 +464,49 @@ namespace T03_CompetitionPlatform.DAL
 
         }
 
+        public List<Criteria> GetCompCriteria(int compId)
+        {
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a Criteria record.
+            cmd.CommandText = @"SELECT * FROM Criteria
+                              WHERE CompetitionID = @selectedCompID";
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “compId”.
+            cmd.Parameters.AddWithValue("@selectedCompID", compId);
+            //Open a database connection
+            conn.Open();
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<Criteria> criteriaList = new List<Criteria>();
+            //Read the record from database
+            while (reader.Read())
+            {
+                criteriaList.Add(
+                    new Criteria
+                    {
+
+                        CriteriaID = reader.GetInt32(0),
+                        CompetitionID = reader.GetInt32(1),
+                        CriteriaName = reader.GetString(2),
+                        Weightage = reader.GetInt32(3),
+
+
+
+                    });
+
+            }
+            //Close data reader
+            reader.Close();
+
+            //Close database connection
+            conn.Close();
+            return criteriaList;
+        }
     }
+
 }
+
