@@ -81,9 +81,7 @@ namespace T03_CompetitionPlatform.Controllers
             ViewData["CompName"] = competition.CompetitionName;
 
             Criteria criteria = new Criteria();
-            List<Criteria> criteriaList = criteriaContext.GetAllCriteria();
-            Criteria lastcriteria = criteriaList[criteriaList.Count - 1];
-            criteria.CriteriaID = lastcriteria.CriteriaID + 1;
+            //use current competion id for new criteria
             criteria.CompetitionID = id;
              
             return View(criteria);
@@ -96,14 +94,27 @@ namespace T03_CompetitionPlatform.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateCriteria(Criteria criteria)
         {
-            try
+            int id = (int)TempData.Peek("CompID");
+            List<Criteria> compcriteira = competitionContext.GetCompCriteria(id);
+            int totalweightage = 0;
+            for (int i = 0; i < compcriteira.Count; i++)
             {
-                return RedirectToAction(nameof(Index));
+                totalweightage += compcriteira[i].Weightage;
             }
-            catch
+            if (ModelState.IsValid )
             {
-                return View();
+                //Add staff record to database
+                criteria.CriteriaID = criteriaContext.Add(criteria);
+                //Redirect user to Staff/Index view
+                return RedirectToAction("ViewCriteria");
             }
+            else
+            {
+                //Input validation fails, return to the Create view
+                //to display error message
+                return View(criteria);
+            }
+
         }
 
         // GET: JudgeController/Edit/5
