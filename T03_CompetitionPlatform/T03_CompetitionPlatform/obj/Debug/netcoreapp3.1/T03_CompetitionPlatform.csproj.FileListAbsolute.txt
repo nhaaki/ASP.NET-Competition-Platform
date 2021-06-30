@@ -658,3 +658,4 @@ C:\Users\Drake\Desktop\WEBASSIGNMENT\wednesdaypull\T03_CompetitionPlatform\T03_C
 C:\Users\Drake\Desktop\WEBASSIGNMENT\wednesdaypull\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.dll
 C:\Users\Drake\Desktop\WEBASSIGNMENT\wednesdaypull\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.pdb
 C:\Users\Drake\Desktop\WEBASSIGNMENT\wednesdaypull\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.genruntimeconfig.cache
+C:\Users\Ng Hung Meng\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\RemoveJudges.cshtml.g.cs

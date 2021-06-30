@@ -37,16 +37,33 @@ namespace T03_CompetitionPlatform.Controllers
         {
             // Stop accessing the action if not logged in
             // or account not in the "Staff" role
-            
-            
             CompetitionViewModel compVM = new CompetitionViewModel();
             compVM.compList = competitionContext.GetAllCompetitions();
             
-            
-            
-            ViewData["selectedCompID"] = id.Value;
-            // Get list of staff working in the branch
-            compVM.criteriaList = competitionContext.GetCompCriteria(id.Value);
+            if (id != null)
+            {
+                TempData["CompID"] = id.Value;
+                Competition competition = competitionContext.GetDetails(id.Value);
+                ViewData["CompName"] = competition.CompetitionName;
+
+
+
+
+                ViewData["selectedCompID"] = id.Value;
+                // Get list of staff working in the branch
+                compVM.criteriaList = competitionContext.GetCompCriteria(id.Value);
+            }
+            else
+            {
+                int newid = (int)TempData.Peek("CompID");
+                Competition competition = competitionContext.GetDetails(newid);
+                ViewData["CompName"] = competition.CompetitionName;
+
+
+                ViewData["selectedCompID"] = newid;
+                // Get list of staff working in the branch
+                compVM.criteriaList = competitionContext.GetCompCriteria(newid);
+            };
             
             
             return View(compVM);
@@ -55,12 +72,21 @@ namespace T03_CompetitionPlatform.Controllers
         
 
         // GET: JudgeController/Create
-        public ActionResult CreateCriteria(int? id)
+        public ActionResult CreateCriteria()
         {
-            Competition competition = competitionContext.GetDetails(id.Value);
+            int id = (int) TempData.Peek("CompID");
+
+
+            Competition competition = competitionContext.GetDetails(id);
             ViewData["CompName"] = competition.CompetitionName;
-            TempData["CompID"] = id.Value;
-            return View(competition);
+
+            Criteria criteria = new Criteria();
+            List<Criteria> criteriaList = criteriaContext.GetAllCriteria();
+            Criteria lastcriteria = criteriaList[criteriaList.Count - 1];
+            criteria.CriteriaID = lastcriteria.CriteriaID + 1;
+            criteria.CompetitionID = id;
+             
+            return View(criteria);
 
             
         }
@@ -68,7 +94,7 @@ namespace T03_CompetitionPlatform.Controllers
         // POST: JudgeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult CreateCriteria(Criteria criteria)
         {
             try
             {
