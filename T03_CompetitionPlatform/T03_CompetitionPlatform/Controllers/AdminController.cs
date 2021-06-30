@@ -8,6 +8,8 @@ using T03_CompetitionPlatform.DAL;
 using T03_CompetitionPlatform.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+//< !--Edited this 27 / 6 / 2021 8pm-- Delete Judges Function>
+
 namespace T03_CompetitionPlatform.Controllers
 {
     public class AdminController : Controller
@@ -119,38 +121,179 @@ namespace T03_CompetitionPlatform.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            AdminJudgeViewModel adminJudgeVM = new AdminJudgeViewModel();
+            adminJudgeVM.judgeList = judgeContext.GetAllJudges();
+            adminJudgeVM.areaList = areaContext.GetAllArea();
+            adminJudgeVM.compJudgeList = competitionJudgeContext.GetAllCompetitionJudge();
+            adminJudgeVM.compList = competitionContext.GetAllCompetitions();
 
-            List<AreaInterest> areaList = areaContext.GetAllArea();
-
-            string theTotal = "";
-            foreach (AreaInterest area in areaList)
-            {
-                string areaID = Convert.ToString(area.AreaInterestID);
-                string areaName = Convert.ToString(area.Name);
-
-                theTotal += "AreaID: " + areaID + "\t" + "AreaName: " + areaName + "\n";
-            }
-
-            TempData["theResults"] = theTotal;
-
-            List<Competition> competitionList = competitionContext.GetAllCompetitions();
-
-            string theCompetitions = "";
-            foreach (Competition competitions in competitionList)
-            {
-                string competitionID = Convert.ToString(competitions.CompetitionID);
-                string competitionName = Convert.ToString(competitions.CompetitionName);
-                string competitionArea = Convert.ToString(competitions.AreaInterestID);
-
-                theCompetitions += "AreaInterestID: " + competitionArea + "\t" + "CompetitionID: " + competitionID + "\t" + "CompetitionName: " + competitionName + "\n";
-            }
-
-            TempData["TheCompetitions"] = theCompetitions;
-
-            List<Judge> judgeList = judgeContext.GetAllJudges();
-
-            return View(judgeList);
+            return View(adminJudgeVM);
         }
+
+        // POST: StaffController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ManageJudgesView(AdminJudgeViewModel selectedJudge)
+        {
+            if (selectedJudge.CompetitionID == null || selectedJudge.JudgeID == null)
+            {
+                TempData["MissingInput1"] = "Inputs cannot be empty!";
+                return RedirectToAction("ManageJudgesView", "Admin");
+            }
+
+            int selectComp = selectedJudge.CompetitionID;
+            int selectJudge = selectedJudge.JudgeID;
+
+            CompetitionJudge newcJudge = new CompetitionJudge();
+
+            newcJudge.CompetitionID = selectComp;
+            newcJudge.JudgeID = selectJudge;
+
+            if (ModelState.IsValid)
+            {
+                if (newcJudge.CompetitionID == null || newcJudge.JudgeID == null)
+                {
+                    TempData["MissingInput1"] = "Inputs cannot be empty!";
+                    return RedirectToAction("ManageJudgesView", "Admin");
+                }
+
+                // Validations
+                List<Judge> judgeList = judgeContext.GetAllJudges();
+                List<CompetitionJudge> compJustList = competitionJudgeContext.GetAllCompetitionJudge();
+                List<Competition> competitionList = competitionContext.GetAllCompetitions();
+
+                bool judgeFound = false;
+                foreach (Judge theJudges in judgeList)
+                {
+                    if (theJudges.JudgeID == newcJudge.JudgeID)
+                    {
+                        judgeFound = true;
+                    }
+                }
+
+                if (judgeFound == false)
+                {
+                    TempData["JudgeNull"] = "JudgeID does not exists!";
+                    return RedirectToAction("ManageJudgesView", "Admin");
+                }
+
+
+
+                foreach (CompetitionJudge compJust in compJustList)
+                {
+                    if (newcJudge.CompetitionID == compJust.CompetitionID && newcJudge.JudgeID == compJust.JudgeID)
+                    {
+                        TempData["Duplicate"] = "Duplicate row!";
+                        return RedirectToAction("ManageJudgesView", "Admin");
+                    }
+
+                    // check if judgeid exists in competitionjudge table
+                    if (newcJudge.JudgeID == compJust.JudgeID)
+                    {
+                        foreach (Competition competitions in competitionList)
+                        {
+                            if (competitions.CompetitionID == newcJudge.CompetitionID)
+                            {
+                                DateTime now = DateTime.Now;
+
+                                // Current or future competitions right?
+                                if (competitions.EndDate > now)
+                                {
+                                    TempData["AlreadyAssigned"] = "Judge already assigned to competition that is ongoing!";
+                                    return RedirectToAction("ManageJudgesView", "Admin");
+                                }
+
+                                else if (competitions.StartDate > now)
+                                {
+                                    TempData["AlreadyAssigned"] = "Judge already assigned to competition that is ongoing!";
+                                    return RedirectToAction("ManageJudgesView", "Admin");
+                                }
+
+                                else if (competitions.StartDate == null)
+                                {
+                                    TempData["AlreadyAssigned"] = "Judge already assigned to competition that is ongoing!";
+                                    return RedirectToAction("ManageJudgesView", "Admin");
+                                }
+                            }
+                        }
+                    }
+                }
+
+                bool compFound = false;
+                foreach (Competition competitionCheck in competitionList)
+                {
+                    if (competitionCheck.CompetitionID == newcJudge.CompetitionID)
+                    {
+                        compFound = true;
+                    }
+
+                    if (newcJudge.CompetitionID == competitionCheck.CompetitionID)
+                    {
+                        DateTime theDate = DateTime.Now;
+                        if (theDate > competitionCheck.EndDate)
+                        {
+                            TempData["EndDateExceeded"] = "Judge cannot be assigned to a competition past end date!";
+                            return RedirectToAction("ManageJudgesView", "Admin");
+                        }
+                    }
+                }
+
+                if (compFound == false)
+                {
+                    TempData["CompetitionNull"] = "CompetitionID does not exists!";
+                    return RedirectToAction("ManageJudgesView", "Admin");
+                }
+
+                foreach (Competition competitions in competitionList)
+                {
+                    int theNo = 0;
+
+                    if (competitions.CompetitionID == newcJudge.CompetitionID)
+                    {
+                        theNo = competitions.AreaInterestID;
+
+                        foreach (Judge judges in judgeList)
+                        {
+                            if (judges.JudgeID == newcJudge.JudgeID && judges.AreaInterestID != theNo)
+                            {
+                                string judgeID = Convert.ToString(newcJudge.JudgeID);
+                                string areaID = Convert.ToString(judges.AreaInterestID);
+
+                                TempData["WrongInterest"] = "The competition falls under the wrong area of interest for the judge!" + "JudgeID: " + judgeID + "AreaID: " + areaID;
+                                return RedirectToAction("ManageJudgesView", "Admin");
+                            }
+                        }
+                    }
+                }
+
+
+                ViewData["CompetitionList"] = competitionList;
+
+                //Update staff record to database
+                competitionJudgeContext.AddJudges(newcJudge);
+                return RedirectToAction("ManageJudgesView", "Admin");
+            }
+            else
+            {
+                if (newcJudge.CompetitionID == null || newcJudge.JudgeID == null)
+                {
+                    TempData["MissingInput1"] = "Inputs cannot be empty!";
+                    return RedirectToAction("ManageJudgesView", "Admin");
+                }
+
+                else if (newcJudge.CompetitionID == null || newcJudge.JudgeID == null)
+                {
+                    TempData["MissingInput1"] = "Inputs cannot be empty!";
+                    return RedirectToAction("ManageJudgesView", "Admin");
+                }
+                //Input validation fails, return to the view
+                //to display error message
+
+                TempData["MissingInput1"] = "Inputs cannot be empty!";
+                return RedirectToAction("ManageJudgesView", "Admin");
+            }
+        }
+
 
         // GET: AdminController/Details/5
         public ActionResult Details(int id)
@@ -624,7 +767,7 @@ namespace T03_CompetitionPlatform.Controllers
             }
         }
 
-        public ActionResult AddJudges()
+        public ActionResult RemoveJudges()
         {
             // Stop accessing the action if not logged in
             // or account not in the "Staff" role
@@ -633,34 +776,6 @@ namespace T03_CompetitionPlatform.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
-
-            List<AreaInterest> areaList = areaContext.GetAllArea();
-
-            string theTotal = "";
-            foreach (AreaInterest area in areaList)
-            {
-                string areaID = Convert.ToString(area.AreaInterestID);
-                string areaName = Convert.ToString(area.Name);
-
-                theTotal += "AreaID: " + areaID + "\t" + "AreaName: " + areaName + "\n";
-            }
-
-            TempData["theResults"] = theTotal;
-
-            List<Competition> competitionList = competitionContext.GetAllCompetitions();
-
-            string theCompetitions = "";
-            foreach (Competition competitions in competitionList)
-            {
-                string competitionID = Convert.ToString(competitions.CompetitionID);
-                string competitionName = Convert.ToString(competitions.CompetitionName);
-                string competitionArea = Convert.ToString(competitions.AreaInterestID);
-
-                theCompetitions += "AreaInterestID: " + competitionArea + "\t" + "CompetitionID: " + competitionID + "\t" + "CompetitionName: " + competitionName + "\n";
-            }
-
-            TempData["TheCompetitions"] = theCompetitions;
 
             List<Judge> judgeList = judgeContext.GetAllJudges();
 
@@ -692,20 +807,26 @@ namespace T03_CompetitionPlatform.Controllers
 
             TempData["TheCompJudges"] = theCompJudges;
 
-            return View("~/Views/Admin/AddJudges.cshtml");
+            AdminJudgeViewModel adminJudgeVM = new AdminJudgeViewModel();
+            adminJudgeVM.judgeList = judgeContext.GetAllJudges();
+            adminJudgeVM.areaList = areaContext.GetAllArea();
+            adminJudgeVM.compJudgeList = competitionJudgeContext.GetAllCompetitionJudge();
+            adminJudgeVM.compList = competitionContext.GetAllCompetitions();
+
+            return View(adminJudgeVM);
         }
 
         // POST: StaffController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddJudges(CompetitionJudge compJudge)
+        public ActionResult RemoveJudges(CompetitionJudge compJudge)
         {
             if (ModelState.IsValid)
             {
                 if (compJudge.CompetitionID == null || compJudge.JudgeID == null)
                 {
                     TempData["MissingInput1"] = "Inputs cannot be empty!";
-                    return RedirectToAction("AddJudges", "Admin");
+                    return RedirectToAction("RemoveJudges", "Admin");
                 }
 
                 // Validations
@@ -725,19 +846,9 @@ namespace T03_CompetitionPlatform.Controllers
                 if (judgeFound == false)
                 {
                     TempData["JudgeNull"] = "JudgeID does not exists!";
-                    return RedirectToAction("AddJudges", "Admin");
+                    return RedirectToAction("RemoveJudges", "Admin");
                 }
 
-
-
-                foreach (CompetitionJudge compJust in compJustList)
-                {
-                    if (compJudge.CompetitionID == compJust.CompetitionID && compJudge.JudgeID == compJust.JudgeID)
-                    {
-                        TempData["Duplicate"] = "Duplicate row!";
-                        return RedirectToAction("AddJudges", "Admin");
-                    }
-                }
 
                 bool compFound = false;
                 foreach (Competition competitionCheck in competitionList)
@@ -746,62 +857,57 @@ namespace T03_CompetitionPlatform.Controllers
                     {
                         compFound = true;
                     }
+
                 }
+
+
 
                 if (compFound == false)
                 {
                     TempData["CompetitionNull"] = "CompetitionID does not exists!";
-                    return RedirectToAction("AddJudges", "Admin");
+                    return RedirectToAction("RemoveJudges", "Admin");
                 }
 
-                foreach (Competition competitions in competitionList)
+                bool doesItExist = false;
+                foreach (CompetitionJudge compJust in compJustList)
                 {
-                    int theNo = 0;
-
-                    if (competitions.CompetitionID == compJudge.CompetitionID)
+                    if (compJudge.CompetitionID == compJust.CompetitionID && compJudge.JudgeID == compJust.JudgeID)
                     {
-                        theNo = competitions.AreaInterestID;
-
-                        foreach (Judge judges in judgeList)
-                        {
-                            if (judges.JudgeID == compJudge.JudgeID && judges.AreaInterestID != theNo)
-                            {
-                                string judgeID = Convert.ToString(compJudge.JudgeID);
-                                string areaID = Convert.ToString(judges.AreaInterestID);
-
-                                TempData["WrongInterest"] = "The competition falls under the wrong area of interest for the judge!" + "JudgeID: " + judgeID + "AreaID: " + areaID;
-                                return RedirectToAction("AddJudges", "Admin");
-                            }
-                        }
+                        doesItExist = true;
+                        competitionJudgeContext.RemoveJudges(compJudge);
                     }
+
                 }
 
+                if (doesItExist == false)
+                {
+                    TempData["RecordNotFound"] = "RecordNotFound!";
+                    return RedirectToAction("RemoveJudges", "Admin");
+                }
 
-                ViewData["CompetitionList"] = competitionList;
-
-                //Update staff record to database
-                competitionJudgeContext.AddJudges(compJudge);
-                return RedirectToAction("ManageJudgesView", "Admin");
+                return RedirectToAction("RemoveJudges", "Admin");
             }
             else
             {
                 if (compJudge.CompetitionID == null || compJudge.JudgeID == null)
                 {
                     TempData["MissingInput1"] = "Inputs cannot be empty!";
-                    return RedirectToAction("AddJudges", "Admin");
+                    return RedirectToAction("RemoveJudges", "Admin");
                 }
 
                 else if (compJudge.CompetitionID == null || compJudge.JudgeID == null)
                 {
                     TempData["MissingInput1"] = "Inputs cannot be empty!";
-                    return RedirectToAction("AddJudges", "Admin");
+                    return RedirectToAction("RemoveJudges", "Admin");
                 }
                 //Input validation fails, return to the view
                 //to display error message
 
                 TempData["MissingInput1"] = "Inputs cannot be empty!";
-                return RedirectToAction("AddJudges", "Admin");
+                return RedirectToAction("RemoveJudges", "Admin");
             }
+
+
         }
 
 

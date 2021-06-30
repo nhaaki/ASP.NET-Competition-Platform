@@ -9,6 +9,7 @@ using T03_CompetitionPlatform.Models;
 
 namespace T03_CompetitionPlatform.DAL
 {
+    // <!-- Edited this 27/6/2021 8pm Delete Judges Function-->
     public class CompetitionSubmissionDAL
     {
         private IConfiguration Configuration { get; }

@@ -8,6 +8,8 @@
     Layout = null;
 }
 
+<!-- Edited this 27/6/2021 8pm  Delete Judges Function-->
+
 <partial name="~/Views/Admin/_AdminNav.cshtml" />
 
 <h4 class="PageTitle" style="margin-top: 70px; font-size:200%; text-align:center;">CompetitionRecords</h4>
@@ -35,19 +37,19 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>@item.CompetitionID.ToString()</td>
-                    <td>@item.AreaInterestID.ToString()</td>
-                    <td>@item.CompetitionName.ToString()</td>
-                    <td>@item.StartDate.ToString()</td>
-                    <td>@item.EndDate.ToString()</td>
-                    <td>@item.ResultReleasedDate.ToString()</td>
-                    <td>
-                        <a asp-action="DeleteCompetition" asp-controller="Admin" asp-route-id="@item.CompetitionID">Delete</a>
+                    <tr>
+                        <td>@item.CompetitionID.ToString()</td>
+                        <td>@item.AreaInterestID.ToString()</td>
+                        <td>@item.CompetitionName.ToString()</td>
+                        <td>@item.StartDate.ToString()</td>
+                        <td>@item.EndDate.ToString()</td>
+                        <td>@item.ResultReleasedDate.ToString()</td>
+                        <td>
+                            <a asp-action="DeleteCompetition" asp-controller="Admin" asp-route-id="@item.CompetitionID">Delete</a>
 
-                        <a asp-action="EditCompetition" asp-controller="Admin" asp-route-id="@item.CompetitionID">Edit</a>
-                    </td>
-                </tr>
+                            <a asp-action="EditCompetition" asp-controller="Admin" asp-route-id="@item.CompetitionID">Edit</a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>

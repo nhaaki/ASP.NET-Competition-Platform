@@ -7,6 +7,8 @@ using System.IO;
 using System.Data.SqlClient;
 using T03_CompetitionPlatform.Models;
 
+//< !--Edited this 27 / 6 / 2021 8pm-- Delete Judges Function> DAN
+
 namespace T03_CompetitionPlatform.DAL
 {
     public class CompetitionJudgeDAL
@@ -82,6 +84,31 @@ namespace T03_CompetitionPlatform.DAL
             return compJudge.CompetitionID;
         }
 
+        public int RemoveJudges(CompetitionJudge toDelete)
+        {
+            //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
+            //to delete a staff record specified by a Staff ID
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Step 1 update record in staff where StaffID = supervisorID in Staff
+            cmd.CommandText = @"DELETE FROM CompetitionJudge
+            WHERE CompetitionID = @selectcompetitionID
+            AND JudgeID = @selectjudgeID";
+
+            cmd.Parameters.AddWithValue("@selectcompetitionID", toDelete.CompetitionID);
+            cmd.Parameters.AddWithValue("@selectjudgeID", toDelete.JudgeID);
+
+            //Open a database connection
+            conn.Open();
+            int rowAffected = 0;
+            //Execute the DELETE SQL to remove the staff record
+            rowAffected += cmd.ExecuteNonQuery();
+
+            //Close database connection
+            conn.Close();
+            //Return number of row of staff record updated or deleted
+            return rowAffected;
+        }
 
     }
 }
