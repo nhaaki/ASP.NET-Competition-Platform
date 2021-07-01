@@ -101,7 +101,7 @@ namespace T03_CompetitionPlatform.Controllers
             {
                 totalweightage += compcriteira[i].Weightage;
             }
-            if (ModelState.IsValid totalweightage + criteria.Weightage <= 100 )
+            if (ModelState.IsValid && totalweightage + criteria.Weightage <= 100 )
             {
                 //Add staff record to database
                 criteria.CriteriaID = criteriaContext.Add(criteria);
@@ -118,9 +118,21 @@ namespace T03_CompetitionPlatform.Controllers
         }
 
         // GET: JudgeController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            { //Query string parameter not provided
+              //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            
+            Criteria criteria = criteriaContext.GetDetails(id.Value);
+            if (criteria == null)
+            {
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            return View(criteria);
         }
 
         // POST: JudgeController/Edit/5
