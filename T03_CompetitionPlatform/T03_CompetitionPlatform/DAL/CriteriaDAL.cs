@@ -98,8 +98,8 @@ namespace T03_CompetitionPlatform.DAL
             cmd.CommandText = @"SELECT * FROM Criteria
                     WHERE CriteriaID = @selectedCriteriaID";
             //Define the parameter used in SQL statement, value for the
-            //parameter is retrieved from the method parameter “areainterestId”.
-            cmd.Parameters.AddWithValue("@selectedCompetitionID", criteriaID);
+            //parameter is retrieved from the method parameter “criteriaID”.
+            cmd.Parameters.AddWithValue("@selectedCriteriaID", criteriaID);
             //Open a database connection
             conn.Open();
             //Execute SELCT SQL through a DataReader
@@ -110,11 +110,11 @@ namespace T03_CompetitionPlatform.DAL
                 while (reader.Read())
                 {
                     // Fill criteria object with values from the data reader.
-                    criteria.CriteriaID= criteriaID;
+                    criteria.CriteriaID = criteriaID;
                     criteria.CompetitionID = reader.GetInt32(1);
                     criteria.CriteriaName = reader.GetString(2);
                     criteria.Weightage = reader.GetInt32(3);
-                    
+
                 }
             }
             //Close data reader
@@ -131,11 +131,12 @@ namespace T03_CompetitionPlatform.DAL
             //Specify an UPDATE SQL statement
             cmd.CommandText = @"UPDATE Criteria SET CriteriaName=@criterianame,
             Weightage=@weightage
-            WHERE StaffID = @selectedStaffID";
+            WHERE CriteriaID = @selectedCriteriaID";
             //Define the parameters used in SQL statement, value for each parameter
             //is retrieved from respective class's property.
             cmd.Parameters.AddWithValue("@criterianame", criteria.CriteriaName);
             cmd.Parameters.AddWithValue("@weightage", criteria.Weightage);
+            cmd.Parameters.AddWithValue("@selectedCriteriaID", criteria.CriteriaID);
 
 
             //Open a database connection
@@ -147,11 +148,31 @@ namespace T03_CompetitionPlatform.DAL
             return count;
         }
 
+        public int Delete(int criteriaId)
+        {
+            //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
+            //to delete a staff record specified by a Criteria ID
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"DELETE FROM Criteria
+            WHERE CriteriaID = @selectCriteriaID";
+            cmd.Parameters.AddWithValue("@selectCriteriaID", criteriaId);
+            //Open a database connection
+            conn.Open();
+            int rowAffected = 0;
+            //Execute the DELETE SQL to remove the Criteria record
+            rowAffected += cmd.ExecuteNonQuery();
+            //Close database connection
+            conn.Close();
+            //Return number of row of criteria record updated or deleted
+            return rowAffected;
 
 
 
 
 
 
+
+
+        }
     }
 }

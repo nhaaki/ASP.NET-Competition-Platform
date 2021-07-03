@@ -69,9 +69,9 @@ namespace T03_CompetitionPlatform.Controllers
             return View(compVM);
         }
 
-        
 
-        // GET: JudgeController/Create
+
+        // GET: JudgeController/CreateCriteria
         public ActionResult CreateCriteria()
         {
             int id = (int) TempData.Peek("CompID");
@@ -89,7 +89,7 @@ namespace T03_CompetitionPlatform.Controllers
             
         }
 
-        // POST: JudgeController/Create
+        // POST: JudgeController/CreateCriteria
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateCriteria(Criteria criteria)
@@ -101,7 +101,8 @@ namespace T03_CompetitionPlatform.Controllers
             {
                 totalweightage += compcriteira[i].Weightage;
             }
-            if (ModelState.IsValid && totalweightage + criteria.Weightage <= 100 )
+            totalweightage = totalweightage + criteria.Weightage
+            if (ModelState.IsValid && totalweightage <= 100 )
             {
                 //Add staff record to database
                 criteria.CriteriaID = criteriaContext.Add(criteria);
@@ -112,20 +113,76 @@ namespace T03_CompetitionPlatform.Controllers
             {
                 //Input validation fails, return to the Create view
                 //to display error message
+                ViewData["errormsg"] = "Weightage has exceeded 100%(current: " + totalweightage + "%)" ;
+                ViewData["error"] = true;
+                
                 return View(criteria);
             }
 
         }
 
         // GET: JudgeController/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult EditCriteria(int? id)
         {
-            if (id == null)
-            { //Query string parameter not provided
-              //Return to listing page, not allowed to edit
+            int compid = (int)TempData.Peek("CompID");
+
+
+            Competition competition = competitionContext.GetDetails(compid);
+            ViewData["CompName"] = competition.CompetitionName;
+
+
+            Criteria criteria = criteriaContext.GetDetails(id.Value);
+            criteria.CriteriaID = id.Value;
+            if (criteria == null)
+            {
+                //Return to listing page, not allowed to edit
                 return RedirectToAction("Index");
             }
-            
+            return View(criteria);
+
+        }
+
+        // POST: JudgeController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCriteria(Criteria criteria)
+        {
+            int id = (int)TempData.Peek("CompID");
+            List<Criteria> compcriteria = competitionContext.GetCompCriteria(id);
+            int totalweightage = 0;
+            for (int i = 0; i < compcriteria.Count; i++)
+            {
+                totalweightage += compcriteria[i].Weightage;
+            }
+            totalweightage = totalweightage - criteriaContext.GetDetails(criteria.CriteriaID).Weightage + criteria.Weightage;
+            if (ModelState.IsValid && totalweightage <= 100)
+            {
+                //Add staff record to database
+                criteria.CriteriaID = criteriaContext.Update(criteria);
+                //Redirect user to Staff/Index view
+                return RedirectToAction("ViewCriteria");
+            }
+            else
+            {
+                //Input validation fails, return to the Create view
+                //to display error message
+                ViewData["errormsg"] = "Weightage has exceeded 100%(current: " + totalweightage + "%)";
+                ViewData["error"] = true;
+
+                return View(criteria);
+            }
+        }
+
+        // GET: JudgeController/Delete/5
+        public ActionResult DeleteCriteria(int? id)
+        {
+            int compid = (int)TempData.Peek("CompID");
+
+
+            Competition competition = competitionContext.GetDetails(compid);
+            ViewData["CompName"] = competition.CompetitionName;
+
+
             Criteria criteria = criteriaContext.GetDetails(id.Value);
             if (criteria == null)
             {
@@ -135,40 +192,14 @@ namespace T03_CompetitionPlatform.Controllers
             return View(criteria);
         }
 
-        // POST: JudgeController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: JudgeController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
         // POST: JudgeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteCriteria(Criteria criteria)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            // Delete the criteria record from database
+            criteriaContext.Delete(criteria.CriteriaID);
+            return RedirectToAction("ViewCriteria");
         }
     }
 }
