@@ -101,7 +101,7 @@ namespace T03_CompetitionPlatform.Controllers
             {
                 totalweightage += compcriteira[i].Weightage;
             }
-            totalweightage = totalweightage + criteria.Weightage
+            totalweightage = totalweightage + criteria.Weightage;
             if (ModelState.IsValid && totalweightage <= 100 )
             {
                 //Add staff record to database
