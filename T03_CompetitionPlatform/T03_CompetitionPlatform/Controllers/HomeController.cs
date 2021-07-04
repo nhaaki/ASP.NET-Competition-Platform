@@ -73,6 +73,17 @@ namespace T03_CompetitionPlatform.Controllers
                 // Redirect user to the "Index" view through an action
                 return RedirectToAction("Index", "Judge");
             }
+            else if (loginID == "pg1@hotmail.com" && password == "p@55PG")
+            {
+                //Store login ID in session with the key "LoginID"
+                HttpContext.Session.SetString("LoginID", loginID);
+
+                //Store user role "Judge" as a string in session with the key "Role"
+                HttpContext.Session.SetString("Role", "Competitor");
+
+                // Redirect user to the "Index" view through an action
+                return RedirectToAction("Index", "Competitor");
+            }
             else
             {
                 // Store an error message in TempData for display at the index view
