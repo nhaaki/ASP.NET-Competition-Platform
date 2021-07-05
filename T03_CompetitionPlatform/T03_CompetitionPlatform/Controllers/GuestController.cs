@@ -17,8 +17,12 @@ namespace T03_CompetitionPlatform.Controllers
         {
 
             List<Competition> compList = competitionContext.GetAllCompetitions();
-            return View(compList);
-            
+            return View(compList);   
+        }
+
+        public ActionResult ViewCriteria(int? id)
+        {
+            return View();
         }
     }
 }

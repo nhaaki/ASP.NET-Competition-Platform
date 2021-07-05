@@ -100,6 +100,13 @@ namespace T03_CompetitionPlatform.Controllers
             return RedirectToAction("Index", "Guest");
         }
 
+
+        public ActionResult guestLogout()
+        {
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Index");
+        }
         public ActionResult Login()
         {
             return View();

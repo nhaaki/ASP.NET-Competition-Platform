@@ -10,8 +10,13 @@
         @foreach (var item in Model)
         {
             <div class="container-fluid" style="border: 2px; border-color:black; border-style:solid; margin-bottom:20px">
-                <p>@item.CompetitionName</p>
-                <p>Due @item.EndDate?.ToString("dd MMMM yyyy")</p>
+                <div>
+                    <p>@item.CompetitionName</p>
+                    <p>Due @item.EndDate?.ToString("dd MMMM yyyy")</p>
+                </div>
+                <div>
+                    <a asp-action="ViewCriteria" asp-route-id="@item.CompetitionID">View</a>
+                </div>
             </div>
         }
     }

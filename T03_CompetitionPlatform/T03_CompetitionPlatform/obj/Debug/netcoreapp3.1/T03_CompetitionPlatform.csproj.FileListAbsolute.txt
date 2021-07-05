@@ -672,3 +672,4 @@ C:\Users\nhaak\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_Competit
 C:\Users\nhaak\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\_JudgeNav.cshtml.g.cs
 C:\Users\nhaak\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Guest\_GuestView.cshtml.g.cs
 C:\Users\nhaak\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Guest\_GuestNavbar.cshtml.g.cs
+C:\Users\nhaak\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Guest\ViewCompetition.cshtml.g.cs
