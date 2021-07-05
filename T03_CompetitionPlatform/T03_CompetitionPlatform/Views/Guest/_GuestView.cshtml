@@ -1,0 +1,21 @@
+﻿@model IEnumerable<T03_CompetitionPlatform.Models.Competition>
+
+@{
+    ViewData["Title"] = "Guest View";
+}
+
+
+    @if (Model.ToList().Count > 0)
+    {
+        @foreach (var item in Model)
+        {
+            <div class="container-fluid" style="border: 2px; border-color:black; border-style:solid; margin-bottom:20px">
+                <p>@item.CompetitionName</p>
+                <p>Due @item.EndDate?.ToString("dd MMMM yyyy")</p>
+            </div>
+        }
+    }
+    else
+    {
+        <span style="color:red">No record found!</span>
+    }
