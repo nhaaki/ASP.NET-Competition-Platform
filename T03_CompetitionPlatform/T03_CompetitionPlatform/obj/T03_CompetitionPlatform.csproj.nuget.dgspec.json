@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nhaak\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj": {}
+    "F:\\1) Ngee Ann Poly\\Year 2 Sem 1\\Web Application Development\\Assg Repo\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nhaak\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj": {
+    "F:\\1) Ngee Ann Poly\\Year 2 Sem 1\\Web Application Development\\Assg Repo\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nhaak\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+        "projectUniqueName": "F:\\1) Ngee Ann Poly\\Year 2 Sem 1\\Web Application Development\\Assg Repo\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
         "projectName": "T03_CompetitionPlatform",
-        "projectPath": "C:\\Users\\nhaak\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
-        "packagesPath": "C:\\Users\\nhaak\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nhaak\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
+        "projectPath": "F:\\1) Ngee Ann Poly\\Year 2 Sem 1\\Web Application Development\\Assg Repo\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+        "packagesPath": "C:\\Users\\Boon Halpert\\.nuget\\packages\\",
+        "outputPath": "F:\\1) Ngee Ann Poly\\Year 2 Sem 1\\Web Application Development\\Assg Repo\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\nhaak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Boon Halpert\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
