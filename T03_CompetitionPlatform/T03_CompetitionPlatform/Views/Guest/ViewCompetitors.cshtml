@@ -14,14 +14,17 @@
 <body>
     <partial name="~/Views/Guest/_GuestNavbar.cshtml" />
     
-    
+    <h1 style="text-align:center; padding-top:30px;">@ViewData["CompName"]</h1>
     <h5 style="text-align: center; padding-top:30px;">View submissions</h5>
     <table class="table">
         <thead>
             <tr>
-            
+
                 <th>
                     @Html.DisplayNameFor(model => model.CompetitorID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompetitorName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.FileSubmitted)
@@ -29,28 +32,39 @@
                 <th>
                     @Html.DisplayNameFor(model => model.DateTimeFileUpload)
                 </th>
-            
+
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model) {
+            @if (Model.ToList().Count > 0)
+            {
+                @foreach (var item in Model)
+                {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.CompetitorID)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Salutation) @Html.DisplayFor(modelItem => item.CompetitorName)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.FileSubmitted)
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => item.DateTimeFileUpload)
+                    @Html.EditorFor(modelItem => item.DateTimeFileUpload, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
                 </td>
                 <td>
-                
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 
-                
+
+                    @Html.ActionLink("View", "ViewCompetitorWork", new { competitorID = item.CompetitorID })
+
                 </td>
             </tr>
+                }
+            }
+            else
+            {
+                <span style="color:red">No record found!</span>
             }
         </tbody>
     </table>

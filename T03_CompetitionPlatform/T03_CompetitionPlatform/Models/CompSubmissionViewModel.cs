@@ -13,6 +13,14 @@ namespace T03_CompetitionPlatform.Models
         [ValidateCompetitionNameExists]
         public string CompetitionName { get; set; }
 
+        [StringLength(50)]
+        [Required]
+        public string CompetitorName { get; set; }
+
+        [StringLength(5)]
+        [RegularExpression(@"[A-Za-z]{1,4}")]
+        public string? Salutation { get; set; }
+
         [Required]
         public int CompetitionID { get; set; }
 
