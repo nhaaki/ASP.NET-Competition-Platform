@@ -135,5 +135,31 @@ namespace T03_CompetitionPlatform.DAL
             conn.Close();
             return judge;
         }
+        public int Add(Judge judge)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify an INSERT SQL statement which will
+            //return the auto-generated JudgeID after insertion
+            cmd.CommandText = @"INSERT INTO Judge (JudgeName, Salutation, AreaInterestID, EmailAddr,Password)
+            OUTPUT INSERTED.JudgeID 
+            VALUES(@judgename, @salutation, @emailaddress, @password)";
+            //Define the parameters used in SQL statement, value for each parameter
+            //is retrieved from respective class's property.
+            cmd.Parameters.AddWithValue("@judgename", judge.JudgeName);
+            cmd.Parameters.AddWithValue("@salutation", judge.Salutation);
+            cmd.Parameters.AddWithValue("@emailaddress", judge.EmailAddr);
+            cmd.Parameters.AddWithValue("@password", judge.Password);
+
+            //A connection to database must be opened before any operations made.
+            conn.Open();
+            //ExecuteScalar is used to retrieve the auto-generated
+            //CriteriaID after executing the INSERT SQL statement
+           judge.JudgeID = (int)cmd.ExecuteScalar();
+            //A connection should be closed after operations.
+            conn.Close();
+            //Return id when no error occurs.
+            return judge.JudgeID;
+        }
     }
 }

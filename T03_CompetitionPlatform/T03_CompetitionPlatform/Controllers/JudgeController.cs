@@ -104,9 +104,9 @@ namespace T03_CompetitionPlatform.Controllers
             totalweightage = totalweightage + criteria.Weightage;
             if (ModelState.IsValid && totalweightage <= 100 )
             {
-                //Add staff record to database
+                //Add criteria record to database
                 criteria.CriteriaID = criteriaContext.Add(criteria);
-                //Redirect user to Staff/Index view
+                //Redirect user to Judge/ViewCriteria/ view
                 return RedirectToAction("ViewCriteria");
             }
             else

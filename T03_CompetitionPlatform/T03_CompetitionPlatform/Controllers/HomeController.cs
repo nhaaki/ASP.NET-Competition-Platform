@@ -7,11 +7,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using T03_CompetitionPlatform.Models;
 using Microsoft.AspNetCore.Http;
+using T03_CompetitionPlatform.DAL;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace T03_CompetitionPlatform.Controllers
 {
+    
+
     public class HomeController : Controller
     {
+        private JudgesDAL judgeContext = new JudgesDAL();
+        private AreaInterestDAL areaContext = new AreaInterestDAL();
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -25,6 +32,11 @@ namespace T03_CompetitionPlatform.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
         {
             return View();
         }
@@ -119,6 +131,67 @@ namespace T03_CompetitionPlatform.Controllers
             //Call the index action of Home Controller 
             return RedirectToAction("Index");
         }
+
+        public ActionResult judgeRegister()
+        {
+            List<SelectListItem> aoiList = new List<SelectListItem>();
+
+            foreach(var item in GetAllAOI())
+            {
+                aoiList.Add(new SelectListItem
+                {
+                    Value = Convert.ToString(item.AreaInterestID),
+                    Text = item.Name
+
+
+                }); ;
+            }
+
+            ViewData["AOIList"] = aoiList;
+
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult judgeRegister(Judge judge)
+        {
+            ViewData["AOIList"] = GetAllAOI();
+
+            if (ModelState.IsValid)
+            {
+                //Add staff record to database
+                judge.JudgeID = judgeContext.Add(judge);
+                //Redirect user to Home/Index view
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                //Input validation fails, return to the Create view
+                //to display error message
+                
+
+                return View(judge);
+            }
+        }
+
+        private List<AreaInterest> GetAllAOI()
+        {
+            
+            
+            // Get a list of branches from database
+            List<AreaInterest> aoiList = areaContext.GetAllArea();
+            // Adding a select prompt at the first row of the branch list
+            aoiList.Insert(0, new AreaInterest
+            {
+                AreaInterestID = 0,
+                Name = "--Select--"
+            });
+            return aoiList;
+        }
+
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

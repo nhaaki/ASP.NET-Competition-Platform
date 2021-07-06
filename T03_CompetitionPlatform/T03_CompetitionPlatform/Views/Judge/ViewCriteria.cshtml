@@ -7,7 +7,7 @@
 
 <partial name="~/Views/Judge/_JudgeNav.cshtml" model="@Model" />
 <h1 style="text-align:center; margin-top:100px; margin-bottom:50px;">Criteria for: @ViewData["CompName"]</h1>
-<a asp-action="CreateCriteria" >Create criteria</a>
+<a asp-action="CreateCriteria"><p style="text-align:center">+Create criteria</p></a>
 
     @if (Model.criteriaList.Count > 0)
     {
@@ -16,6 +16,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>CriteriaName</th>
+                        <th>Weightage</th>
                         <th>Weightage</th>
 
                     </tr>
@@ -41,7 +42,7 @@
     }
     else
     {
-        <span style="color:red">No record found!</span>
+        <span style="color:red;"><p style="text-align:center;">No record found!</p></span>
     }
 
 
