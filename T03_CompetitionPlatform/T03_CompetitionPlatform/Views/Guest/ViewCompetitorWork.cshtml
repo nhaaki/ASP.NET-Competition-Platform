@@ -1,4 +1,4 @@
-﻿@model T03_CompetitionPlatform.Models.CompetitionSubmission
+﻿@model T03_CompetitionPlatform.Models.CompSubmissionViewModel
 
 @{
     Layout = null;
@@ -15,6 +15,9 @@
 <partial name="~/Views/Guest/_GuestNavbar.cshtml" />
 <body>
     
-    <h1>ok.</h1>
+    <h3 style="text-align:center; padding-top:50px;">@Model.Salutation @Model.CompetitorName</h3>
+    <div style="flex; align-content:center">
+        <embed src="~/images/@Model.FileSubmitted" type="application/pdf">
+    </div>
 </body>
 </html>

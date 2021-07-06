@@ -61,8 +61,7 @@ namespace T03_CompetitionPlatform.Controllers
             {
                 if (cs.CompetitorID == competitorID)
                 {
-                    CompetitionSubmission submission = cs;
-                    return View(submission);
+                    return View(MapTocsVM(cs, cs.CompetitionID));
                 }
             }
             return View();
