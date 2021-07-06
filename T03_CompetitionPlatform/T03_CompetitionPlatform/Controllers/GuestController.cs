@@ -24,15 +24,62 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult ViewCompetitors(int? id)
         {
-            CompetitionSubmission compSubmission = competitionSubmissionContext.GetDetails(id.Value);
-            List<Competitor> competitorList = competitorContext.GetAllCompetitors();
-            foreach(Competitor c in competitorList)
-            {
-                if (c.CompetitorID == compSubmission.CompetitorID){
-                    return View(compSubmission);
+            List<CompetitionSubmission> compSubmission = competitionSubmissionContext.GetAllSubmissions();
+            List<CompetitionSubmission> specifiedSubmission = new List<CompetitionSubmission>();
+            foreach(CompetitionSubmission cs in compSubmission){
+                if (cs.CompetitionID == id)
+                {
+                    specifiedSubmission.Add(cs);
                 }
             }
-            return View();
+
+
+            List<Competitor> competitorList = competitorContext.GetAllCompetitors();
+            List<CompSubmissionViewModel> currentSubmissions = new List<CompSubmissionViewModel>();
+            foreach(Competitor c in competitorList)
+            {
+                foreach (CompetitionSubmission cs in specifiedSubmission)
+                {
+                    if (c.CompetitorID == cs.CompetitorID)
+                    {
+                        CompSubmissionViewModel csVM = MapTocsVM(cs, id);
+                        currentSubmissions.Add(csVM);
+                    }
+                } 
+            }
+
+            
+            return View(currentSubmissions);
         }
+
+        public CompSubmissionViewModel MapTocsVM(CompetitionSubmission comp, int? id)
+        {
+            string compName = "";
+            List<Competition> compList = competitionContext.GetAllCompetitions();
+            foreach (Competition c in compList)
+            {
+                if (c.CompetitionID == id)
+                {
+                    compName = c.CompetitionName;
+                    break;
+                }
+            }
+
+            CompSubmissionViewModel csVM = new CompSubmissionViewModel
+            {
+                CompetitionName = compName,
+                CompetitionID = comp.CompetitionID,
+                CompetitorID = comp.CompetitorID,
+                FileSubmitted = comp.FileSubmitted,
+                DateTimeFileUpload = comp.DateTimeFileUpload,
+                Appeal = comp.Appeal,
+                VoteCount = comp.VoteCount,
+                Ranking = comp.Ranking
+            };
+            return csVM;
+
+        }
+
+    
     }
 }

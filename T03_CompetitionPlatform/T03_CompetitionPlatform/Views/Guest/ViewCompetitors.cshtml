@@ -1,4 +1,4 @@
-﻿@model T03_CompetitionPlatform.Models.CompetitionSubmission
+﻿@model IEnumerable<T03_CompetitionPlatform.Models.CompSubmissionViewModel>
 
 @{
     Layout = null;
@@ -12,53 +12,47 @@
     <title>ViewCompetitors</title>
 </head>
 <body>
-
-<div>
-    <h4>CompetitionSubmission</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CompetitionID)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CompetitionID)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CompetitorID)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CompetitorID)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FileSubmitted)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FileSubmitted)
-        </dd>
-        
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Appeal)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Appeal)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.VoteCount)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.VoteCount)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Ranking)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Ranking)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <partial name="~/Views/Guest/_GuestNavbar.cshtml" />
+    
+    
+    <h5 style="text-align: center; padding-top:30px;">View submissions</h5>
+    <table class="table">
+        <thead>
+            <tr>
+            
+                <th>
+                    @Html.DisplayNameFor(model => model.CompetitorID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FileSubmitted)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateTimeFileUpload)
+                </th>
+            
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompetitorID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileSubmitted)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => item.DateTimeFileUpload)
+                </td>
+                <td>
+                
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 
+                
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
 </body>
 </html>
