@@ -12,6 +12,8 @@ namespace T03_CompetitionPlatform.Controllers
     {
 
         private CompetitionDAL competitionContext = new CompetitionDAL();
+        private CompetitorDAL competitorContext = new CompetitorDAL();
+        private CompetitionSubmissionDAL competitionSubmissionContext = new CompetitionSubmissionDAL();
 
         public ActionResult Index()
         {
@@ -20,8 +22,16 @@ namespace T03_CompetitionPlatform.Controllers
             return View(compList);   
         }
 
-        public ActionResult ViewCriteria(int? id)
+        public ActionResult ViewCompetitors(int? id)
         {
+            CompetitionSubmission compSubmission = competitionSubmissionContext.GetDetails(id.Value);
+            List<Competitor> competitorList = competitorContext.GetAllCompetitors();
+            foreach(Competitor c in competitorList)
+            {
+                if (c.CompetitorID == compSubmission.CompetitorID){
+                    return View(compSubmission);
+                }
+            }
             return View();
         }
     }
