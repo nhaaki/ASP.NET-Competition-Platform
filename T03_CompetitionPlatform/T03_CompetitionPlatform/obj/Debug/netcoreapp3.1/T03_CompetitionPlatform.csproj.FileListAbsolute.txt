@@ -920,7 +920,6 @@ C:\Users\Drake\Desktop\School\Web\week12wednesday\T03_CompetitionPlatform\T03_Co
 C:\Users\Drake\Desktop\School\Web\week12wednesday\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.TagHelpers.input.cache
 C:\Users\Drake\Desktop\School\Web\week12wednesday\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.TagHelpers.output.cache
 C:\Users\Drake\Desktop\School\Web\week12wednesday\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.RazorCoreGenerate.cache
-C:\Users\Drake\Desktop\School\Web\week12wednesday\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AddJudges.cshtml.g.cs
 C:\Users\Drake\Desktop\School\Web\week12wednesday\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AdminMain.cshtml.g.cs
 C:\Users\Drake\Desktop\School\Web\week12wednesday\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CompetitionRecordsView.cshtml.g.cs
 C:\Users\Drake\Desktop\School\Web\week12wednesday\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CreateAreaView.cshtml.g.cs
