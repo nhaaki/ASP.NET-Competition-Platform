@@ -101,5 +101,32 @@ namespace T03_CompetitionPlatform.DAL
 
             return itExists;
         }
+
+        public int CompetitorRegister(Competitor compt)
+        {
+            //TEST CODE
+            //compt.CompetitorID = 0;
+            SqlCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"INSERT INTO Competitor (CompetitorName, Salutation, EmailAddr, Password) 
+            OUTPUT INSERTED.CompetitorID 
+            VALUES(@competitorName, @salutation, @emailAddr, @password)";
+
+            cmd.Parameters.AddWithValue("@competitorName", compt.CompetitorName);
+            cmd.Parameters.AddWithValue("@salutation", compt.Salutation);
+            cmd.Parameters.AddWithValue("@emailAddr", compt.EmailAddr);
+            cmd.Parameters.AddWithValue("@password", compt.Password);
+
+            // Open connection to database
+            conn.Open();
+
+            // Generate competitor ID
+            compt.CompetitorID = (int)cmd.ExecuteScalar();
+
+            // Close connection to database
+            conn.Close();
+
+            return compt.CompetitorID;
+        }
     }
 }
