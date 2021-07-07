@@ -8,7 +8,7 @@ using T03_CompetitionPlatform.DAL;
 using T03_CompetitionPlatform.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-//< !--Edited this 27 / 6 / 2021 8pm-- Delete Judges Function>
+//< !--Edite<!-- Edited this 7/7/2021-->-- Delete Judges Function>
 
 namespace T03_CompetitionPlatform.Controllers
 {
@@ -135,6 +135,12 @@ namespace T03_CompetitionPlatform.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ManageJudgesView(AdminJudgeViewModel selectedJudge)
         {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (selectedJudge.CompetitionID == null || selectedJudge.JudgeID == null)
             {
                 TempData["MissingInput1"] = "Inputs cannot be empty!";
@@ -151,6 +157,12 @@ namespace T03_CompetitionPlatform.Controllers
 
             if (ModelState.IsValid)
             {
+                if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Admin"))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
                 if (newcJudge.CompetitionID == null || newcJudge.JudgeID == null)
                 {
                     TempData["MissingInput1"] = "Inputs cannot be empty!";
@@ -294,27 +306,25 @@ namespace T03_CompetitionPlatform.Controllers
             }
         }
 
-
-        // GET: AdminController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: AdminController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         public ActionResult CreateAreaView()
         {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+(HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             return View("/Views/Admin/CreateAreaView.cshtml");
         }
 
         public ActionResult CreateCompetitionsView()
         {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+(HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             List<AreaInterest> areaList = areaContext.GetAllArea();
 
             string theTotal = "";
@@ -328,7 +338,11 @@ namespace T03_CompetitionPlatform.Controllers
 
             TempData["theResults"] = theTotal;
 
-            return View("/Views/Admin/CreateCompetitionsView.cshtml");
+            AdminCreateCompDisplayArea adminCreateVM = new AdminCreateCompDisplayArea();
+            adminCreateVM.areaList = areaContext.GetAllArea();
+            adminCreateVM.compList = competitionContext.GetAllCompetitions();
+
+            return View(adminCreateVM);
         }
 
         // POST: AdminController/Create
@@ -338,6 +352,12 @@ namespace T03_CompetitionPlatform.Controllers
         {
             if (ModelState.IsValid)
             {
+                if ((HttpContext.Session.GetString("Role") == null) ||
+(HttpContext.Session.GetString("Role") != "Admin"))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
                 //Add staff record to database
                 area.AreaInterestID = areaContext.Add(area);
                 //Redirect user to Staff/Index view
@@ -359,6 +379,11 @@ namespace T03_CompetitionPlatform.Controllers
         {
             if (ModelState.IsValid)
             {
+                if ((HttpContext.Session.GetString("Role") == null) ||
+(HttpContext.Session.GetString("Role") != "Admin"))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
                 // Check if area ID exists
                 List<AreaInterest> areaList = areaContext.GetAllArea();
 
@@ -511,27 +536,6 @@ namespace T03_CompetitionPlatform.Controllers
 
         }
 
-        // GET: AdminController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: AdminController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: AdminController/Delete/5
         public ActionResult DeleteArea(int? id)
         {
@@ -582,6 +586,12 @@ namespace T03_CompetitionPlatform.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteArea(AreaInterest area)
         {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+(HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             // Delete the area record from database
             areaContext.DeleteArea(area.AreaInterestID);
             return RedirectToAction("Index", "Admin");
@@ -635,6 +645,12 @@ namespace T03_CompetitionPlatform.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteCompetition(Competition competition)
         {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+(HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             // Delete the area record from database
             competitionContext.DeleteCompetition(competition.CompetitionID);
             return RedirectToAction("CompetitionRecordsView", "Admin");
@@ -678,6 +694,12 @@ namespace T03_CompetitionPlatform.Controllers
 
             if (ModelState.IsValid)
             {
+                if ((HttpContext.Session.GetString("Role") == null) ||
+(HttpContext.Session.GetString("Role") != "Admin"))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
                 if (competitions.CompetitionName == null || competitions.CompetitionName == "")
                 {
                     TempData["NameMissing"] = "Competition name is empty!";
@@ -823,6 +845,12 @@ namespace T03_CompetitionPlatform.Controllers
         {
             if (ModelState.IsValid)
             {
+                if ((HttpContext.Session.GetString("Role") == null) ||
+(HttpContext.Session.GetString("Role") != "Admin"))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
                 if (compJudge.CompetitionID == null || compJudge.JudgeID == null)
                 {
                     TempData["MissingInput1"] = "Inputs cannot be empty!";
@@ -913,6 +941,12 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult AreasOfInterests()
         {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+(HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View("~/Views/Admin/AreasOfInterests.cshtml");
         }
     }

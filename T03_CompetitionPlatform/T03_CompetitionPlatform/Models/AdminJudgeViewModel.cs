@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-//< !--Edited this 27 / 6 / 2021 8pm-- Delete Judges Function>
+//< !--<!-- Edited this 7/7/2021--> 8pm-- Delete Judges Function>
 
 namespace T03_CompetitionPlatform.Models
 {
