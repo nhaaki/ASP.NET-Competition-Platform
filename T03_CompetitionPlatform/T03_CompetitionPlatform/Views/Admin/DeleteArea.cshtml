@@ -4,39 +4,51 @@
     ViewData["Title"] = "DeleteArea";
 }
 
-<!-- Edited this 27/6/2021 8pm-->
+
+@{
+    Layout = null;
+}
+
+<!-- Edited this 7/7/2021-->
 
 <partial name="~/Views/Admin/_AdminNav.cshtml" />
 
-<h1>DeleteArea</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h4 class="PageTitle" style="margin-top: 70px; font-size:200%; text-align:center;">DeleteArea</h4>
+<h4 style="margin-top: 70px; font-size:200%; text-align:center;">Are you sure you want to delete this?</h4>
 <hr />
 
 <form asp-action="DeleteArea">
     <fieldset class="FormContent">
-        <legend>Are you sure to delete this record?</legend>
-        <div class="form-group row">
-            <label asp-for="AreaInterestID"
-                   class="col-sm-3 col-form-label"></label>
-            <div class="col-sm-9 col-md-5">
-                <input asp-for="AreaInterestID" readonly
-                       class="form-control-plaintext" />
-            </div>
-        </div>
-        <div class="form-group row">
-            <label asp-for="Name"
-                   class="col-sm-3 col-form-label"></label>
-            <div class="col-sm-9 col-md-5">
-                <input asp-for="Name" readonly
-                       class="form-control-plaintext" />
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-9 offset-sm-3">
-                <input type="submit" value="Delete"
-                       class="btn btn-primary" />
-            </div>
+        <div class="table-responsive">
+            <table id="viewStaff" class="table table-bordered table-hover table-dark table-striped">
+                <thead class="thead-dark">
+                    <tr style="text-align:center; align-content:center; align-items:center;">
+                        <th>AreaInterestID</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr style="text-align:center; align-content:center; align-items:center;">
+                            <td>
+                                <input asp-for="AreaInterestID" readonly
+                                       class="form-control-plaintext"
+                                       style="color:white; text-align:center;"/>
+                            </td>
+                            <td>
+                                <input asp-for="Name" readonly
+                                       class="form-control-plaintext" 
+                                       style="color:white; text-align:center;"/>
+                            </td>
+
+                            <td>
+                                <input type="submit" value="Delete"
+                                       class="btn btn-danger" />
+                            </td>
+                        </tr>
+                   
+                </tbody>
+            </table>
         </div>
     </fieldset>
 </form>
