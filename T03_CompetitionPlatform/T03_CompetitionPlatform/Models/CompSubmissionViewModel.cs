@@ -28,13 +28,13 @@ namespace T03_CompetitionPlatform.Models
         public int CompetitorID { get; set; }
 
         [StringLength(255)]
-        public string FileSubmitted { get; set; }
+        public string? FileSubmitted { get; set; }
 
         [DisplayFormat(DataFormatString = "{yyyy-MM-dd }")]
         public DateTime? DateTimeFileUpload { get; set; }
 
         [StringLength(255)]
-        public string Appeal { get; set; }
+        public string? Appeal { get; set; }
 
         [Required]
         public int VoteCount { get; set; }

@@ -54,17 +54,27 @@ namespace T03_CompetitionPlatform.Controllers
             return View(currentSubmissions);
         }
 
-        public ActionResult ViewCompetitorWork(int? competitorID)
+        public ActionResult ViewCompetitorWork(int? competitorID, int? competitionID)
         {
             List<CompetitionSubmission> compSubmission = competitionSubmissionContext.GetAllSubmissions();
             foreach (CompetitionSubmission cs in compSubmission)
             {
-                if (cs.CompetitorID == competitorID)
+                if (cs.CompetitorID == competitorID && cs.CompetitionID== competitionID)
                 {
                     return View(MapTocsVM(cs, cs.CompetitionID));
                 }
             }
             return View();
+        }
+
+        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult addVote(int competitorID, int competitionId)
+        {
+            competitionSubmissionContext.AddVote(competitorID, competitionId);
+            return RedirectToAction("ViewCompetitors", competitionId);
         }
 
         public CompSubmissionViewModel MapTocsVM(CompetitionSubmission comp, int? id)

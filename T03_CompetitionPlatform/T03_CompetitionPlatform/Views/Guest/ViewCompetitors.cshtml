@@ -49,14 +49,23 @@
                     @Html.DisplayFor(modelItem => item.Salutation) @Html.DisplayFor(modelItem => item.CompetitorName)
                 </td>
                 <td>
-                    <embed src="~/images/@item.FileSubmitted" type="application/pdf" height="100px" width="100px">
+                    @if (item.FileSubmitted != null)
+                    {
+                        <embed src="~/images/@item.FileSubmitted" type="application/pdf" height="100px" width="100px">
+                    }
+                    else
+                    {
+                        <img src="~/images/missingfile.png" height="100px" width="100px">
+                    }
+
+
                 </td>
                 <td>
                     @Html.EditorFor(modelItem => item.DateTimeFileUpload, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
                 </td>
                 <td>
 
-                    @Html.ActionLink("View", "ViewCompetitorWork", new { competitorID = item.CompetitorID })
+                    @Html.ActionLink("View", "ViewCompetitorWork", new { competitorID = item.CompetitorID, competitionID = item.CompetitionID })
 
                 </td>
             </tr>

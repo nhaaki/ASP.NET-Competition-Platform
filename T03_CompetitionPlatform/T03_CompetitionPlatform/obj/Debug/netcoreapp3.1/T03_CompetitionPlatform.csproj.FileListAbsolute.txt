@@ -661,7 +661,6 @@ C:\Users\Drake\Desktop\WEBASSIGNMENT\wednesdaypull\T03_CompetitionPlatform\T03_C
 C:\Users\Ng Hung Meng\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\RemoveJudges.cshtml.g.cs
 C:\Users\Ng Hung Meng\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\EditCriteria.cshtml.g.cs
 C:\Users\Ng Hung Meng\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\DeleteCriteria.cshtml.g.cs
-C:\Users\nhaak\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AddJudges.cshtml.g.cs
 C:\Users\nhaak\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\ManageJudgesView.cshtml.g.cs
 C:\Users\nhaak\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\RemoveJudges.cshtml.g.cs
 C:\Users\nhaak\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Competitor\Index.cshtml.g.cs
@@ -1105,3 +1104,4 @@ F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assignment Repo\T03
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assignment Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.pdb
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assignment Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.genruntimeconfig.cache
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assignment Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Competitor\CompetitorRegister.cshtml.g.cs
+C:\Users\nhaak\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Competitor\CompetitorRegister.cshtml.g.cs

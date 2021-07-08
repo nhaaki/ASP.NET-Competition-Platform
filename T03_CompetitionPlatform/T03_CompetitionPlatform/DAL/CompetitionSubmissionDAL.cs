@@ -102,6 +102,20 @@ namespace T03_CompetitionPlatform.DAL
             return competitionSubmission;
         }
 
+        public int AddVote(int id, int compID)
+        {
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"UPDATE CompetitionSubmission SET VoteCount = (VoteCount + 1) where (CompetitionID=@selcompID and CompetitorID=@selID)";
+            cmd.Parameters.AddWithValue("@selcompID", compID);
+            cmd.Parameters.AddWithValue("@selID", id);
+            conn.Open();
+            //ExecuteNonQuery is used for UPDATE and DELETE
+            int count = cmd.ExecuteNonQuery();
+            //Close the database connection
+            conn.Close();
+            return count;
+        }
+
         public bool checkIfCompetitorSubmissionExists(int theId)
         {
 
