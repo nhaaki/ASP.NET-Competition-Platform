@@ -111,12 +111,12 @@ namespace T03_CompetitionPlatform.Controllers
             }
             else
             {
-                //Input validation fails, return to the Create view
-                //to display error message
-                ViewData["errormsg"] = "Weightage has exceeded 100%(current: " + totalweightage + "%)" ;
-                ViewData["error"] = true;
-                
-                return View(criteria);
+                //Auto change the criteria's weightage so that total is still 100
+                criteria.Weightage = 100 - (totalweightage - criteria.Weightage);
+                //Add criteria record to database
+                criteria.CriteriaID = criteriaContext.Add(criteria);
+                //Redirect user to Judge/ViewCriteria/ view
+                return RedirectToAction("ViewCriteria");
             }
 
         }
@@ -164,12 +164,12 @@ namespace T03_CompetitionPlatform.Controllers
             }
             else
             {
-                //Input validation fails, return to the Create view
-                //to display error message
-                ViewData["errormsg"] = "Weightage has exceeded 100%(current: " + totalweightage + "%)";
-                ViewData["error"] = true;
-
-                return View(criteria);
+                //Auto change the criteria's weightage so that total is still 100
+                criteria.Weightage = 100 - (totalweightage - criteria.Weightage);
+                //Add criteria record to database
+                criteria.CriteriaID = criteriaContext.Add(criteria);
+                //Redirect user to Judge/ViewCriteria/ view
+                return RedirectToAction("ViewCriteria");
             }
         }
 

@@ -23,7 +23,6 @@ namespace T03_CompetitionPlatform.Models
         [StringLength(50)]
         [DataType(DataType.EmailAddress)]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
-
         public string EmailAddr { get; set; }
 
         [StringLength(255)]

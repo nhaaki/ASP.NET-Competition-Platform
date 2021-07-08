@@ -141,7 +141,7 @@ namespace T03_CompetitionPlatform.DAL
             SqlCommand cmd = conn.CreateCommand();
             //Specify an INSERT SQL statement which will
             //return the auto-generated JudgeID after insertion
-            cmd.CommandText = @"INSERT INTO Judge (JudgeName, Salutation, AreaInterestID, EmailAddr,Password)
+            cmd.CommandText = @"INSERT INTO Judge (JudgeName, Salutation, AreaInterestID, EmailAddr, Password)
             OUTPUT INSERTED.JudgeID 
             VALUES(@judgename, @salutation, @emailaddress, @password)";
             //Define the parameters used in SQL statement, value for each parameter
