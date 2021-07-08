@@ -29,6 +29,45 @@ namespace T03_CompetitionPlatform.DAL
             conn = new SqlConnection(strConn);
         }
 
+        public List<CompetitionSubmission> GetAllSubmissions()
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement
+            cmd.CommandText = @"SELECT * FROM CompetitionSubmission ORDER BY CompetitionID";
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            //Read all records until the end, save data into a staff list
+            List<CompetitionSubmission> competitionSubmissionList = new List<CompetitionSubmission>();
+            while (reader.Read())
+            {
+                competitionSubmissionList.Add(
+                new CompetitionSubmission
+                {
+                    CompetitionID = reader.GetInt32(0),
+                    CompetitorID = reader.GetInt32(1),
+                    FileSubmitted = !reader.IsDBNull(2) ?
+                    reader.GetString(2) : null,
+                    DateTimeFileUpload = !reader.IsDBNull(3) ?
+                    reader.GetDateTime(3) : (DateTime?)null,
+                    Appeal = !reader.IsDBNull(4) ?
+                    reader.GetString(4) : null,
+                    VoteCount = reader.GetInt32(5),
+                    Ranking = !reader.IsDBNull(6) ?
+                    reader.GetInt32(6) : (int?)null
+                }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            return competitionSubmissionList;
+        }
+
         public CompetitionSubmission GetDetails(int competitionID)
         {
             CompetitionSubmission competitionSubmission = new CompetitionSubmission();
@@ -61,6 +100,20 @@ namespace T03_CompetitionPlatform.DAL
             //Close database connection
             conn.Close();
             return competitionSubmission;
+        }
+
+        public int AddVote(int id, int compID)
+        {
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"UPDATE CompetitionSubmission SET VoteCount = (VoteCount + 1) where (CompetitionID=@selcompID and CompetitorID=@selID)";
+            cmd.Parameters.AddWithValue("@selcompID", compID);
+            cmd.Parameters.AddWithValue("@selID", id);
+            conn.Open();
+            //ExecuteNonQuery is used for UPDATE and DELETE
+            int count = cmd.ExecuteNonQuery();
+            //Close the database connection
+            conn.Close();
+            return count;
         }
 
         public bool checkIfCompetitorSubmissionExists(int theId)

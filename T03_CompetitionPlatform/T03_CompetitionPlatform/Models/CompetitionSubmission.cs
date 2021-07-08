@@ -8,25 +8,31 @@ namespace T03_CompetitionPlatform.Models
 {
     public class CompetitionSubmission
     {
-        [Required]
+        [Required] // No need for error message(?)
+        [Display(Name = "Competition ID")]
         public int CompetitionID { get; set; }
         
-        [Required]
+        [Required] // No need for error message(?)
+        [Display(Name = "Competitor ID")]
         public int CompetitorID { get; set; }
 
         [StringLength(255)]
-        public string FileSubmitted { get; set; }
+        [Display(Name = "File Submitted")]
+        public string? FileSubmitted { get; set; }
 
-        [DisplayFormat(DataFormatString ="{yyyy-MM-dd }")]
-        public DateTime DateTimeFileUpload { get; set; } 
+        [Display(Name = "DateTime File Upload")]
+        [DisplayFormat(DataFormatString ="{yyyy-MM-dd:0}")]
+        public DateTime? DateTimeFileUpload { get; set; } 
 
         [StringLength(255)]
-        public string Appeal { get; set; }
+        [Display(Name = "Appeal")]
+        public string? Appeal { get; set; }
 
-        [Required]
+        [Display(Name = "Vote Count")]
         public int VoteCount { get; set; }
 
         //[Range(1)]
-        public int Ranking { get; set; }
+        [Display(Name = "Ranking")]
+        public int? Ranking { get; set; }
     }
 }

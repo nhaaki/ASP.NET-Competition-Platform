@@ -6,6 +6,7 @@
 
 <!-- -->
 <!--Start of containers -->
+<!-- Edited this 7/7/2021-->
 
 <div class="container">
     <div class="row justify-content-md-center">
@@ -18,37 +19,33 @@
     </div>
 </div>
 
-<div class="container-fluid" style="border: 2px;
-     border-style: solid;
-     border-color: black;
-     padding: 8em 8em 8em 8em;>
+<div class="table-responsive">
+    <table id="viewStaff" class="table table-bordered table-hover table-dark table-striped">
+        <thead class="thead-dark">
+            <tr style="text-align:center; align-content:center; align-items:center;">
+                <th>Areas of Interest</th>
+                <th>Competition Records</th>
+                <th>Amount of Judges</th>
+                <th>Amount of Competitors</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="text-align:center; align-content:center; align-items:center;">
+                <td>
+                    @TempData["areaCount"]
+                </td>
+                <td>
+                    @TempData["competitionCount"]
+                </td>
 
-    <div class="row justify-content-center">
+                <td>
+                    @TempData["judgesCount"]
+                </td>               
+                <td>
+                    @TempData["competitorsCount"]
+                </td>
+            </tr>
 
-        <div class="col-md-auto">
-            <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Areas of Interest</u></p>
-
-            <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["areaCount"]</b></p>
-
-        </div>
-        <div class="col-md-auto">
-            <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Competition Records</u></p>
-
-            <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["competitionCount"]</b></p>
-
-        </div>
-        <div class="col-md-auto">
-            <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Amount of Judges</u></p>
-
-            <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["judgesCount"]</b></p>
-
-        </div>
-        <div class="col-md-auto">
-            <p class="text-center" style="font-family: Arial;font-size: 150%;"><u>Amount of Competitors</u></p>
-
-            <p class="text-center" style="font-family: Arial;font-size: 150%;"><b>@TempData["competitorsCount"]</b></p>
-
-        </div>
-    </div>
-
+        </tbody>
+    </table>
 </div>

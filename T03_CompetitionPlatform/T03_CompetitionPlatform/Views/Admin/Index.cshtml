@@ -8,11 +8,16 @@
     Layout = null;
 }
 
-<partial name="~/Views/Admin/_AdminNav.cshtml"/>
+<!-- Edited this 7/7/2021-->
+
+<partial name="~/Views/Admin/_AdminNav.cshtml" />
 
 <h4 class="PageTitle" style="margin-top: 70px; font-size:200%; text-align:center;">Areas Of Interest</h4>
 <br />
-<p style="text-align: center;font-size: 175%;"><a asp-action="CreateAreaView">Create</a></p>
+<form asp-action="CreateAreaView" style="text-align:center; align-content:center; align-items:center;">
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+<br />
 <span style="color:red;">@TempData["AreaDeleteMessage"]</span>
 
 
