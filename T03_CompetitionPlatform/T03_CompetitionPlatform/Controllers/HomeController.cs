@@ -74,18 +74,24 @@ namespace T03_CompetitionPlatform.Controllers
                 return RedirectToAction("AdminMain", "Admin");
 
             }
-            else if (loginID == "judge1@lcu.edu.sg" && password == "p@55Admin")
+            List<Judge> judgeList = judgeContext.GetAllJudges();
+            foreach (var item in judgeList)
             {
-                //Store login ID in session with the key "LoginID"
-                HttpContext.Session.SetString("LoginID", loginID);
+                if (loginID == item.EmailAddr && password == item.Password )
+                {
+                    //Store login ID in session with the key "LoginID"
+                    HttpContext.Session.SetString("LoginID", loginID);
 
-                //Store user role "Judge" as a string in session with the key "Role"
-                HttpContext.Session.SetString("Role", "Judge");
+                    //Store user role "Judge" as a string in session with the key "Role"
+                    HttpContext.Session.SetString("Role", "Judge");
 
-                // Redirect user to the "Index" view through an action
-                return RedirectToAction("Index", "Judge");
-            }
-            else if (loginID == "pg1@hotmail.com" && password == "p@55PG")
+                    // Redirect user to the "Index" view through an action
+                    return RedirectToAction("Index", "Judge");
+                }
+
+            };
+            
+            if (loginID == "pg1@hotmail.com" && password == "p@55PG")
             {
                 //Store login ID in session with the key "LoginID"
                 HttpContext.Session.SetString("LoginID", loginID);
@@ -183,11 +189,7 @@ namespace T03_CompetitionPlatform.Controllers
             // Get a list of branches from database
             List<AreaInterest> aoiList = areaContext.GetAllArea();
             // Adding a select prompt at the first row of the branch list
-            aoiList.Insert(0, new AreaInterest
-            {
-                AreaInterestID = 0,
-                Name = "--Select--"
-            });
+            
             return aoiList;
         }
 

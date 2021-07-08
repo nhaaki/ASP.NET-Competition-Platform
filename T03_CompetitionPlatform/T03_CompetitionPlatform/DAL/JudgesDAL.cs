@@ -143,11 +143,12 @@ namespace T03_CompetitionPlatform.DAL
             //return the auto-generated JudgeID after insertion
             cmd.CommandText = @"INSERT INTO Judge (JudgeName, Salutation, AreaInterestID, EmailAddr, Password)
             OUTPUT INSERTED.JudgeID 
-            VALUES(@judgename, @salutation, @emailaddress, @password)";
+            VALUES(@judgename, @salutation, @aoi, @emailaddress, @password)";
             //Define the parameters used in SQL statement, value for each parameter
             //is retrieved from respective class's property.
             cmd.Parameters.AddWithValue("@judgename", judge.JudgeName);
             cmd.Parameters.AddWithValue("@salutation", judge.Salutation);
+            cmd.Parameters.AddWithValue("@aoi", judge.AreaInterestID);
             cmd.Parameters.AddWithValue("@emailaddress", judge.EmailAddr);
             cmd.Parameters.AddWithValue("@password", judge.Password);
 
