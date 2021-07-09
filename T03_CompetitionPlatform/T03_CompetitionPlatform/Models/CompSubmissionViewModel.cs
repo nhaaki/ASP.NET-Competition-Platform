@@ -41,5 +41,12 @@ namespace T03_CompetitionPlatform.Models
 
         //[Range(1)]
         public int? Ranking { get; set; }
+
+        public int CommentID { get; set; }
+
+        [StringLength(255)]
+        [Required]
+        public string? Description { get; set; }
+        public DateTime DateTimePosted { get; set; }
     }
 }

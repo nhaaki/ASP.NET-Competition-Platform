@@ -14,6 +14,7 @@ namespace T03_CompetitionPlatform.Controllers
         private CompetitionDAL competitionContext = new CompetitionDAL();
         private CompetitorDAL competitorContext = new CompetitorDAL();
         private CompetitionSubmissionDAL competitionSubmissionContext = new CompetitionSubmissionDAL();
+        private CommentDAL commentContext = new CommentDAL();
 
         public ActionResult Index()
         {
@@ -49,9 +50,24 @@ namespace T03_CompetitionPlatform.Controllers
             }
 
             ViewData["CompName"] = name;
+            ViewData["CompID"] = id;
 
             
             return View(currentSubmissions);
+        }
+
+        public ActionResult GuestComment(int? id)
+        {
+            List<Comment> comments = commentContext.GetAllComments();
+            List<Comment> relevantComments = new List<Comment>();
+            foreach (Comment c in comments)
+            {
+                if(c.CompetitionID == id)
+                {
+                    relevantComments.Add(c);
+                }
+            }
+            return View(relevantComments);
         }
 
         public ActionResult ViewCompetitorWork(int? competitorID, int? competitionID)
@@ -82,8 +98,10 @@ namespace T03_CompetitionPlatform.Controllers
             string compName = "";
             string competitorName = "";
             string competitorSalutation = "";
+           
             List<Competition> compList = competitionContext.GetAllCompetitions();
             List<Competitor> competitors = competitorContext.GetAllCompetitors();
+           
             foreach (Competition c in compList)
             {
                 if (c.CompetitionID == id)
@@ -102,7 +120,6 @@ namespace T03_CompetitionPlatform.Controllers
                     break;
                 }
             }
-
             CompSubmissionViewModel csVM = new CompSubmissionViewModel
             {
                 CompetitionName = compName,
@@ -114,7 +131,7 @@ namespace T03_CompetitionPlatform.Controllers
                 DateTimeFileUpload = comp.DateTimeFileUpload,
                 Appeal = comp.Appeal,
                 VoteCount = comp.VoteCount,
-                Ranking = comp.Ranking
+                Ranking = comp.Ranking,    
             };
             return csVM;
 
