@@ -59,5 +59,32 @@ namespace T03_CompetitionPlatform.DAL
             conn.Close();
             return commentList;
         }
+
+        public int Add(Comment comment)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify an INSERT SQL statement which will
+            //return the auto-generated StaffID after insertion
+            cmd.CommandText = @"INSERT INTO Comment (CompetitionID, Description, DateTimePosted)
+            OUTPUT INSERTED.CommentID
+            VALUES(@CompetitionID, @Description, @DateTimePosted)";
+            //Define the parameters used in SQL statement, value for each parameter
+            //is retrieved from respective class's property.
+            cmd.Parameters.AddWithValue("@CompetitionID", comment.CompetitionID);
+            cmd.Parameters.AddWithValue("@Description", comment.Description);
+            cmd.Parameters.AddWithValue("@DateTimePosted", comment.DateTimePosted);
+
+            //A connection to database must be opened before any operations made.
+            conn.Open();
+            //ExecuteScalar is used to retrieve the auto-generated
+            //CriteriaID after executing the INSERT SQL statement
+            comment.CommentID = (int)cmd.ExecuteScalar();
+            //A connection should be closed after operations.
+            conn.Close();
+            //Return id when no error occurs.
+            return comment.CommentID;
+        }
+
     }
 }

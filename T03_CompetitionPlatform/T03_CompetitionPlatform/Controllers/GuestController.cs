@@ -70,6 +70,10 @@ namespace T03_CompetitionPlatform.Controllers
             return View(relevantComments);
         }
 
+        public ActionResult PostComment(int? id)
+        {
+            return View();
+        }
         public ActionResult ViewCompetitorWork(int? competitorID, int? competitionID)
         {
             List<CompetitionSubmission> compSubmission = competitionSubmissionContext.GetAllSubmissions();
@@ -91,6 +95,14 @@ namespace T03_CompetitionPlatform.Controllers
         {
             competitionSubmissionContext.AddVote(competitorID, competitionId);
             return RedirectToAction("ViewCompetitors", competitionId);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult addComment(Comment comment)
+        {
+            comment.CommentID = commentContext.Add(comment);
+            return RedirectToAction("GuestComments", comment.CompetitionID);
         }
 
         public CompSubmissionViewModel MapTocsVM(CompetitionSubmission comp, int? id)
