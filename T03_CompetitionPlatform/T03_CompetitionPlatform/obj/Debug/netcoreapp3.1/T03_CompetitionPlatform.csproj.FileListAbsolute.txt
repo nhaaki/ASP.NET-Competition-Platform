@@ -1122,3 +1122,4 @@ F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assignment Repo\T03
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assignment Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\JudgeRegister.cshtml.g.cs
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assignment Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\Register.cshtml.g.cs
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assignment Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Competitor\_CompetitorNavBar.cshtml.g.cs
+C:\Users\nhaak\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Competitor\_CompetitorNavBar.cshtml.g.cs

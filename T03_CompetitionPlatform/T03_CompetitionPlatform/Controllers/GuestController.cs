@@ -82,6 +82,7 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult PostComment(int? id)
         {
+
             ViewData["CompID"] = id;
             return View();
         }
