@@ -58,6 +58,16 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult GuestComment(int? id)
         {
+            ViewData["CompID"] = id;
+            List<Competition> comps = competitionContext.GetAllCompetitions();
+            foreach (Competition c in comps)
+            {
+                if (c.CompetitionID == id)
+                {
+                    ViewData["CompName"] = c.CompetitionName;
+                    break;
+                }
+            }
             List<Comment> comments = commentContext.GetAllComments();
             List<Comment> relevantComments = new List<Comment>();
             foreach (Comment c in comments)
@@ -72,6 +82,7 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult PostComment(int? id)
         {
+            ViewData["CompID"] = id;
             return View();
         }
         public ActionResult ViewCompetitorWork(int? competitorID, int? competitionID)
@@ -102,7 +113,7 @@ namespace T03_CompetitionPlatform.Controllers
         public ActionResult addComment(Comment comment)
         {
             comment.CommentID = commentContext.Add(comment);
-            return RedirectToAction("GuestComments", comment.CompetitionID);
+            return RedirectToAction("GuestComment", new { id = comment.CompetitionID });
         }
 
         public CompSubmissionViewModel MapTocsVM(CompetitionSubmission comp, int? id)

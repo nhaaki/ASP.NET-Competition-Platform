@@ -44,7 +44,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="~/Guest/ViewCompetitors/@Model.CompetitionID"
+                    <a class="nav-link" asp-action="ViewCompetitors" asp-route-id="@Model.CompetitionID" asp-route-name="@Model.CompetitionName"
                        style="font-size: 20px;color: white;">
                         Go back
                     </a>
