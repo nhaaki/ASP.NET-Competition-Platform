@@ -115,6 +115,7 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult GuestLogin()
         {
+            HttpContext.Session.SetInt32("Voted", 0);
             return RedirectToAction("Index", "Guest");
         }
 
