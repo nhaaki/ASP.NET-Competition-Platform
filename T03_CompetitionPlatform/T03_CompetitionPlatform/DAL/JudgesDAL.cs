@@ -62,6 +62,44 @@ namespace T03_CompetitionPlatform.DAL
             return judgesList;
         }
 
+        public Judge Getlogin(string email)
+        {
+            Judge judge = new Judge();
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a staff record.
+            cmd.CommandText = @"SELECT * FROM Judge
+                    WHERE JudgeID = @selectedJudgeEmail";
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “areainterestId”.
+            cmd.Parameters.AddWithValue("@selectedJudgeEmail", email);
+            //Open a database connection
+            conn.Open();
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    // Fill staff object with values from the data reader
+                    judge.JudgeID = reader.GetInt32(0);
+                    judge.JudgeName = reader.GetString(1);
+                    judge.Salutation = reader.GetString(2);
+                    judge.AreaInterestID = reader.GetInt32(3);
+                    judge.EmailAddr = email;
+                    judge.Password = reader.GetString(5);
+                    // (char) 0 - ASCII Code 0 - null value
+                }
+            }
+            //Close data reader
+            reader.Close();
+            //Close database connection
+            conn.Close();
+            return judge;
+        }
+
         public bool checkIfJudgeExists(int judgeId)
         {
 
@@ -80,8 +118,12 @@ namespace T03_CompetitionPlatform.DAL
                 judgeList.Add(
                 new Judge
                 {
-                    JudgeID = reader.GetInt32(0), //0: 1st column and + 1 per column 
+                    JudgeID = reader.GetInt32(0),  //0: 1st column and + 1 per column 
+                    JudgeName = reader.GetString(1),
+                    Salutation = reader.GetString(2),
                     AreaInterestID = reader.GetInt32(3),
+                    EmailAddr = reader.GetString(4),
+                    Password = reader.GetString(5),
                 }
                 );
             }
@@ -124,8 +166,12 @@ namespace T03_CompetitionPlatform.DAL
                 while (reader.Read())
                 {
                     // Fill staff object with values from the data reader
-                    judge.JudgeID = JudgeID;
+                    judge.JudgeID = reader.GetInt32(0);
+                    judge.JudgeName = reader.GetString(1);
+                    judge.Salutation = reader.GetString(2);
                     judge.AreaInterestID = reader.GetInt32(3);
+                    judge.EmailAddr = reader.GetString(4);
+                    judge.Password = reader.GetString(5);
                     // (char) 0 - ASCII Code 0 - null value
                 }
             }
