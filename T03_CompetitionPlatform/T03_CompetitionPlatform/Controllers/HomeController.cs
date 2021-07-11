@@ -61,8 +61,27 @@ namespace T03_CompetitionPlatform.Controllers
         {
             // Read inputs from textboxes
             // Email address converted to lowercase
+            
             string loginID = formData["txtLoginID"].ToString().ToLower();
             string password = formData["txtPassword"].ToString();
+            List<Judge> judgeList = judgeContext.GetAllJudges();
+            foreach (var item in judgeList)
+            {
+                if (loginID == item.EmailAddr.ToLower() && password == item.Password)
+                {
+                    Debug.WriteLine("My debug string here");
+
+                    //Store login ID in session with the key "LoginID"
+                    HttpContext.Session.SetString("LoginID", loginID);
+
+                    //Store user role "Judge" as a string in session with the key "Role"
+                    HttpContext.Session.SetString("Role", "Judge");
+
+                    // Redirect user to the "Index" view through an action
+                    return RedirectToAction("Index", "Judge");
+                }
+
+            };
             if (loginID == "admin1@lcu.edu.sg" && password == "p@55Admin")
             {
                 //Store login ID in session with the key "LoginID"
@@ -82,22 +101,8 @@ namespace T03_CompetitionPlatform.Controllers
                 // Redirect user back to the index view through an action
                 return RedirectToAction("Index");
             }
-            List<Judge> judgeList = judgeContext.GetAllJudges();
-            foreach (var item in judgeList)
-            {
-                if (loginID == item.EmailAddr && password == item.Password )
-                {
-                    //Store login ID in session with the key "LoginID"
-                    HttpContext.Session.SetString("LoginID", loginID);
-
-                    //Store user role "Judge" as a string in session with the key "Role"
-                    HttpContext.Session.SetString("Role", "Judge");
-
-                    // Redirect user to the "Index" view through an action
-                    return RedirectToAction("Index", "Judge");
-                }
-
-            };
+            
+            
             List<Competitor> competitorList = competitorContext.GetAllCompetitors();
             foreach (var item in competitorList)
             {
