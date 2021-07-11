@@ -772,7 +772,6 @@ F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_Compe
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.TagHelpers.input.cache
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.TagHelpers.output.cache
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.RazorCoreGenerate.cache
-F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AddJudges.cshtml.g.cs
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AdminMain.cshtml.g.cs
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CompetitionRecordsView.cshtml.g.cs
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CreateAreaView.cshtml.g.cs
@@ -786,7 +785,6 @@ F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_Compe
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\_AdminNav.cshtml.g.cs
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Admin\_ViewArea.cshtml.g.cs
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Guest\Index.cshtml.g.cs
-F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Guest\ViewCompetition.cshtml.g.cs
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Guest\_GuestNavbar.cshtml.g.cs
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Guest\_GuestView.cshtml.g.cs
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
@@ -1123,3 +1121,11 @@ F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assignment Repo\T03
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assignment Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\Register.cshtml.g.cs
 F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assignment Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Competitor\_CompetitorNavBar.cshtml.g.cs
 C:\Users\nhaak\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Competitor\_CompetitorNavBar.cshtml.g.cs
+F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Competitor\CompetitorRegister.cshtml.g.cs
+F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Competitor\_CompetitorNavBar.cshtml.g.cs
+F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Guest\GuestComment.cshtml.g.cs
+F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Guest\PostComment.cshtml.g.cs
+F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Guest\ViewCompetitors.cshtml.g.cs
+F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Guest\ViewCompetitorWork.cshtml.g.cs
+F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\JudgeRegister.cshtml.g.cs
+F:\1) Ngee Ann Poly\Year 2 Sem 1\Web Application Development\Assg Repo\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\Register.cshtml.g.cs
