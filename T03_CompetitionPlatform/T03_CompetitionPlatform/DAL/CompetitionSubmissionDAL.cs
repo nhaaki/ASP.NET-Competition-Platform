@@ -164,7 +164,7 @@ namespace T03_CompetitionPlatform.DAL
         {
             SqlCommand cmd = conn.CreateCommand();
 
-            cmd.CommandText = @"INSERT INTO Competitor (CompetitionID, CompetitorID, VoteCount) 
+            cmd.CommandText = @"INSERT INTO CompetitionSubmission (CompetitionID, CompetitorID, VoteCount) 
             VALUES(@competitionID, @competitorID, @voteCount)";
 
             cmd.Parameters.AddWithValue("@competitionID", comptSub.CompetitionID);
