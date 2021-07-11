@@ -26,6 +26,8 @@ namespace T03_CompetitionPlatform
             // Add a default in-memory implementation of distributed cache
             services.AddDistributedMemoryCache();
 
+            services.AddHttpContextAccessor()
+
             // Add the session service
             services.AddSession(options =>
             {

@@ -82,6 +82,7 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult PostComment(int? id)
         {
+
             ViewData["CompID"] = id;
             return View();
         }
@@ -102,10 +103,11 @@ namespace T03_CompetitionPlatform.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult addVote(int competitorID, int competitionId)
+        public ActionResult addVote(CompSubmissionViewModel csvm)
         {
-            competitionSubmissionContext.AddVote(competitorID, competitionId);
-            return RedirectToAction("ViewCompetitors", competitionId);
+            ViewData["CompName"] = csvm.CompetitionName;
+            competitionSubmissionContext.AddVote(csvm.CompetitorID, csvm.CompetitionID);
+            return RedirectToAction("ViewCompetitors", new { id = csvm.CompetitionID });
         }
 
         [HttpPost]

@@ -10,7 +10,6 @@ namespace T03_CompetitionPlatform.Models
     {
         [StringLength(255)]
         [Required]
-        [ValidateCompetitionNameExists]
         public string CompetitionName { get; set; }
 
         [StringLength(50)]
