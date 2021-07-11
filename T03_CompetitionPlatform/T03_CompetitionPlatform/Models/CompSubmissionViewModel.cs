@@ -10,7 +10,6 @@ namespace T03_CompetitionPlatform.Models
     {
         [StringLength(255)]
         [Required]
-        [ValidateCompetitionNameExists]
         public string CompetitionName { get; set; }
 
         [StringLength(50)]
@@ -41,5 +40,12 @@ namespace T03_CompetitionPlatform.Models
 
         //[Range(1)]
         public int? Ranking { get; set; }
+
+        public int CommentID { get; set; }
+
+        [StringLength(255)]
+        [Required]
+        public string? Description { get; set; }
+        public DateTime DateTimePosted { get; set; }
     }
 }

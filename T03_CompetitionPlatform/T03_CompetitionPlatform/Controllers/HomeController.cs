@@ -18,6 +18,7 @@ namespace T03_CompetitionPlatform.Controllers
     {
         private JudgesDAL judgeContext = new JudgesDAL();
         private AreaInterestDAL areaContext = new AreaInterestDAL();
+        private CompetitorDAL competitorContext = new CompetitorDAL();
 
         private readonly ILogger<HomeController> _logger;
 
@@ -72,7 +73,14 @@ namespace T03_CompetitionPlatform.Controllers
 
                 // Redirect user to the "AdminMain" view through an action
                 return RedirectToAction("AdminMain", "Admin");
+            }
+            else
+            {
+                // Store an error message in TempData for display at the index view
+                TempData["Message"] = "Invalid Login Credentials!";
 
+                // Redirect user back to the index view through an action
+                return RedirectToAction("Index");
             }
             List<Judge> judgeList = judgeContext.GetAllJudges();
             foreach (var item in judgeList)
@@ -90,31 +98,30 @@ namespace T03_CompetitionPlatform.Controllers
                 }
 
             };
-            
-            if (loginID == "pg1@hotmail.com" && password == "p@55PG")
+            List<Competitor> competitorList = competitorContext.GetAllCompetitors();
+            foreach (var item in competitorList)
             {
-                //Store login ID in session with the key "LoginID"
-                HttpContext.Session.SetString("LoginID", loginID);
+                if (loginID == item.EmailAddr && password == item.Password)
+                {
+                    //Store login ID in session with the key "LoginID"
+                    HttpContext.Session.SetString("LoginID", loginID);
 
-                //Store user role "Judge" as a string in session with the key "Role"
-                HttpContext.Session.SetString("Role", "Competitor");
+                    //Store login ID in session with the key "CompetitorID"
+                    HttpContext.Session.SetInt32("CompetitorID", item.CompetitorID);
 
-                // Redirect user to the "Index" view through an action
-                return RedirectToAction("Index", "Competitor");
-            }
-            else
-            {
-                // Store an error message in TempData for display at the index view
-                TempData["Message"] = "Invalid Login Credentials!";
+                    //Store user role "Judge" as a string in session with the key "Role"
+                    HttpContext.Session.SetString("Role", "Competitor");
 
+                    // Redirect user to the "Index" view through an action
+                    return RedirectToAction("Index", "Competitor");
+                }
 
-                // Redirect user back to the index view through an action
-                return RedirectToAction("Index");
-            }
+            };
         }
 
         public ActionResult GuestLogin()
         {
+            HttpContext.Session.SetInt32("Voted", 0);
             return RedirectToAction("Index", "Guest");
         }
 

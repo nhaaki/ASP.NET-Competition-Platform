@@ -6,6 +6,10 @@
 
 <h4 class="PageTitle">View Competitions</h4>
 
+<partial name="~/Views/Competitor/_CompetitorNavBar.cshtml"/>
+
 <!-- Add a partial view to display a list of competition records
  in a tabular format. -->
-<partial name="~/Views/Competitor/_ViewCompetitions.cshtml" model="@Model" />
+<div class="mb-3">
+    <partial name="~/Views/Competitor/_ViewCompetitions.cshtml" model="@Model" />
+</div>

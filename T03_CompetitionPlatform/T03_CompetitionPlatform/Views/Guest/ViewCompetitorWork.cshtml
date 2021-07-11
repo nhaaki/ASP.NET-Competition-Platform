@@ -1,10 +1,13 @@
 ﻿@model T03_CompetitionPlatform.Models.CompSubmissionViewModel
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
 
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
+
 
 <html>
 <head>
@@ -43,7 +46,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="~/Guest/ViewCompetitors/@Model.CompetitionID"
+                    <a class="nav-link" asp-action="ViewCompetitors" asp-route-id="@Model.CompetitionID" asp-route-name="@Model.CompetitionName"
                        style="font-size: 20px;color: white;">
                         Go back
                     </a>
@@ -74,28 +77,77 @@
                 {
                     <img src="~/images/missingfile.png" height="500px" width="100%">
                 }
-            <div class="card-body">
-                <p class="card-text">Competitor name: @Model.Salutation @Model.CompetitorName</p>
-                @if (Model.DateTimeFileUpload != null)
-                {
-                    <p class="card-text">Upload date: @Model.DateTimeFileUpload</p>
-                }
-                else
-                {
-                    <p class="card-text">Upload date: NIL</p>
-                }
-                @if (Model.FileSubmitted != null && Model.DateTimeFileUpload != null)
-                {
-            <input type="button" value="Vote" onclick="location.href='@Url.Action("ConfirmVote", "Guest")?=' + $('#Id_Of_Textbox').val()" />
-                }
+                <div class="card-body">
+                    <p class="card-text">Competitor name: @Model.Salutation @Model.CompetitorName</p>
+                    @if (Model.DateTimeFileUpload != null)
+                    {
+                        <p class="card-text">Upload date: @Model.DateTimeFileUpload</p>
+                    }
+                    else
+                    {
+                        <p class="card-text">Upload date: NIL</p>
+                    }
+                    @if (Model.FileSubmitted != null && Model.DateTimeFileUpload != null)
+                    {
 
-                else
-                {
-                <button type="button" class="btn btn-lg btn-block btn-success" disabled>Vote</button>
-                }
-</div>
+
+                        <form asp-action="addVote" method="post">
+                            <div class="form-group">
+                                <input asp-for="CompetitionName" value="@Model.CompetitionName" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="CompetitorName" value="@Model.CompetitorName" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Salutation" value="@Model.Salutation" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="CompetitionID" value="@Model.CompetitionID" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="CompetitorID" value="@Model.CompetitorID" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="FileSubmitted" value="@Model.FileSubmitted" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="DateTimeFileUpload" value="@Model.DateTimeFileUpload" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Appeal" value="@Model.Appeal" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="VoteCount" value="@Model.VoteCount" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Ranking" value="@Model.Ranking" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="CommentID" value="@Model.CommentID" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Description" value="@Model.Description" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="DateTimePosted" value="@Model.DateTimePosted" type="hidden" />
+                            </div>
+
+
+                            <div class="form-group">
+                                <input type="submit" value="Vote" class="btn btn-lg btn-block btn-success" />
+                            </div>
+                        </form>
+                    }
+
+                    else
+                    {
+                        <button type="button" class="btn btn-lg btn-block btn-success" disabled>Vote</button>
+                    }
+                </div>
             </div>
         </div>
     </div>
+
+
 </body>
 </html>
