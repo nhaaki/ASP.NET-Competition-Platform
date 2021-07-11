@@ -74,6 +74,20 @@ namespace T03_CompetitionPlatform.Controllers
                 // Redirect user to the "AdminMain" view through an action
                 return RedirectToAction("AdminMain", "Admin");
             }
+            else if (loginID == "pg1@hotmail.com" && password == "p@55PG")
+            {
+                //Store login ID in session with the key "LoginID"
+                HttpContext.Session.SetString("LoginID", loginID);
+
+                //Store user role "Admin" as a string in session with the key "Role"
+                HttpContext.Session.SetString("Role", "Competitor");
+
+                //Store competitorID for future use
+                HttpContext.Session.SetInt32("CompetitorID", 1);
+
+                // Redirect user to the "AdminMain" view through an action
+                return RedirectToAction("Index", "Competitor");
+            }
             else
             {
                 // Store an error message in TempData for display at the index view
@@ -98,25 +112,25 @@ namespace T03_CompetitionPlatform.Controllers
                 }
 
             };
-            List<Competitor> competitorList = competitorContext.GetAllCompetitors();
-            foreach (var item in competitorList)
-            {
-                if (loginID == item.EmailAddr && password == item.Password)
-                {
-                    //Store login ID in session with the key "LoginID"
-                    HttpContext.Session.SetString("LoginID", loginID);
+            //List<Competitor> competitorList = competitorContext.GetAllCompetitors();
+            //foreach (var item in competitorList)
+            //{
+            //    if (loginID == item.EmailAddr && password == item.Password)
+            //    {
+            //        //Store login ID in session with the key "LoginID"
+            //        HttpContext.Session.SetString("LoginID", loginID);
 
-                    //Store login ID in session with the key "CompetitorID"
-                    HttpContext.Session.SetInt32("CompetitorID", item.CompetitorID);
+            //        //Store login ID in session with the key "CompetitorID"
+            //        HttpContext.Session.SetInt32("CompetitorID", item.CompetitorID);
 
-                    //Store user role "Judge" as a string in session with the key "Role"
-                    HttpContext.Session.SetString("Role", "Competitor");
+            //        //Store user role "Judge" as a string in session with the key "Role"
+            //        HttpContext.Session.SetString("Role", "Competitor");
 
-                    // Redirect user to the "Index" view through an action
-                    return RedirectToAction("Index", "Competitor");
-                }
+            //        // Redirect user to the "Index" view through an action
+            //        return RedirectToAction("Index", "Competitor");
+            //    }
 
-            };
+            //};
         }
 
         public ActionResult GuestLogin()

@@ -160,7 +160,7 @@ namespace T03_CompetitionPlatform.DAL
             return itExists;
         }
 
-        public int JoinCompetition(CompetitionSubmission comptSub)
+        public void JoinCompetition(CompetitionSubmission comptSub)
         {
             SqlCommand cmd = conn.CreateCommand();
 
@@ -169,15 +169,15 @@ namespace T03_CompetitionPlatform.DAL
 
             cmd.Parameters.AddWithValue("@competitionID", comptSub.CompetitionID);
             cmd.Parameters.AddWithValue("@competitorID", comptSub.CompetitorID);
-            cmd.Parameters.AddWithValue("@voteCount", 0);
+            cmd.Parameters.AddWithValue("@voteCount", comptSub.VoteCount);
 
             // Open connection to database
             conn.Open();
 
+            cmd.ExecuteNonQuery();
+
             // Close connection to database
             conn.Close();
-
-            return comptSub.CompetitorID;
         }
     }
 }
