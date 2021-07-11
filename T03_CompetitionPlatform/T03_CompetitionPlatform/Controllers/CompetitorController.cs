@@ -68,11 +68,18 @@ namespace T03_CompetitionPlatform.Controllers
         [HttpGet]
         public ActionResult JoinCompetition(CompetitionSubmission comptSub)
         {
+            ViewData["SalutationList"] = GetSalutations();
+
             if (ModelState.IsValid)
             {
-                comptSub.CompetitorID = (int)TempData.Peek("CompetitorID");
+                // Hard code ID for now
+                comptSub.CompetitorID = 1;
+                comptSub.CompetitionID = 1;
+                comptSub.VoteCount = 0;
+
                 // Add to database
-                comptSub.CompetitorID = competitionSubmissionContext.JoinCompetition(comptSub);
+                competitionSubmissionContext.JoinCompetition(comptSub);
+
                 // Redirect to list view
                 return View("Index");
             }
