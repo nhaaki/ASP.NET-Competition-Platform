@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -107,6 +108,7 @@ namespace T03_CompetitionPlatform.Controllers
         {
             ViewData["CompName"] = csvm.CompetitionName;
             competitionSubmissionContext.AddVote(csvm.CompetitorID, csvm.CompetitionID);
+            HttpContext.Session.SetInt32("Voted", 1);
             return RedirectToAction("ViewCompetitors", new { id = csvm.CompetitionID });
         }
 

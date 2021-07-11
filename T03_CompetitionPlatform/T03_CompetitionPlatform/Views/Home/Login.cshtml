@@ -79,11 +79,12 @@
         </div>
         <div class="row justify-content-md-center">
             <div class="col-md-auto">
-                <form method="post" action="~/Home/cjpLogin">
-                    <fieldset class="loginFieldset" style="        border: 2px;
+                <fieldset class="loginFieldset" style="        border: 2px;
         border-style: solid;
         border-color: black;
         padding: 8em 8em 8em 8em;">
+                    <form method="post" action="~/Home/cjpLogin">
+
 
                         <label for="txtLoginID">Email</label>
                         <input type="email" name="txtLoginID"
@@ -95,14 +96,18 @@
                         <br />
                         <input type="submit" id="btnStaffLogin"
                                class="myButton" value="Login" style="align-content:center; align-items:center;
-                                justify-content:center;"/>
+                                justify-content:center;" />
                         <br />
                         <br />
                         <p>Don't have an account? <a asp-action="redirectRegister">Sign up</a></p>
-                        <a asp-action="GuestLogin">Continue as guest</a>
+
                         <span style="color:red;">@TempData["Message"]</span>
-                    </fieldset>
-                </form>
+                    </form>
+                    <form asp-action="GuestLogin" style="text-align:center; align-content:center; align-items:center;">
+                        <button type="submit" class="btn btn-primary">Continue as guest</button>
+                    </form>
+                </fieldset>
+                
             </div>
         </div>
     </div>
