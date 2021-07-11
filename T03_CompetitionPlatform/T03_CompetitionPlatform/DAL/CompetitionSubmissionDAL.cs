@@ -159,5 +159,25 @@ namespace T03_CompetitionPlatform.DAL
 
             return itExists;
         }
+
+        public int JoinCompetition(CompetitionSubmission comptSub)
+        {
+            SqlCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"INSERT INTO Competitor (CompetitionID, CompetitorID, VoteCount) 
+            VALUES(@competitionID, @competitorID, @voteCount)";
+
+            cmd.Parameters.AddWithValue("@competitionID", comptSub.CompetitionID);
+            cmd.Parameters.AddWithValue("@competitorID", comptSub.CompetitorID);
+            cmd.Parameters.AddWithValue("@voteCount", 0);
+
+            // Open connection to database
+            conn.Open();
+
+            // Close connection to database
+            conn.Close();
+
+            return comptSub.CompetitorID;
+        }
     }
 }

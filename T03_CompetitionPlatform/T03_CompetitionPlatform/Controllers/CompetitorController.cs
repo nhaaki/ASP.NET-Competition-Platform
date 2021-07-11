@@ -15,6 +15,7 @@ namespace T03_CompetitionPlatform.Controllers
     {
         private CompetitionDAL competitionContext = new CompetitionDAL();
         private CompetitorDAL competitorContext = new CompetitorDAL();
+        private CompetitionSubmissionDAL competitionSubmissionContext = new CompetitionSubmissionDAL();
 
         public IActionResult Index()
         {
@@ -62,6 +63,23 @@ namespace T03_CompetitionPlatform.Controllers
                 return View(compt);
             }
         }
-        
+
+        // POST: Competitor/JoinCompetition
+        [HttpGet]
+        public ActionResult JoinCompetition(CompetitionSubmission comptSub)
+        {
+            if (ModelState.IsValid)
+            {
+                comptSub.CompetitorID = (int)TempData.Peek("CompetitorID");
+                // Add to database
+                comptSub.CompetitorID = competitionSubmissionContext.JoinCompetition(comptSub);
+                // Redirect to list view
+                return View("Index");
+            }
+            else
+            {
+                return View("CompetitorRegister");
+            }
+        }
     }
 }

@@ -128,5 +128,38 @@ namespace T03_CompetitionPlatform.DAL
 
             return compt.CompetitorID;
         }
+
+        public Competitor GetDetails(int competitorID)
+        {
+            Competitor compt = new Competitor();
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"SELECT * FROM Competitor
+                    WHERE CompetitorID = @selectedCompetitorID";
+
+            cmd.Parameters.AddWithValue("@selectedCompetitionID", competitorID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    // Fill staff object with values from the data reader
+                    compt.CompetitorID = competitorID;
+                }
+            }
+            //Close data reader
+            reader.Close();
+            //Close database connection
+            conn.Close();
+            return compt;
+        }
+
     }
 }

@@ -46,9 +46,11 @@
                 @Html.DisplayFor(modelItem => item.ResultReleasedDate)
             </td>
             <td>
-                @Html.ActionLink("Join", "Join", new { })
+                <a asp-action="JoinCompetition" asp-controller="Competitor"
+                   asp-route-id="@item.CompetitionID">Join</a>
             </td>
         </tr>
+
 }
     </tbody>
 </table>
