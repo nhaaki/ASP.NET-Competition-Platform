@@ -69,23 +69,32 @@ namespace T03_CompetitionPlatform.Controllers
         public ActionResult JoinCompetition(CompetitionSubmission comptSub)
         {
             ViewData["SalutationList"] = GetSalutations();
+            //comptSub.CompetitorID = (int)HttpContext.Session.GetInt32("CompetitorID");
+
+            // Unable to pull selected competition ID and current competitor ID from
+            // eg. Competitor/JoinCompetition/1.
+
+            // Hard code ID for now ****
+            comptSub.CompetitorID = 3;
+            comptSub.CompetitionID = 1;
+            comptSub.VoteCount = 0;
 
             if (ModelState.IsValid)
             {
-                // Hard code ID for now
-                comptSub.CompetitorID = 1;
-                comptSub.CompetitionID = 1;
-                comptSub.VoteCount = 0;
+                // Successful addition to database, however there is no message to show that it succeeded
+                // or that the user cannot see if he has already joined the competition nor if he can
+                // join due to the date.
 
                 // Add to database
                 competitionSubmissionContext.JoinCompetition(comptSub);
 
                 // Redirect to list view
-                return View("Index");
+                return RedirectToAction("Index");
             }
             else
             {
-                return View("CompetitorRegister");
+                // Redirect to list view
+                return RedirectToAction("Index");
             }
         }
     }
