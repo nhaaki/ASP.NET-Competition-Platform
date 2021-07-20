@@ -65,6 +65,8 @@ namespace T03_CompetitionPlatform.Controllers
             string loginID = formData["txtLoginID"].ToString().ToLower();
             string password = formData["txtPassword"].ToString();
             List<Judge> judgeList = judgeContext.GetAllJudges();
+            List<Competitor> competitorList = competitorContext.GetAllCompetitors();
+
             foreach (var item in judgeList)
             {
                 if (loginID == item.EmailAddr.ToLower() && password == item.Password)
@@ -79,6 +81,27 @@ namespace T03_CompetitionPlatform.Controllers
 
                     // Redirect user to the "Index" view through an action
                     return RedirectToAction("Index", "Judge");
+                }
+                else
+                {
+                    foreach (var item2 in competitorList)
+                    {
+                        if (loginID == item2.EmailAddr.ToLower() && password == item2.Password)
+                        {
+                            //Store login ID in session with the key "LoginID"
+                            HttpContext.Session.SetString("LoginID", loginID);
+
+                            //Store login ID in session with the key "CompetitorID"
+                            HttpContext.Session.SetInt32("CompetitorID", item2.CompetitorID);
+
+                            //Store user role "Judge" as a string in session with the key "Role"
+                            HttpContext.Session.SetString("Role", "Competitor");
+
+                            // Redirect user to the "Index" view through an action
+                            return RedirectToAction("Index", "Competitor");
+                        }
+
+                    };
                 }
 
             };
@@ -101,27 +124,6 @@ namespace T03_CompetitionPlatform.Controllers
                 // Redirect user back to the index view through an action
                 return RedirectToAction("Index");
             }
-            
-            
-            List<Competitor> competitorList = competitorContext.GetAllCompetitors();
-            foreach (var item in competitorList)
-            {
-                if (loginID == item.EmailAddr && password == item.Password)
-                {
-                    //Store login ID in session with the key "LoginID"
-                    HttpContext.Session.SetString("LoginID", loginID);
-
-                    //Store login ID in session with the key "CompetitorID"
-                    HttpContext.Session.SetInt32("CompetitorID", item.CompetitorID);
-
-                    //Store user role "Judge" as a string in session with the key "Role"
-                    HttpContext.Session.SetString("Role", "Competitor");
-
-                    // Redirect user to the "Index" view through an action
-                    return RedirectToAction("Index", "Competitor");
-                }
-
-            };
         }
 
         [HttpPost]
@@ -148,6 +150,12 @@ namespace T03_CompetitionPlatform.Controllers
             HttpContext.Session.Clear();
 
             //Call the index action of Home Controller 
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult competitorLogout()
+        {
+            HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
 
