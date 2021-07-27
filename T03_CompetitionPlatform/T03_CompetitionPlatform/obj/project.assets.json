@@ -6486,19 +6486,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Drake\\.nuget\\packages\\": {}
+    "C:\\Users\\Boon Halpert\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Drake\\Desktop\\School\\Web\\week15probably\\pulled27july\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+      "projectUniqueName": "F:\\1) Ngee Ann Poly\\Year 2 Sem 1\\Web Application Development\\Assignment Repo\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
       "projectName": "T03_CompetitionPlatform",
-      "projectPath": "C:\\Users\\Drake\\Desktop\\School\\Web\\week15probably\\pulled27july\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
-      "packagesPath": "C:\\Users\\Drake\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Drake\\Desktop\\School\\Web\\week15probably\\pulled27july\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
+      "projectPath": "F:\\1) Ngee Ann Poly\\Year 2 Sem 1\\Web Application Development\\Assignment Repo\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+      "packagesPath": "C:\\Users\\Boon Halpert\\.nuget\\packages\\",
+      "outputPath": "F:\\1) Ngee Ann Poly\\Year 2 Sem 1\\Web Application Development\\Assignment Repo\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Drake\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Boon Halpert\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

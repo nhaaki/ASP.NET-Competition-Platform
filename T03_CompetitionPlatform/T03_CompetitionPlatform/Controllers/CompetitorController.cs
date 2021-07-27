@@ -63,7 +63,7 @@ namespace T03_CompetitionPlatform.Controllers
                 return View(compt);
             }
         }
-
+  
         // POST: Competitor/JoinCompetition
         [HttpGet]
         public ActionResult JoinCompetition(CompetitionSubmission comptSub)

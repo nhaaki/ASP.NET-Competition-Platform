@@ -102,6 +102,38 @@ namespace T03_CompetitionPlatform.DAL
             return itExists;
         }
 
+        public bool IsEmailExist(string email)
+        {
+            bool emailFound = false;
+
+            SqlCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"SELECT EmailAddr FROM Competitor 
+                                WHERE EmailAddr=@selectedEmail";
+            cmd.Parameters.AddWithValue("@selectedEmail", email);
+
+            //Open a database connection
+            conn.Open();
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            { //Records found
+                while (reader.Read())
+                {
+                    if (reader.GetString(0) == email)
+                        emailFound = true;
+                }
+            }
+            else
+            { 
+                emailFound = false;
+            }
+            reader.Close();
+            conn.Close();
+
+            return emailFound;
+        }
+
         public int CompetitorRegister(Competitor compt)
         {
             //TEST CODE
