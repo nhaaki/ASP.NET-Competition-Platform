@@ -74,6 +74,7 @@ namespace T03_CompetitionPlatform.Controllers
                 //Store user role "Admin" as a string in session with the key "Role"
                 HttpContext.Session.SetString("Role", "Admin");
 
+
                 // Redirect user to the "AdminMain" view through an action
                 return RedirectToAction("AdminMain", "Admin");
             }
@@ -91,6 +92,8 @@ namespace T03_CompetitionPlatform.Controllers
 
                         //Store user role "Judge" as a string in session with the key "Role"
                         HttpContext.Session.SetString("Role", "Judge");
+
+                       
 
                         // Redirect user to the "Index" view through an action
                         return RedirectToAction("Index", "Judge");
@@ -125,7 +128,13 @@ namespace T03_CompetitionPlatform.Controllers
         [HttpPost]
         public ActionResult GuestLogin()
         {
+            //Store voted boolean value in session with the key "Voted"
             HttpContext.Session.SetInt32("Voted", 0);
+
+            //Store user role "Guest" in session with the key "Role"
+            HttpContext.Session.SetString("Role", "Guest");
+
+            // Redirect user to the "Index" view through an action
             return RedirectToAction("Index", "Guest");
         }
 

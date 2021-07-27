@@ -23,7 +23,18 @@
     <title>ViewCompetitors</title>
 </head>
 <body>
-    <partial name="~/Views/Guest/_GuestNavbar.cshtml" />
+    @if (Context.Session.GetString("Role") == "Guest")
+    {
+        <partial name="~/Views/Guest/_GuestNavbar.cshtml" />
+    }
+    else if (Context.Session.GetString("Role") == "Admin")
+    {
+        <partial name="~/Views/Admin/_AdminNav.cshtml" />
+    }
+    else if (Context.Session.GetString("Role") == "Judge")
+    {
+        <partial name="~/Views/Judge/_JudgeNav.cshtml" />
+    }
 
     <h1 style="text-align:center; padding-top:30px;">@ViewData["CompName"]</h1>
     <h5 style="text-align: center; padding-top:30px;">View submissions</h5>

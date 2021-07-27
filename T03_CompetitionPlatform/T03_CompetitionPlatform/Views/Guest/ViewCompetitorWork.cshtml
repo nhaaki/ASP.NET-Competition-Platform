@@ -25,51 +25,24 @@
 
 
 <body style="padding:70px;">
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-        <!-- The brand(or icon) of the navbar -->
-        <a class="navbar-brand"
-           style="font-size:32px; font-weight:bold; color:darkorange;">
-            CJP
-        </a>
-        <!-- Toggle/collapsible Button, also known as hamburger button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#guestNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Links in the navbar, displayed as drop-down list when collapsed -->
-        <div class="collapse navbar-collapse" id="guestNavbar">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="~/Guest"
-                       style="font-size: 20px;color: white;">
-                        Home
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-action="ViewCompetitors" asp-route-id="@Model.CompetitionID" asp-route-name="@Model.CompetitionName"
-                       style="font-size: 20px;color: white;">
-                        Go back
-                    </a>
-                </li>
-            </ul>
+    @if (Context.Session.GetString("Role") == "Guest")
+    {
+        <partial name="~/Views/Guest/_GuestNavbar.cshtml" />
+    }
+    else if (Context.Session.GetString("Role") == "Admin")
+    {
+        <partial name="~/Views/Admin/_AdminNav.cshtml" />
+    }
+    else if (Context.Session.GetString("Role") == "Judge")
+    {
+        <partial name="~/Views/Judge/_JudgeNav.cshtml" />
+    }
 
-            <ul class="navbar-nav ml-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link" href="~/Home/guestLogout"
-                       style="font-size: 20px;color: white;">
-                        Log Out
-                    </a>
-                </li>
-
-            </ul>
-        </div>
-    </nav>
     <h3 style="text-align:center; padding-top:50px; padding-bottom:50px;">@Model.CompetitionName</h3>
     <div class="container">
         <div class="row flex-nowrap justify-content-between align-items-center">
             <div class="card mx-auto w-50">
-                
+
                 @if (Model.FileSubmitted != null)
                 {
                     <embed src="~/images/@Model.FileSubmitted" type="application/pdf" height="500px">
@@ -78,78 +51,78 @@
                 {
                     <img src="~/images/missingfile.png" height="500px" width="100%">
                 }
-            <div class="card-body">
-                <p class="card-text">Competitor name: @Model.Salutation @Model.CompetitorName</p>
-                @if (Model.DateTimeFileUpload != null)
-                {
-                    <p class="card-text">Upload date: @Model.DateTimeFileUpload</p>
-                }
-                else
-                {
-                    <p class="card-text">Upload date: NIL</p>
-                }
-                @if (Model.FileSubmitted != null && Model.DateTimeFileUpload != null && Context.Session.GetInt32("Voted")==0)
-                {
+                <div class="card-body">
+                    <p class="card-text">Competitor name: @Model.Salutation @Model.CompetitorName</p>
+                    @if (Model.DateTimeFileUpload != null)
+                    {
+                        <p class="card-text">Upload date: @Model.DateTimeFileUpload</p>
+                    }
+                    else
+                    {
+                        <p class="card-text">Upload date: NIL</p>
+                    }
+                    @if (Model.FileSubmitted != null && Model.DateTimeFileUpload != null && Context.Session.GetInt32("Voted") == 0)
+                    {
 
 
-                    <form asp-action="addVote" method="post">
-                        <div class="form-group">
-                            <input asp-for="CompetitionName" value="@Model.CompetitionName" type="hidden" />
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="CompetitorName" value="@Model.CompetitorName" type="hidden" />
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="Salutation" value="@Model.Salutation" type="hidden" />
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="CompetitionID" value="@Model.CompetitionID" type="hidden" />
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="CompetitorID" value="@Model.CompetitorID" type="hidden" />
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="FileSubmitted" value="@Model.FileSubmitted" type="hidden" />
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="DateTimeFileUpload" value="@Model.DateTimeFileUpload" type="hidden" />
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="Appeal" value="@Model.Appeal" type="hidden" />
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="VoteCount" value="@Model.VoteCount" type="hidden" />
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="Ranking" value="@Model.Ranking" type="hidden" />
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="CommentID" value="@Model.CommentID" type="hidden" />
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="Description" value="@Model.Description" type="hidden" />
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="DateTimePosted" value="@Model.DateTimePosted" type="hidden" />
-                        </div>
+                        <form asp-action="addVote" method="post">
+                            <div class="form-group">
+                                <input asp-for="CompetitionName" value="@Model.CompetitionName" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="CompetitorName" value="@Model.CompetitorName" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Salutation" value="@Model.Salutation" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="CompetitionID" value="@Model.CompetitionID" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="CompetitorID" value="@Model.CompetitorID" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="FileSubmitted" value="@Model.FileSubmitted" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="DateTimeFileUpload" value="@Model.DateTimeFileUpload" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Appeal" value="@Model.Appeal" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="VoteCount" value="@Model.VoteCount" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Ranking" value="@Model.Ranking" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="CommentID" value="@Model.CommentID" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Description" value="@Model.Description" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="DateTimePosted" value="@Model.DateTimePosted" type="hidden" />
+                            </div>
 
 
-                        <div class="form-group">
-                            <input type="submit" value="Vote" class="btn btn-lg btn-block btn-success" />
-                        </div>
-                    </form>
-                }
+                            <div class="form-group">
+                                <input type="submit" value="Vote" class="btn btn-lg btn-block btn-success" />
+                            </div>
+                        </form>
+                    }
 
-                else if (Model.FileSubmitted == null && Model.DateTimeFileUpload == null)
-                {
-                    <button type="button" class="btn btn-lg btn-block btn-success" disabled>Vote</button>
-                }
-                else if (Context.Session.GetInt32("Voted") == 1)
-                {
-                    <button type="button" class="btn btn-lg btn-block btn-success" disabled>You have already voted!</button>
-                }
+                    else if (Model.FileSubmitted == null && Model.DateTimeFileUpload == null)
+                    {
+                        <button type="button" class="btn btn-lg btn-block btn-success" disabled>Vote</button>
+                    }
+                    else if (Context.Session.GetInt32("Voted") == 1)
+                    {
+                        <button type="button" class="btn btn-lg btn-block btn-success" disabled>You have already voted!</button>
+                    }
 
-            </div>
+                </div>
             </div>
         </div>
     </div>
