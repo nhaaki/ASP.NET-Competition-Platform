@@ -17,6 +17,8 @@ namespace T03_CompetitionPlatform.Controllers
         private CompetitorDAL competitorContext = new CompetitorDAL();
         private CompetitionSubmissionDAL competitorSubmissionContext = new CompetitionSubmissionDAL();
         private CriteriaDAL criteriaContext = new CriteriaDAL();
+        private CompetitionJudgeDAL compjudgeContext = new CompetitionJudgeDAL();
+        private CompetitionSubmissionDAL compsubcontext = new CompetitionSubmissionDAL();
 
 
 
@@ -28,8 +30,42 @@ namespace T03_CompetitionPlatform.Controllers
 
             List<Competition> compList = competitionContext.GetAllCompetitions();
 
-            if()
-            return View(compList);
+            List<CompetitionJudge> compjudgelist = compjudgeContext.GetAllCompetitionJudge();
+
+            string loggedin = (string) TempData.Peek("Loggedin");
+
+            Judge userlogged = judgeContext.Getlogin(loggedin);
+
+            List<int> compinvolvedID = new List<int>();
+
+
+
+            for (int i = 0; i < compjudgelist.Count; i++)
+            {
+                if(compjudgelist[i].JudgeID == userlogged.JudgeID)
+                {
+                    compinvolvedID.Add(compjudgelist[i].CompetitionID);
+                }
+            }
+
+            List<Competition> compinvolvedList = new List<Competition>();
+
+
+            for (int j = 0; j < compList.Count; j++)
+            {
+                for (int i = 0; i < compinvolvedID.Count; i++)
+                {
+                    if (compList[j].CompetitionID == compinvolvedID[i])
+                    {
+                        compinvolvedList.Add(compList[j]);
+                    }
+
+                }
+            }
+
+
+
+            return View(compinvolvedList);
         }
 
 
@@ -204,10 +240,67 @@ namespace T03_CompetitionPlatform.Controllers
             return RedirectToAction("ViewCriteria");
         }
 
-        // GET: JudgeController/ViewSubmissions
-        public ActionResult ViewSubmissions(int? id)
+
+        public ActionResult ViewSubmission()
         {
 
+            int id = (int)TempData.Peek("CompID");
+            // Stop accessing the action if not logged in
+            // or account not in the "Staff" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            CompetitionSubViewModel compVM = new CompetitionSubViewModel();
+            compVM.compList = competitionContext.GetAllCompetitions();
+            // Check if BranchNo (id) presents in the query string
+            
+            
+             ViewData["selectedCompNo"] = id;
+             // Get list of staff working in the branch
+             compVM.subList = competitionContext.GetCompSub(id);
+            
+            
+            return View(compVM);
         }
+
+        public ActionResult GradeSubmission(int? id)
+        {
+            // Stop accessing the action if not logged in
+            // or account not in the "Staff" role
+            CompetitionViewModel compVM = new CompetitionViewModel();
+            compVM.compList = competitionContext.GetAllCompetitions();
+
+            if (id != null)
+            {
+                TempData["CompID"] = id.Value;
+                Competition competition = competitionContext.GetDetails(id.Value);
+                ViewData["CompName"] = competition.CompetitionName;
+
+
+
+
+                ViewData["selectedCompID"] = id.Value;
+                // Get list of staff working in the branch
+                compVM.criteriaList = competitionContext.GetCompCriteria(id.Value);
+            }
+            else
+            {
+                int newid = (int)TempData.Peek("CompID");
+                Competition competition = competitionContext.GetDetails(newid);
+                ViewData["CompName"] = competition.CompetitionName;
+
+
+                ViewData["selectedCompID"] = newid;
+                // Get list of staff working in the branch
+                compVM.criteriaList = competitionContext.GetCompCriteria(newid);
+            };
+
+
+            return View(compVM);
+        }
+
+
     }
 }

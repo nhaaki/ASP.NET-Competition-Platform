@@ -93,6 +93,8 @@ namespace T03_CompetitionPlatform.Controllers
                         //Store user role "Judge" as a string in session with the key "Role"
                         HttpContext.Session.SetString("Role", "Judge");
 
+                        TempData["Loggedin"] = item.EmailAddr;
+
                        
 
                         // Redirect user to the "Index" view through an action

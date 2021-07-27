@@ -1,0 +1,125 @@
+﻿@model T03_CompetitionPlatform.Models.CompetitionSubViewModel
+
+@{
+    ViewData["Title"] = "ViewSubmissions";
+}
+
+<partial name="~/Views/Judge/_JudgeNav.cshtml" model="@Model" />
+
+<h1>ViewSubmissions</h1>
+
+@if (Model.subList.Count > 0)
+{
+    <h4 class="PageTitle">View Branch</h4>
+
+    <div class="table-responsive">
+        <table id="viewBranch" class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>CompetitionID</th>
+                    <th>CompetitiorID</th>
+                    <th>VoteCount</th>
+                    <th>Appeal</th>
+                    <th>Ranking</th>
+                    <th>DateTimeFileUpload</th>
+                    <th>FileSubmitted</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.subList)
+                {
+
+                <tr>
+                    <td>@item.CompetitionID.ToString()</td>
+                    <td>@item.CompetitorID.ToString()</td>
+                    <td>@item.VoteCount</td>
+
+                    @if (item.Appeal == null)
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@item.Appeal</td>
+                    }
+
+
+
+
+                    @if (item.Ranking == null)
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@item.Ranking</td>
+                    }
+
+
+                    @if (item.DateTimeFileUpload == null)
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@item.DateTimeFileUpload</td>
+                    }
+
+                    @if (item.FileSubmitted == null)
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        string imageFileName = item.FileSubmitted + ".jpg";
+                        <td>
+                            <img src="~/images/@imageFileName"
+                                 style="width:50px" />
+                        </td>
+
+
+                    }
+
+                    @foreach (var comp in Model.compList)
+                    {
+                        @if (comp.EndDate < DateTime.Now && comp.CompetitionID == (int) ViewData["selectedCompNo"])
+                        {
+                            <td>
+                                <a asp-action="GradeSubmission" asp-controller="Judge"
+                                   asp-route-id="@item.CompetitorID">Edit</a>
+                            </td>
+                        }
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <span style="color:red">No record found!</span>
+}
+
+
+
+
+
+

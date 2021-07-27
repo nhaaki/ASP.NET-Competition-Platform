@@ -68,7 +68,7 @@ namespace T03_CompetitionPlatform.DAL
             return competitionSubmissionList;
         }
 
-        public CompetitionSubmission GetDetails(int competitionID)
+        public CompetitionSubmission GetDetails(int competitiorID)
         {
             CompetitionSubmission competitionSubmission = new CompetitionSubmission();
             //Create a SqlCommand object from connection object
@@ -76,10 +76,10 @@ namespace T03_CompetitionPlatform.DAL
             //Specify the SELECT SQL statement that
             //retrieves all attributes of a staff record.
             cmd.CommandText = @"SELECT * FROM CompetitionSubmission
-                    WHERE CompetitionID = @selectedCompetitionID";
+                    WHERE CompetitorID = @selectedCompetitiorID";
             //Define the parameter used in SQL statement, value for the
             //parameter is retrieved from the method parameter “areainterestId”.
-            cmd.Parameters.AddWithValue("@selectedCompetitionID", competitionID);
+            cmd.Parameters.AddWithValue("@selectedCompetitiorID", competitiorID);
             //Open a database connection
             conn.Open();
             //Execute SELCT SQL through a DataReader
@@ -89,10 +89,13 @@ namespace T03_CompetitionPlatform.DAL
                 //Read the record from database
                 while (reader.Read())
                 {
-                    // Fill staff object with values from the data reader
-                    competitionSubmission.CompetitionID = competitionID;
+                    competitionSubmission.CompetitionID = reader.GetInt32(0);
                     competitionSubmission.CompetitorID = reader.GetInt32(1);
-                    // (char) 0 - ASCII Code 0 - null value
+                    competitionSubmission.FileSubmitted = !reader.IsDBNull(2) ? reader.GetString(2) : null;
+                    competitionSubmission.DateTimeFileUpload = !reader.IsDBNull(3) ? reader.GetDateTime(3) : (DateTime?)null;
+                    competitionSubmission.Appeal = !reader.IsDBNull(4) ? reader.GetString(4) : null;
+                    competitionSubmission.VoteCount = reader.GetInt32(5);
+                    competitionSubmission.Ranking = !reader.IsDBNull(6) ? reader.GetInt32(6) : (int?)null;
                 }
             }
             //Close data reader

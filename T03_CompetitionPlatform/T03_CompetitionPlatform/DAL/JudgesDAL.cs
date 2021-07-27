@@ -70,7 +70,7 @@ namespace T03_CompetitionPlatform.DAL
             //Specify the SELECT SQL statement that
             //retrieves all attributes of a staff record.
             cmd.CommandText = @"SELECT * FROM Judge
-                    WHERE JudgeID = @selectedJudgeEmail";
+                    WHERE EmailAddr = @selectedJudgeEmail";
             //Define the parameter used in SQL statement, value for the
             //parameter is retrieved from the method parameter “areainterestId”.
             cmd.Parameters.AddWithValue("@selectedJudgeEmail", email);
@@ -208,5 +208,7 @@ namespace T03_CompetitionPlatform.DAL
             //Return id when no error occurs.
             return judge.JudgeID;
         }
+
+        
     }
 }

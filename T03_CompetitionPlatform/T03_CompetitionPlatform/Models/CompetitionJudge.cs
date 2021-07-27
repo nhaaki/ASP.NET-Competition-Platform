@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 
 namespace T03_CompetitionPlatform.Models
 {
-    public class JudgeViewmodel
+    public class CompetitionJudge
     {
+
+        public int CompetitionID { get; set; }
+
+        public int JudgeID { get; set; }
     }
 }
