@@ -208,6 +208,16 @@ namespace T03_CompetitionPlatform.Controllers
             }
         }
 
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
+
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
+
         private List<AreaInterest> GetAllAOI()
         {
             
