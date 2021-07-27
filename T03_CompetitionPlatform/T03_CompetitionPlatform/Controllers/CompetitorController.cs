@@ -69,14 +69,8 @@ namespace T03_CompetitionPlatform.Controllers
         public ActionResult JoinCompetition(CompetitionSubmission comptSub)
         {
             ViewData["SalutationList"] = GetSalutations();
-            //comptSub.CompetitorID = (int)HttpContext.Session.GetInt32("CompetitorID");
-
-            // Unable to pull selected competition ID and current competitor ID from
-            // eg. Competitor/JoinCompetition/1.
-
-            // Hard code ID for now ****
-            comptSub.CompetitorID = 3;
-            comptSub.CompetitionID = 1;
+            comptSub.CompetitorID = (int)HttpContext.Session.GetInt32("CompetitorID");
+            // VoteCount starts at 0
             comptSub.VoteCount = 0;
 
             if (ModelState.IsValid)

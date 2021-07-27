@@ -27,6 +27,8 @@ namespace T03_CompetitionPlatform.Controllers
             
 
             List<Competition> compList = competitionContext.GetAllCompetitions();
+
+            if()
             return View(compList);
         }
 
@@ -200,6 +202,12 @@ namespace T03_CompetitionPlatform.Controllers
             // Delete the criteria record from database
             criteriaContext.Delete(criteria.CriteriaID);
             return RedirectToAction("ViewCriteria");
+        }
+
+        // GET: JudgeController/ViewSubmissions
+        public ActionResult ViewSubmissions(int? id)
+        {
+
         }
     }
 }
