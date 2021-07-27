@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <!-- Use Unicode character encoding - multi-language compatibity -->
@@ -6,7 +9,7 @@
     <!-- Set the initial view zooming scale for mobile device -->
     <meta name="viewport" content="width = device-width,
  initial-scale = 1" />
-    <title>Admin Index</title>
+    <title>About Us</title>
 
     <!-- offline
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -32,7 +35,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- Edited this 27/6/2021 8pm  Delete Judges Function-->
 
 </head>
 <body style="padding:70px">
@@ -52,53 +54,26 @@
             <!-- Links in the navbar, displayed as drop-down list when collapsed -->
             <div class="collapse navbar-collapse" id="staffNavbar">
                 <!-- Links that are aligned to the left,
-                mr-auto: right margin auto-adjusted -->
-                <!-- Start of display summaries, count using AdminSummary Model and retrieval
-                    From AdminController-->
+    mr-auto: right margin auto-adjusted -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Admin/Index"
+                        <a class="nav-link" href="~/Home/AboutUs"
                            style="font-size: 20px;color: white;">
-                            Areas of Interest
-
+                            About Us
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Admin/CompetitionRecordsView"
-                           style="font-size: 20px;color: white">Competition Records</a>
-
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Admin/ManageJudgesView"
-                           style="font-size: 20px;color: white">Manage Judges</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Guest/"
-                           style="font-size: 20px;color: white">View competitions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Admin/CompetitionRankings"
-                           style="font-size: 20px;color: white">Competitor Rankings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Admin/CompetitionResults"
-                           style="font-size: 20px;color: white">Competitor Results</a>
+                        <a class="nav-link" href="~/Home/ContactUs"
+                           style="font-size: 20px;color: white">Contact Us</a>
                     </li>
 
                 </ul>
 
-
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Admin"
+                        <a class="nav-link" href="~/Home"
                            style="font-size: 20px;color: white;">
                             Return
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Home/adminLogOut"
-                           style="font-size: 20px;color: white;">
-                            Log Out
                         </a>
                     </li>
 
@@ -106,4 +81,20 @@
             </div>
         </nav>
     </header>
+    <!-- -->
+    <!--Start of containers -->
+    <div class="container">
+
+        <div class="border border-secondary" style="margin-top: 25%;">
+            <h1 style="text-align:center;">About Us</h1><br /><p style="font-size: 150%; text-align:center;">
+    CJP, the Competition Judging Platform
+    is a website created by us for Lion City University to
+    create and manage competitions that are organised by the school,
+    based on the wide varity of faculties the school has. This website
+    has various functions, such as allowing guests to vote, competitors
+    to create an account to join competitions etc.
+</p>
+        </div>
+    </div>
 </body>
+</html>

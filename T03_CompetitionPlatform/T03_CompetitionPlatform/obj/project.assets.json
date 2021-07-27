@@ -6486,19 +6486,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ng Hung Meng\\.nuget\\packages\\": {}
+    "C:\\Users\\Drake\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ng Hung Meng\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+      "projectUniqueName": "C:\\Users\\Drake\\Desktop\\School\\Web\\week15probably\\seond27julypull\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
       "projectName": "T03_CompetitionPlatform",
-      "projectPath": "C:\\Users\\Ng Hung Meng\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
-      "packagesPath": "C:\\Users\\Ng Hung Meng\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ng Hung Meng\\Source\\Repos\\web2021apr_p0_t\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
+      "projectPath": "C:\\Users\\Drake\\Desktop\\School\\Web\\week15probably\\seond27julypull\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+      "packagesPath": "C:\\Users\\Drake\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Drake\\Desktop\\School\\Web\\week15probably\\seond27julypull\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Ng Hung Meng\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Drake\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6510,6 +6510,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -6521,6 +6522,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
@@ -6549,7 +6551,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.411\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

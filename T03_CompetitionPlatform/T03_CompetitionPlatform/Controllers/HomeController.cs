@@ -66,47 +66,6 @@ namespace T03_CompetitionPlatform.Controllers
             string password = formData["txtPassword"].ToString();
             List<Judge> judgeList = judgeContext.GetAllJudges();
             List<Competitor> competitorList = competitorContext.GetAllCompetitors();
-
-            foreach (var item in judgeList)
-            {
-                if (loginID == item.EmailAddr.ToLower() && password == item.Password)
-                {
-                    Debug.WriteLine("My debug string here");
-
-                    //Store login ID in session with the key "LoginID"
-                    HttpContext.Session.SetString("LoginID", loginID);
-
-                    //Store user role "Judge" as a string in session with the key "Role"
-                    HttpContext.Session.SetString("Role", "Judge");
-
-                    TempData["Userloggedin"] = "";
-
-                    // Redirect user to the "Index" view through an action
-                    return RedirectToAction("Index", "Judge");
-                }
-                else
-                {
-                    foreach (var item2 in competitorList)
-                    {
-                        if (loginID == item2.EmailAddr.ToLower() && password == item2.Password)
-                        {
-                            //Store login ID in session with the key "LoginID"
-                            HttpContext.Session.SetString("LoginID", loginID);
-
-                            //Store login ID in session with the key "CompetitorID"
-                            HttpContext.Session.SetInt32("CompetitorID", item2.CompetitorID);
-
-                            //Store user role "Judge" as a string in session with the key "Role"
-                            HttpContext.Session.SetString("Role", "Competitor");
-
-                            // Redirect user to the "Index" view through an action
-                            return RedirectToAction("Index", "Competitor");
-                        }
-
-                    };
-                }
-
-            };
             if (loginID == "admin1@lcu.edu.sg" && password == "p@55Admin")
             {
                 //Store login ID in session with the key "LoginID"
@@ -115,23 +74,67 @@ namespace T03_CompetitionPlatform.Controllers
                 //Store user role "Admin" as a string in session with the key "Role"
                 HttpContext.Session.SetString("Role", "Admin");
 
+
                 // Redirect user to the "AdminMain" view through an action
                 return RedirectToAction("AdminMain", "Admin");
             }
             else
             {
-                // Store an error message in TempData for display at the index view
-                TempData["Message"] = "Invalid Login Credentials!";
 
-                // Redirect user back to the index view through an action
-                return RedirectToAction("Index");
+                foreach (var item in judgeList)
+                {
+                    if (loginID == item.EmailAddr.ToLower() && password == item.Password)
+                    {
+                        Debug.WriteLine("My debug string here");
+
+                        //Store login ID in session with the key "LoginID"
+                        HttpContext.Session.SetString("LoginID", loginID);
+
+                        //Store user role "Judge" as a string in session with the key "Role"
+                        HttpContext.Session.SetString("Role", "Judge");
+
+                       
+
+                        // Redirect user to the "Index" view through an action
+                        return RedirectToAction("Index", "Judge");
+                    };
+                };
+                foreach (var item2 in competitorList)
+                {
+                    if (loginID == item2.EmailAddr.ToLower() && password == item2.Password)
+                    {
+                        //Store login ID in session with the key "LoginID"
+                        HttpContext.Session.SetString("LoginID", loginID);
+
+                        //Store login ID in session with the key "CompetitorID"
+                        HttpContext.Session.SetInt32("CompetitorID", item2.CompetitorID);
+
+                        //Store user role "Judge" as a string in session with the key "Role"
+                        HttpContext.Session.SetString("Role", "Competitor");
+
+                        // Redirect user to the "Index" view through an action
+                        return RedirectToAction("Index", "Competitor");
+                    }
+
+                };
+            // Store an error message in TempData for display at the index view
+            TempData["Message"] = "Invalid Login Credentials!";
+
+            // Redirect user back to the index view through an action
+            return RedirectToAction("Index");
             }
         }
 
         [HttpPost]
         public ActionResult GuestLogin()
         {
+            //Store voted boolean value in session with the key "Voted"
             HttpContext.Session.SetInt32("Voted", 0);
+
+            //Store user role "Guest" in session with the key "Role"
+            HttpContext.Session.SetString("Role", "Guest");
+
+            // Redirect user to the "Index" view through an action
             return RedirectToAction("Index", "Guest");
         }
 
@@ -203,6 +206,16 @@ namespace T03_CompetitionPlatform.Controllers
 
                 return View(judge);
             }
+        }
+
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
+
+        public ActionResult ContactUs()
+        {
+            return View();
         }
 
         private List<AreaInterest> GetAllAOI()

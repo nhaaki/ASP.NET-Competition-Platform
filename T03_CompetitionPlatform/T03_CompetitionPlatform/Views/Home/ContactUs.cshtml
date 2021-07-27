@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <!-- Use Unicode character encoding - multi-language compatibity -->
@@ -6,7 +9,7 @@
     <!-- Set the initial view zooming scale for mobile device -->
     <meta name="viewport" content="width = device-width,
  initial-scale = 1" />
-    <title>Admin Index</title>
+    <title>Contact Us</title>
 
     <!-- offline
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -32,8 +35,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- Edited this 27/6/2021 8pm  Delete Judges Function-->
-
+    <!-- Email form https://www.youtube.com/watch?v=r4RQ38EoLds -->
 </head>
 <body style="padding:70px">
     <header>
@@ -53,52 +55,25 @@
             <div class="collapse navbar-collapse" id="staffNavbar">
                 <!-- Links that are aligned to the left,
                 mr-auto: right margin auto-adjusted -->
-                <!-- Start of display summaries, count using AdminSummary Model and retrieval
-                    From AdminController-->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Admin/Index"
+                        <a class="nav-link" href="~/Home/AboutUs"
                            style="font-size: 20px;color: white;">
-                            Areas of Interest
-
+                            About Us
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Admin/CompetitionRecordsView"
-                           style="font-size: 20px;color: white">Competition Records</a>
-
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Admin/ManageJudgesView"
-                           style="font-size: 20px;color: white">Manage Judges</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Guest/"
-                           style="font-size: 20px;color: white">View competitions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Admin/CompetitionRankings"
-                           style="font-size: 20px;color: white">Competitor Rankings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Admin/CompetitionResults"
-                           style="font-size: 20px;color: white">Competitor Results</a>
+                        <a class="nav-link" href="~/Home/ContactUs"
+                           style="font-size: 20px;color: white">Contact Us</a>
                     </li>
 
                 </ul>
 
-
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Admin"
+                        <a class="nav-link" href="~/Home"
                            style="font-size: 20px;color: white;">
                             Return
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Home/adminLogOut"
-                           style="font-size: 20px;color: white;">
-                            Log Out
                         </a>
                     </li>
 
@@ -106,4 +81,30 @@
             </div>
         </nav>
     </header>
+    <!-- -->
+    <!--Start of containers -->
+    <div class="container">
+
+
+            <h1 style="text-align:center; margin-top:15%;">Contact Us</h1>
+            <form target="_blank" action="https://formsubmit.co/cjploginteam3@gmail.com" method="POST">
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+                        </div>
+                        <div class="col">
+                            <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Your Message" class="form-control" name="message" rows="10" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-lg btn-dark btn-block">Submit Form</button>
+            </form>
+
+
+    </div>
 </body>
+</html>

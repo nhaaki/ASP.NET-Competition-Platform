@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace T03_CompetitionPlatform.Models
 {
@@ -26,6 +27,7 @@ namespace T03_CompetitionPlatform.Models
         [StringLength(50)]
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Please enter an email address!")]
+        [ValidateEmailExists]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
         public string EmailAddr { get; set; }
 
