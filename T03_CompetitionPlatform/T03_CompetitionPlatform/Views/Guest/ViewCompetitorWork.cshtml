@@ -61,10 +61,8 @@
                     {
                         <p class="card-text">Upload date: NIL</p>
                     }
-                    @if (Model.FileSubmitted != null && Model.DateTimeFileUpload != null && Context.Session.GetInt32("Voted") == 0)
+                    @if (Model.FileSubmitted != null && Model.DateTimeFileUpload != null && Context.Session.GetInt32(Model.CompetitionID.ToString()) == 0 && (DateTime.Now > Model.StartDate) && (DateTime.Now < Model.EndDate))
                     {
-
-
                         <form asp-action="addVote" method="post">
                             <div class="form-group">
                                 <input asp-for="CompetitionName" value="@Model.CompetitionName" type="hidden" />
@@ -115,11 +113,15 @@
 
                     else if (Model.FileSubmitted == null && Model.DateTimeFileUpload == null)
                     {
-                        <button type="button" class="btn btn-lg btn-block btn-success" disabled>Vote</button>
+                        <button type="button" class="btn btn-lg btn-block btn-warning" disabled>Art not submitted yet.</button>
                     }
-                    else if (Context.Session.GetInt32("Voted") == 1)
+                    else if (DateTime.Now > Model.EndDate)
                     {
-                        <button type="button" class="btn btn-lg btn-block btn-success" disabled>You have already voted!</button>
+                        <button type="button" class="btn btn-lg btn-block btn-secondary" disabled>Competition's over!</button>
+                    }
+                    else if (Context.Session.GetInt32(Model.CompetitionID.ToString()) == 1)
+                    {
+                        <button type="button" class="btn btn-lg btn-block btn-danger" disabled>You have already voted!</button>
                     }
 
                 </div>

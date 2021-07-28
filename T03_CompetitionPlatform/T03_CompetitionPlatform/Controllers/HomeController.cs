@@ -26,6 +26,7 @@ namespace T03_CompetitionPlatform.Controllers
         private JudgesDAL judgeContext = new JudgesDAL();
         private AreaInterestDAL areaContext = new AreaInterestDAL();
         private CompetitorDAL competitorContext = new CompetitorDAL();
+        private CompetitionDAL competitionContext = new CompetitionDAL();
 
         private readonly ILogger<HomeController> _logger;
 
@@ -81,6 +82,13 @@ namespace T03_CompetitionPlatform.Controllers
                 //Store user role "Admin" as a string in session with the key "Role"
                 HttpContext.Session.SetString("Role", "Admin");
 
+                List<Competition> competitionList = competitionContext.GetAllCompetitions();
+                foreach (Competition c in competitionList)
+                {
+                    string compID = c.CompetitionID.ToString();
+                    HttpContext.Session.SetInt32(compID, 0);
+                }
+
 
                 // Redirect user to the "AdminMain" view through an action
                 return RedirectToAction("AdminMain", "Admin");
@@ -102,7 +110,14 @@ namespace T03_CompetitionPlatform.Controllers
 
                         TempData["Loggedin"] = item.EmailAddr;
 
-                       
+                        List<Competition> competitionList = competitionContext.GetAllCompetitions();
+                        foreach (Competition c in competitionList)
+                        {
+                            string compID = c.CompetitionID.ToString();
+                            HttpContext.Session.SetInt32(compID, 0);
+                        }
+
+
 
                         // Redirect user to the "Index" view through an action
                         return RedirectToAction("Index", "Judge");
@@ -120,6 +135,13 @@ namespace T03_CompetitionPlatform.Controllers
 
                         //Store user role "Judge" as a string in session with the key "Role"
                         HttpContext.Session.SetString("Role", "Competitor");
+
+                        List<Competition> competitionList = competitionContext.GetAllCompetitions();
+                        foreach (Competition c in competitionList)
+                        {
+                            string compID = c.CompetitionID.ToString();
+                            HttpContext.Session.SetInt32(compID, 0);
+                        }
 
                         // Redirect user to the "Index" view through an action
                         return RedirectToAction("Index", "Competitor");
@@ -213,6 +235,13 @@ namespace T03_CompetitionPlatform.Controllers
 
                 }
 
+                List<Competition> competitionList = competitionContext.GetAllCompetitions();
+                foreach (Competition c in competitionList)
+                {
+                    string compID = c.CompetitionID.ToString();
+                    HttpContext.Session.SetInt32(compID, 0);
+                }
+
                 // Redirect user to the "Index" view through an action
                 return RedirectToAction("Index", theRedirect);
             }
@@ -227,8 +256,13 @@ namespace T03_CompetitionPlatform.Controllers
         [HttpPost]
         public ActionResult GuestLogin()
         {
-            //Store voted boolean value in session with the key "Voted"
-            HttpContext.Session.SetInt32("Voted", 0);
+            List<Competition> competitionList = competitionContext.GetAllCompetitions();
+            foreach (Competition c in competitionList)
+            {
+                string compID = c.CompetitionID.ToString();
+                HttpContext.Session.SetInt32(compID, 0);
+            }
+            
 
             //Store user role "Guest" in session with the key "Role"
             HttpContext.Session.SetString("Role", "Guest");

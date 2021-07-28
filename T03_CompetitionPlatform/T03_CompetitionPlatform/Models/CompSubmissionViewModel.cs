@@ -47,5 +47,11 @@ namespace T03_CompetitionPlatform.Models
         [Required]
         public string? Description { get; set; }
         public DateTime DateTimePosted { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public DateTime? StartDate { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public DateTime? EndDate { get; set; }
     }
 }

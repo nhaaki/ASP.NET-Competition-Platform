@@ -12,7 +12,7 @@
             <div class="container-fluid" style="border: 2px; border-color:black; border-style:solid; margin-bottom:20px">
                 <div>
                     <p>@item.CompetitionName</p>
-                    <p>Due @item.EndDate?.ToString("dd MMMM yyyy")</p>
+                    <p>@item.StartDate?.ToString("dddd, dd MMMM yyyy") to @item.EndDate?.ToString("dddd, dd MMMM yyyy")</p>
                 </div>
                 <div>
                     <a asp-action="ViewCompetitors" asp-route-name="@item.CompetitionName" asp-route-id="@item.CompetitionID">View</a>

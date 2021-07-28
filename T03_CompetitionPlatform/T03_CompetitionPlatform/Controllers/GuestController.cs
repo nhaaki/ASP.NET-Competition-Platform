@@ -108,7 +108,7 @@ namespace T03_CompetitionPlatform.Controllers
         {
             ViewData["CompName"] = csvm.CompetitionName;
             competitionSubmissionContext.AddVote(csvm.CompetitorID, csvm.CompetitionID);
-            HttpContext.Session.SetInt32("Voted", 1);
+            HttpContext.Session.SetInt32(csvm.CompetitionID.ToString(), 1);
             return RedirectToAction("ViewCompetitors", new { id = csvm.CompetitionID });
         }
 
@@ -125,6 +125,8 @@ namespace T03_CompetitionPlatform.Controllers
             string compName = "";
             string competitorName = "";
             string competitorSalutation = "";
+            DateTime? startDate = default;
+            DateTime? endDate = default;
            
             List<Competition> compList = competitionContext.GetAllCompetitions();
             List<Competitor> competitors = competitorContext.GetAllCompetitors();
@@ -134,6 +136,8 @@ namespace T03_CompetitionPlatform.Controllers
                 if (c.CompetitionID == id)
                 {
                     compName = c.CompetitionName;
+                    startDate = c.StartDate;
+                    endDate = c.EndDate;
                     break;
                 }
             }
@@ -159,6 +163,8 @@ namespace T03_CompetitionPlatform.Controllers
                 Appeal = comp.Appeal,
                 VoteCount = comp.VoteCount,
                 Ranking = comp.Ranking,    
+                StartDate = startDate,
+                EndDate = endDate
             };
             return csVM;
 
