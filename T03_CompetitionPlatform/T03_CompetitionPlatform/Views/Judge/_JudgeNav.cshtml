@@ -62,8 +62,9 @@
                     <a class="nav-link" href="~/Judge/CreateCriteria">Create Criterion</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="~/Judge/ViewSubmission">View Submissions</a>
+                    <a class="nav-link" asp-action="ViewCompetitors" asp-controller="Guest" asp-route-id="@TempData.Peek("CompID")" asp-route-name="@ViewData["CompName"]">View Submissions</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="~/Staff/Index"></a>
                 </li>
@@ -76,7 +77,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <!-- A link for logging out user -->
-                    <a class="nav-link" href="~/Home/LogOut">Log Out</a>
+                    <a class="nav-link" href="~/Home/judgeLogout">Log Out</a>
                 </li>
             </ul>
         </div>

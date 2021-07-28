@@ -9,6 +9,13 @@ using T03_CompetitionPlatform.Models;
 using Microsoft.AspNetCore.Http;
 using T03_CompetitionPlatform.DAL;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Google.Apis.Auth.OAuth2;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Google.Apis.Auth;
+using static Google.Apis.Auth.GoogleJsonWebSignature;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 
 namespace T03_CompetitionPlatform.Controllers
 {
@@ -19,6 +26,7 @@ namespace T03_CompetitionPlatform.Controllers
         private JudgesDAL judgeContext = new JudgesDAL();
         private AreaInterestDAL areaContext = new AreaInterestDAL();
         private CompetitorDAL competitorContext = new CompetitorDAL();
+        private CompetitionDAL competitionContext = new CompetitionDAL();
 
         private readonly ILogger<HomeController> _logger;
 
@@ -74,6 +82,13 @@ namespace T03_CompetitionPlatform.Controllers
                 //Store user role "Admin" as a string in session with the key "Role"
                 HttpContext.Session.SetString("Role", "Admin");
 
+                List<Competition> competitionList = competitionContext.GetAllCompetitions();
+                foreach (Competition c in competitionList)
+                {
+                    string compID = c.CompetitionID.ToString();
+                    HttpContext.Session.SetInt32(compID, 0);
+                }
+
 
                 // Redirect user to the "AdminMain" view through an action
                 return RedirectToAction("AdminMain", "Admin");
@@ -95,7 +110,14 @@ namespace T03_CompetitionPlatform.Controllers
 
                         TempData["Loggedin"] = item.EmailAddr;
 
-                       
+                        List<Competition> competitionList = competitionContext.GetAllCompetitions();
+                        foreach (Competition c in competitionList)
+                        {
+                            string compID = c.CompetitionID.ToString();
+                            HttpContext.Session.SetInt32(compID, 0);
+                        }
+
+
 
                         // Redirect user to the "Index" view through an action
                         return RedirectToAction("Index", "Judge");
@@ -114,6 +136,13 @@ namespace T03_CompetitionPlatform.Controllers
                         //Store user role "Judge" as a string in session with the key "Role"
                         HttpContext.Session.SetString("Role", "Competitor");
 
+                        List<Competition> competitionList = competitionContext.GetAllCompetitions();
+                        foreach (Competition c in competitionList)
+                        {
+                            string compID = c.CompetitionID.ToString();
+                            HttpContext.Session.SetInt32(compID, 0);
+                        }
+
                         // Redirect user to the "Index" view through an action
                         return RedirectToAction("Index", "Competitor");
                     }
@@ -127,11 +156,113 @@ namespace T03_CompetitionPlatform.Controllers
             }
         }
 
+        [Authorize]
+        public async Task<ActionResult> GoogleLogin()
+        {
+            // The user is already authenticated, so this call won't
+            // trigger login, but it allows us to access token related values.
+            AuthenticateResult auth = await HttpContext.AuthenticateAsync();
+            string idToken = auth.Properties.GetTokenValue(
+             OpenIdConnectParameterNames.IdToken);
+            try
+            {
+                // Verify the current user logging in with Google server
+                // if the ID is invalid, an exception is thrown
+                Payload currentUser = await
+                GoogleJsonWebSignature.ValidateAsync(idToken);
+                string userName = currentUser.Name;
+                string eMail = currentUser.Email;
+
+                List<Judge> judgeList = judgeContext.GetAllJudges();
+                List<Competitor> competitorList = competitorContext.GetAllCompetitors();
+
+                bool isCompetitor = false;
+                bool isJudge = false;
+
+                foreach (var item2 in competitorList)
+                {
+                    if (item2.EmailAddr == eMail)
+                    {
+                        //Store login ID in session with the key "LoginID"
+                        HttpContext.Session.SetString("LoginID", eMail);
+
+                        //Store login ID in session with the key "CompetitorID"
+                        HttpContext.Session.SetInt32("CompetitorID", item2.CompetitorID);
+
+                        //Store user role "Judge" as a string in session with the key "Role"
+                        HttpContext.Session.SetString("Role", "Competitor");
+
+                        HttpContext.Session.SetString("LoggedInTime",
+                        DateTime.Now.ToString());
+
+                        isCompetitor = true;
+                    }
+
+                };
+
+                foreach (var item2 in judgeList)
+                {
+                    if (item2.EmailAddr == eMail)
+                    {
+                        //Store login ID in session with the key "LoginID"
+                        HttpContext.Session.SetString("LoginID", eMail);
+
+                        //Store login ID in session with the key "CompetitorID"
+                        HttpContext.Session.SetInt32("JudgeID", item2.JudgeID);
+
+                        //Store user role "Judge" as a string in session with the key "Role"
+                        HttpContext.Session.SetString("Role", "Judge");
+
+                        HttpContext.Session.SetString("LoggedInTime",
+                        DateTime.Now.ToString());
+
+                        isJudge = true;
+                    }
+
+                };
+
+                string theRedirect = "";
+
+                if (isCompetitor == true)
+                {
+                    theRedirect = "Competitor";
+
+                }
+
+                if (isJudge == true)
+                {
+                    theRedirect = "Judge";
+
+                }
+
+                List<Competition> competitionList = competitionContext.GetAllCompetitions();
+                foreach (Competition c in competitionList)
+                {
+                    string compID = c.CompetitionID.ToString();
+                    HttpContext.Session.SetInt32(compID, 0);
+                }
+
+                // Redirect user to the "Index" view through an action
+                return RedirectToAction("Index", theRedirect);
+            }
+
+            catch (Exception e)
+            {
+                // Token ID is may be tempered with, force user to logout
+                return View("Login");
+            }
+        }
+
         [HttpPost]
         public ActionResult GuestLogin()
         {
-            //Store voted boolean value in session with the key "Voted"
-            HttpContext.Session.SetInt32("Voted", 0);
+            List<Competition> competitionList = competitionContext.GetAllCompetitions();
+            foreach (Competition c in competitionList)
+            {
+                string compID = c.CompetitionID.ToString();
+                HttpContext.Session.SetInt32(compID, 0);
+            }
+            
 
             //Store user role "Guest" in session with the key "Role"
             HttpContext.Session.SetString("Role", "Guest");
@@ -160,8 +291,22 @@ namespace T03_CompetitionPlatform.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult competitorLogout()
+        public async Task<ActionResult> competitorLogout()
         {
+            // Clear authentication cookie
+            await HttpContext.SignOutAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme);
+
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> judgeLogout()
+        {
+            // Clear authentication cookie
+            await HttpContext.SignOutAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme);
+
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
@@ -209,6 +354,8 @@ namespace T03_CompetitionPlatform.Controllers
                 return View(judge);
             }
         }
+
+
 
         public ActionResult AboutUs()
         {

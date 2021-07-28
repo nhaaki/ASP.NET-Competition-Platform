@@ -103,6 +103,17 @@
 
                         <span style="color:red;">@TempData["Message"]</span>
                     </form>
+
+                    <fieldset class="loginFieldset" style="text-align:center; align-content:center; align-items:center;">
+                        <p>
+                            <a href="~/Home/GoogleLogin" class="myButton">
+                                Sign in with Google
+                            </a>
+                        </p>
+                        <a href="~/Home/Privacy">Privacy Policy</a>
+                        <br />
+                    </fieldset>
+
                     <form asp-action="GuestLogin" style="text-align:center; align-content:center; align-items:center;">
                         <button type="submit" class="btn btn-primary">Continue as guest</button>
                     </form>
