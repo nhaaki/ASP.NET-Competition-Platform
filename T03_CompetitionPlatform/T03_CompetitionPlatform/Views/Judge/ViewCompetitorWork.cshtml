@@ -1,0 +1,72 @@
+﻿@model T03_CompetitionPlatform.Models.CompSubmissionViewModel
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js">
+    </script>
+    <title>ViewCompetitorWork</title>
+</head>
+
+<body style="padding:70px;">
+    @if (Context.Session.GetString("Role") == "Guest")
+    {
+        <partial name="~/Views/Guest/_GuestNavbar.cshtml" />
+    }
+    else if (Context.Session.GetString("Role") == "Admin")
+    {
+        <partial name="~/Views/Admin/_AdminNav.cshtml" />
+    }
+    else if (Context.Session.GetString("Role") == "Judge")
+    {
+        <partial name="~/Views/Judge/_JudgeNav.cshtml" />
+    }
+
+    <h3 style="text-align:center; padding-top:50px; padding-bottom:50px;">@Model.CompetitionName</h3>
+    <div class="container">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="card mx-auto w-50">
+
+                @if (Model.FileSubmitted != null)
+                {
+                    <embed src="~/images/@Model.FileSubmitted" type="application/pdf" height="500px">
+                }
+                else
+                {
+                    <img src="~/images/missingfile.png" height="500px" width="100%">
+                }
+                <div class="card-body">
+                    <p class="card-text">Competitor name: @Model.Salutation @Model.CompetitorName</p>
+                    @if (Model.DateTimeFileUpload != null)
+                    {
+                        <p class="card-text">Upload date: @Model.DateTimeFileUpload</p>
+                    }
+                    else
+                    {
+                        <p class="card-text">Upload date: NIL</p>
+                    }
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

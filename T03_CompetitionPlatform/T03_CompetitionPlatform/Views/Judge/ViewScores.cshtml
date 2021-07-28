@@ -1,0 +1,123 @@
+﻿@model IEnumerable<T03_CompetitionPlatform.Models.CompetitionScoreViewModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<style>
+    .user_name {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .comments-list .media {
+        border-bottom: 1px dotted #ccc;
+    }
+</style>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ViewCompetitors</title>
+</head>
+<body>
+    @if (Context.Session.GetString("Role") == "Guest")
+    {
+        <partial name="~/Views/Guest/_GuestNavbar.cshtml" />
+    }
+    else if (Context.Session.GetString("Role") == "Admin")
+    {
+        <partial name="~/Views/Admin/_AdminNav.cshtml" />
+    }
+    else if (Context.Session.GetString("Role") == "Judge")
+    {
+        <partial name="~/Views/Judge/_JudgeNav.cshtml" />
+    }
+
+
+
+    <h1 style="text-align:center; padding-top:30px;">@ViewData["CompName"]</h1>
+    <h5 style="text-align: center; padding-top:30px;"> Grade submissions</h5>
+    <table class="table">
+        <thead>
+            <tr>
+
+
+
+
+                <th>
+                    CriteriaID
+
+
+                </th>
+
+                <th>
+                    CriteriaName
+                </th>
+
+                <th>
+                    Weightage
+                </th>
+
+                <th>
+                    Score
+                </th>
+
+                @if (DateTime.Now < Convert.ToDateTime(ViewData["Compend"]))
+                {
+                    <th></th>
+                }
+
+
+
+
+                    
+                </tr>
+        </thead>
+        <tbody>
+            @if (Model.ToList().Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CriteriaID)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CriteriaName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Weightage)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Score)
+                        </td>
+
+
+
+                        @if (DateTime.Now < Convert.ToDateTime(ViewData["Compend"]))
+                        {
+
+
+                            <td>
+                                @Html.ActionLink("Grade", "GradeCriterion", new { criteriaid = item.CriteriaID, competitorid = item.CompetitorID })
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+            else
+            {
+                <span style="color:red">No record found!</span>
+            }
+        </tbody>
+    </table>
+
+
+</body>
+</html>

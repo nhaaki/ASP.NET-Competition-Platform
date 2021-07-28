@@ -1585,3 +1585,5 @@ C:\Users\Ng Hung Meng\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_C
 C:\Users\Ng Hung Meng\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\ContactUs.cshtml.g.cs
 C:\Users\Ng Hung Meng\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\_JudgeIndexNav.cshtml.g.cs
 C:\Users\Ng Hung Meng\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\ViewSubmission.cshtml.g.cs
+C:\Users\Ng Hung Meng\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\ViewCompetitorWork.cshtml.g.cs
+C:\Users\Ng Hung Meng\Source\Repos\web2021apr_p0_t\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\ViewScores.cshtml.g.cs

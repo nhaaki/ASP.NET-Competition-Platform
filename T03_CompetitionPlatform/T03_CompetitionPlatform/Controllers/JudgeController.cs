@@ -11,14 +11,15 @@ namespace T03_CompetitionPlatform.Controllers
 {
     public class JudgeController : Controller
     {
-        private AreaInterestDAL areaContext = new AreaInterestDAL();
+
         private CompetitionDAL competitionContext = new CompetitionDAL();
         private JudgesDAL judgeContext = new JudgesDAL();
         private CompetitorDAL competitorContext = new CompetitorDAL();
         private CompetitionSubmissionDAL competitorSubmissionContext = new CompetitionSubmissionDAL();
         private CriteriaDAL criteriaContext = new CriteriaDAL();
         private CompetitionJudgeDAL compjudgeContext = new CompetitionJudgeDAL();
-        private CompetitionSubmissionDAL compsubcontext = new CompetitionSubmissionDAL();
+        private CompetitionScoreDAL compscoreContext = new CompetitionScoreDAL();
+
 
 
 
@@ -26,13 +27,13 @@ namespace T03_CompetitionPlatform.Controllers
         // GET: JudgeController
         public ActionResult Index()
         {
-            
+
 
             List<Competition> compList = competitionContext.GetAllCompetitions();
 
             List<CompetitionJudge> compjudgelist = compjudgeContext.GetAllCompetitionJudge();
 
-            string loggedin = (string) TempData.Peek("Loggedin");
+            string loggedin = (string)TempData.Peek("Loggedin");
 
             Judge userlogged = judgeContext.Getlogin(loggedin);
 
@@ -42,7 +43,7 @@ namespace T03_CompetitionPlatform.Controllers
 
             for (int i = 0; i < compjudgelist.Count; i++)
             {
-                if(compjudgelist[i].JudgeID == userlogged.JudgeID)
+                if (compjudgelist[i].JudgeID == userlogged.JudgeID)
                 {
                     compinvolvedID.Add(compjudgelist[i].CompetitionID);
                 }
@@ -77,7 +78,7 @@ namespace T03_CompetitionPlatform.Controllers
             // or account not in the "Staff" role
             CompetitionViewModel compVM = new CompetitionViewModel();
             compVM.compList = competitionContext.GetAllCompetitions();
-            
+
             if (id != null)
             {
                 TempData["CompID"] = id.Value;
@@ -102,8 +103,8 @@ namespace T03_CompetitionPlatform.Controllers
                 // Get list of staff working in the branch
                 compVM.criteriaList = competitionContext.GetCompCriteria(newid);
             };
-            
-            
+
+
             return View(compVM);
         }
 
@@ -112,7 +113,7 @@ namespace T03_CompetitionPlatform.Controllers
         // GET: JudgeController/CreateCriteria
         public ActionResult CreateCriteria()
         {
-            int id = (int) TempData.Peek("CompID");
+            int id = (int)TempData.Peek("CompID");
 
 
             Competition competition = competitionContext.GetDetails(id);
@@ -121,10 +122,10 @@ namespace T03_CompetitionPlatform.Controllers
             Criteria criteria = new Criteria();
             //use current competion id for new criteria
             criteria.CompetitionID = id;
-             
+
             return View(criteria);
 
-            
+
         }
 
         // POST: JudgeController/CreateCriteria
@@ -140,7 +141,7 @@ namespace T03_CompetitionPlatform.Controllers
                 totalweightage += compcriteira[i].Weightage;
             }
             totalweightage = totalweightage + criteria.Weightage;
-            if (ModelState.IsValid && totalweightage <= 100 )
+            if (ModelState.IsValid && totalweightage <= 100)
             {
                 //Add criteria record to database
                 criteria.CriteriaID = criteriaContext.Add(criteria);
@@ -243,64 +244,194 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult ViewSubmission()
         {
-
-            int id = (int)TempData.Peek("CompID");
-            // Stop accessing the action if not logged in
-            // or account not in the "Staff" role
-            if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "Judge"))
+            int compid = (int)TempData.Peek("CompID");
+            List<CompetitionSubmission> compSubmission = competitorSubmissionContext.GetAllSubmissions();
+            List<CompetitionSubmission> specifiedSubmission = new List<CompetitionSubmission>();
+            foreach (CompetitionSubmission cs in compSubmission)
             {
-                return RedirectToAction("Index", "Home");
+                if (cs.CompetitionID == compid)
+                {
+                    specifiedSubmission.Add(cs);
+                }
             }
-            CompetitionSubViewModel compVM = new CompetitionSubViewModel();
-            compVM.compList = competitionContext.GetAllCompetitions();
-            // Check if BranchNo (id) presents in the query string
-            
-            
-             ViewData["selectedCompNo"] = id;
-             // Get list of staff working in the branch
-             compVM.subList = competitionContext.GetCompSub(id);
-            
-            
-            return View(compVM);
+
+
+            List<Competitor> competitorList = competitorContext.GetAllCompetitors();
+            List<CompSubmissionViewModel> currentSubmissions = new List<CompSubmissionViewModel>();
+            foreach (Competitor c in competitorList)
+            {
+                foreach (CompetitionSubmission cs in specifiedSubmission)
+                {
+                    if (c.CompetitorID == cs.CompetitorID)
+                    {
+                        CompSubmissionViewModel csVM = MapTocsVM(cs, compid);
+                        currentSubmissions.Add(csVM);
+                    }
+                }
+            }
+
+            ViewData["CompName"] = competitionContext.GetDetails(compid).CompetitionName;
+            ViewData["CompID"] = compid;
+
+
+
+
+
+            return View(currentSubmissions);
         }
 
-        public ActionResult GradeSubmission(int? id)
+        public ActionResult ViewCompetitorWork(int? competitorID, int? competitionID)
         {
-            // Stop accessing the action if not logged in
-            // or account not in the "Staff" role
-            CompetitionViewModel compVM = new CompetitionViewModel();
-            compVM.compList = competitionContext.GetAllCompetitions();
-
-            if (id != null)
+            List<CompetitionSubmission> compSubmission = competitorSubmissionContext.GetAllSubmissions();
+            foreach (CompetitionSubmission cs in compSubmission)
             {
-                TempData["CompID"] = id.Value;
-                Competition competition = competitionContext.GetDetails(id.Value);
-                ViewData["CompName"] = competition.CompetitionName;
-
-
-
-
-                ViewData["selectedCompID"] = id.Value;
-                // Get list of staff working in the branch
-                compVM.criteriaList = competitionContext.GetCompCriteria(id.Value);
+                if (cs.CompetitorID == competitorID && cs.CompetitionID == competitionID)
+                {
+                    return View(MapTocsVM(cs, cs.CompetitionID));
+                }
             }
-            else
+            return View();
+        }
+
+        public ActionResult ViewScores(int? competitionid, int? competitorid)
+        {
+            List<CompetitionScore> scores = compscoreContext.GetAllScore();
+            List<CompetitionScore> specifiedscores = new List<CompetitionScore>();
+            List<Criteria> criteria = criteriaContext.GetAllCriteria();
+
+
+            foreach (CompetitionScore s in scores)
             {
-                int newid = (int)TempData.Peek("CompID");
-                Competition competition = competitionContext.GetDetails(newid);
-                ViewData["CompName"] = competition.CompetitionName;
+                if (s.CompetitorID == competitorid.Value && s.CompetitionID == competitionid.Value)
+                {
+                    specifiedscores.Add(s);
+                }
+            }
+
+            if (specifiedscores.Count == 0)
+            {
+                foreach (Criteria c in criteria)
+                {
+                    if (c.CompetitionID == competitionid.Value)
+                    {
+                        CompetitionScore cs = new CompetitionScore();
+                        cs.CriteriaID = c.CriteriaID;
+                        cs.CompetitorID = competitorid.Value;
+                        cs.CompetitionID = competitionid.Value;
+                        cs.Score = 0;
 
 
-                ViewData["selectedCompID"] = newid;
-                // Get list of staff working in the branch
-                compVM.criteriaList = competitionContext.GetCompCriteria(newid);
-            };
+
+                        specifiedscores.Add(cs);
+                        compscoreContext.Add(cs);
+                    }
+                }
+            }
 
 
-            return View(compVM);
+            
+            List<CompetitionScoreViewModel> currentScore = new List<CompetitionScoreViewModel>();
+            foreach (Criteria c in criteria)
+            {
+                foreach(CompetitionScore ss in specifiedscores)
+                {
+                    if (c.CriteriaID == ss.CriteriaID)
+                    {
+                        CompetitionScoreViewModel csVM = MapToScoreVM(ss);
+                        currentScore.Add(csVM);
+                    }
+                }
+            }
+
+            ViewData["Compend"] = competitionContext.GetDetails(competitionid.Value).EndDate;
+            
+
+            return View(currentScore);
+        }
+
+        public ActionResult GradeCriterion(int? competitionid, int? competitorid)
+        {
+
         }
 
 
-    }
+
+
+
+
+        public CompSubmissionViewModel MapTocsVM(CompetitionSubmission comp, int? id)
+        {
+            string compName = "";
+            string competitorName = "";
+            string competitorSalutation = "";
+
+            List<Competition> compList = competitionContext.GetAllCompetitions();
+            List<Competitor> competitors = competitorContext.GetAllCompetitors();
+
+            foreach (Competition c in compList)
+            {
+                if (c.CompetitionID == id)
+                {
+                    compName = c.CompetitionName;
+                    break;
+                }
+            }
+
+            foreach (Competitor c in competitors)
+            {
+                if (c.CompetitorID == comp.CompetitorID)
+                {
+                    competitorName = c.CompetitorName;
+                    competitorSalutation = c.Salutation;
+                    break;
+                }
+            }
+            CompSubmissionViewModel csVM = new CompSubmissionViewModel
+            {
+                CompetitionName = compName,
+                CompetitorName = competitorName,
+                Salutation = competitorSalutation,
+                CompetitionID = comp.CompetitionID,
+                CompetitorID = comp.CompetitorID,
+                FileSubmitted = comp.FileSubmitted,
+                DateTimeFileUpload = comp.DateTimeFileUpload,
+                Appeal = comp.Appeal,
+                VoteCount = comp.VoteCount,
+                Ranking = comp.Ranking,
+            };
+            return csVM;
+
+        }
+        public CompetitionScoreViewModel MapToScoreVM(CompetitionScore score)
+        {
+            string criterianame = "";
+            int weightage = 0;
+
+            List<Criteria> criList = criteriaContext.GetAllCriteria();
+            foreach (Criteria criteria in criList)
+            {
+                if (criteria.CriteriaID == score.CriteriaID)
+                {
+
+
+                    criterianame = criteria.CriteriaName;
+                    weightage = criteria.Weightage;
+                    //Exit the foreach loop once the name is found
+                    break;
+                }
+            }
+
+
+            CompetitionScoreViewModel scoreVM = new CompetitionScoreViewModel
+            {
+                CriteriaID = score.CriteriaID,
+                CompetitorID = score.CompetitorID,
+                CompetitionID = score.CompetitionID,
+                CriteriaName = criterianame,
+                Weightage = weightage,
+                Score = score.Score
+            };
+            return scoreVM;
+        }
+}
 }

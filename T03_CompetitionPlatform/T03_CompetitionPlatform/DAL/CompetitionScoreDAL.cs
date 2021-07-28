@@ -46,10 +46,10 @@ namespace T03_CompetitionPlatform.DAL
                 scoreList.Add(
                 new CompetitionScore
                 {
-                    CriteriaID = reader.GetInt32(1),
-                    CompetitorID = reader.GetInt32(2),
-                    CompetitionID = reader.GetInt32(3),
-                    Score = reader.GetInt32(4)
+                    CriteriaID = reader.GetInt32(0),
+                    CompetitorID = reader.GetInt32(1),
+                    CompetitionID = reader.GetInt32(2),
+                    Score = reader.GetInt32(3)
 
 
 
@@ -62,5 +62,34 @@ namespace T03_CompetitionPlatform.DAL
             conn.Close();
             return scoreList;
         }
+
+        public int Add(CompetitionScore score)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify an INSERT SQL statement which will
+            //return the auto-generated StaffID after insertion
+            cmd.CommandText = @"INSERT INTO CompetitionScore (CriteriaID, CompetitorID, CompetitionID, Score)
+            
+            VALUES(@criteriaid, @competitiorid, @compid, @score)";
+            //Define the parameters used in SQL statement, value for each parameter
+            //is retrieved from respective class's property.
+            cmd.Parameters.AddWithValue("@criteriaid", score.CriteriaID);
+            cmd.Parameters.AddWithValue("@competitiorid", score.CompetitorID);
+            cmd.Parameters.AddWithValue("@compid", score.CompetitionID);
+            cmd.Parameters.AddWithValue("@score", score.Score);
+
+            //A connection to database must be opened before any operations made.
+            conn.Open();
+            //ExecuteScalar is used to retrieve the auto-generated
+            //CriteriaID after executing the INSERT SQL statement
+            
+            //A connection should be closed after operations.
+            conn.Close();
+            //Return id when no error occurs.
+            return score.CriteriaID;
+        }
     }
+
+    
 }
