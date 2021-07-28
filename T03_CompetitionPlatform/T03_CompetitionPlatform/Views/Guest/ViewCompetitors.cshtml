@@ -86,9 +86,8 @@
                             @Html.EditorFor(modelItem => item.DateTimeFileUpload, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
                         </td>
                         <td>
-
-                            @Html.ActionLink("View", "ViewCompetitorWork", new { competitorID = item.CompetitorID, competitionID = item.CompetitionID })
-
+                            <a class="btn btn-secondary" asp-controller="Guest" asp-action="ViewCompetitorWork" asp-route-competitorID="@item.CompetitorID" asp-route-competitionID="@item.CompetitionID">View</a>
+                           
                         </td>
                     </tr>
                 }

@@ -15,7 +15,7 @@
                     <p>@item.StartDate?.ToString("dddd, dd MMMM yyyy") to @item.EndDate?.ToString("dddd, dd MMMM yyyy")</p>
                 </div>
                 <div>
-                    <a asp-action="ViewCompetitors" asp-route-name="@item.CompetitionName" asp-route-id="@item.CompetitionID">View</a>
+                    <a class="btn btn-secondary" asp-action="ViewCompetitors" asp-route-name="@item.CompetitionName" asp-route-id="@item.CompetitionID">View</a>
                 </div>
             </div>
         }
