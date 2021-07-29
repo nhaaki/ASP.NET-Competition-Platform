@@ -37,6 +37,10 @@
     {
         <partial name="~/Views/Judge/_JudgeNav.cshtml" />
     }
+    else if (Context.Session.GetString("Role") == "Competitor")
+    {
+        <partial name="~/Views/Competitor/_CompetitorNavBar.cshtml" />
+    }
 
     <h3 style="text-align:center; padding-top:50px; padding-bottom:50px;">@Model.CompetitionName</h3>
     <div class="container">

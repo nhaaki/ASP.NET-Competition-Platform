@@ -32,6 +32,10 @@
     {
         <partial name="~/Views/Judge/_JudgeNav.cshtml" />
     }
+    else if (Context.Session.GetString("Role") == "Competitor")
+    {
+        <partial name="~/Views/Competitor/_CompetitorNavBar.cshtml" />
+    }
 
     <div class="container">
         <h2 class="mt-5 mx-auto">Write your comment below</h2>

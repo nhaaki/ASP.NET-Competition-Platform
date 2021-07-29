@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using T03_CompetitionPlatform.DAL;
@@ -185,6 +186,23 @@ namespace T03_CompetitionPlatform.Controllers
             };
             return csVM;
 
+        }
+
+        public ActionResult FinalRanking(int id)
+        {
+            List<CompetitionSubmission> competitionSubmissions = competitionSubmissionContext.GetAllSubmissions();
+            IEnumerable<CompSubmissionViewModel> topthreelist = new List<CompSubmissionViewModel>();
+            List<CompSubmissionViewModel> csVMs = new List<CompSubmissionViewModel>();
+
+            foreach (CompetitionSubmission cs in competitionSubmissions)
+            {
+                if (cs.CompetitionID == id)
+                {
+                    csVMs.Add(MapTocsVM(cs, id));
+                    topthreelist = csVMs.OrderBy(x => x.Ranking).Take(3);
+                }
+            }
+            return View(topthreelist);
         }
 
     

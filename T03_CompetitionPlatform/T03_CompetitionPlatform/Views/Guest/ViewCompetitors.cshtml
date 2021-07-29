@@ -35,127 +35,116 @@
     {
         <partial name="~/Views/Judge/_JudgeNav.cshtml" />
     }
+    else if (Context.Session.GetString("Role") == "Competitor")
+    {
+        <partial name="~/Views/Competitor/_CompetitorNavBar.cshtml" />
+    }
 
     <h1 style="text-align:center; padding-top:30px;">@ViewData["CompName"]</h1>
     <h2 style="text-align:center;padding-top:10px;">Status: <u class="font-italic">@ViewData["Status"]</u></h2>
     <h5 style="text-align: center; padding-top:30px;">View submissions</h5>
-    <table class="table">
-        <thead>
-            <tr>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.CompetitorID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CompetitorName)
-
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-dark table-striped">
+            <thead class="thead-dark">
+                <tr style="text-align:center; align-content:center; align-items:center;">
+                    <th>Competitor ID</th>
+                    <th>Competitor Name</th>
                     @if (Context.Session.GetString("Role") == "Judge")
                     {
-                    <th>
-                        @Html.DisplayNameFor(model => model.VoteCount)
-                    </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.VoteCount)
+                        </th>
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.Appeal)
-                    </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Appeal)
+                        </th>
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.Ranking)
-                    </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Ranking)
+                        </th>
 
-                }
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FileSubmitted)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DateTimeFileUpload)
-                    </th>
-
+                    }
+                    <th>File submitted</th>
+                    <th>Date uploaded</th>
                     <th></th>
                 </tr>
-        </thead>
-        <tbody>
-            @if (Model.ToList().Count > 0)
-            {
-                @foreach (var item in Model)
+            </thead>
+            <tbody>
+                @if (Model.ToList().Count > 0)
                 {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompetitorID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Salutation) @Html.DisplayFor(modelItem => item.CompetitorName)
-                </td>
+                    @foreach (var item in Model)
+                    {
+                        <tr style="text-align:center; align-content:center; align-items:center;">
+                            <td>@item.CompetitorID.ToString()</td>
+                            <td>@item.Salutation.ToString() @item.CompetitorName.ToString()</td>
+                            @if (Context.Session.GetString("Role") == "Judge")
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VoteCount)
+                                </td>
 
-                @if (Context.Session.GetString("Role") == "Judge")
-                {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.VoteCount)
-                    </td>
+                                @if (item.Appeal != null)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Appeal)
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>-</td>
+                                }
 
-                    @if (item.Appeal != null)
-                    {
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Appeal)
-                        </td>
-                    }
-                    else
-                    {
-                        <td>-</td>
-                    }
+                                @if (item.Ranking != null)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ranking)
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>-</td>
+                                }
+                            }
 
-                    @if (item.Ranking != null)
-                    {
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Ranking)
-                        </td>
-                    }
-                    else
-                    {
-                        <td>-</td>
+                            <td>
+                                @if (item.FileSubmitted != null)
+                                {
+                                    <embed src="~/images/@item.FileSubmitted" type="application/pdf" height="100px" width="100px">
+                                }
+                                else
+                                {
+                                    <img src="~/images/missingfile.png" height="100px" width="100px">
+                                }
+
+
+                            </td>
+                            <td>
+                                @Html.EditorFor(modelItem => item.DateTimeFileUpload, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
+                            </td>
+                            <td>
+                                <a class="btn btn-secondary" asp-controller="Guest" asp-action="ViewCompetitorWork" asp-route-competitorID="@item.CompetitorID" asp-route-competitionID="@item.CompetitionID">View</a>
+                                @if (Context.Session.GetString("Role") == "Judge")
+                                {
+                                    <a class="btn btn-secondary" asp-controller="Judge" asp-action="ViewScores" asp-route-competitorID="@item.CompetitorID" asp-route-competitionID="@item.CompetitionID">Scores</a>
+
+                                    <a class="btn btn-secondary" asp-controller="Judge" asp-action="ViewScores" asp-route-competitorID="@item.CompetitorID" asp-route-competitionID="@item.CompetitionID">Rank</a>
+
+                                }
+                            </td>
+                        </tr>
                     }
                 }
-                <td>
-                    @if (item.FileSubmitted != null)
-                    {
-                        <embed src="~/images/@item.FileSubmitted" type="application/pdf" height="100px" width="100px">
-                    }
-                    else
-                    {
-                        <img src="~/images/missingfile.png" height="100px" width="100px">
-                    }
+            </tbody>
+        </table>
+    </div>
 
-
-                </td>
-                <td>
-                    @Html.EditorFor(modelItem => item.DateTimeFileUpload, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
-                </td>
-                <td>
-                    <a class="btn btn-secondary" asp-controller="Guest" asp-action="ViewCompetitorWork" asp-route-competitorID="@item.CompetitorID" asp-route-competitionID="@item.CompetitionID">View</a>
-                    @if (Context.Session.GetString("Role") == "Judge")
-                    {
-                        <a class="btn btn-secondary" asp-controller="Judge" asp-action="ViewScores" asp-route-competitorID="@item.CompetitorID" asp-route-competitionID="@item.CompetitionID">Scores</a>
-
-                        <a class="btn btn-secondary" asp-controller="Judge" asp-action="ViewScores" asp-route-competitorID="@item.CompetitorID" asp-route-competitionID="@item.CompetitionID">Rank</a>
-
-                    }
-                </td>
-            </tr>
-                }
-            }
-            else
-            {
-                <span style="color:red">No record found!</span>
-            }
-        </tbody>
-    </table>
     <div class="container">
         <div class="row flex-nowrap align-items-center">
             <input type="button" class="btn btn-info mx-auto" value="View Comments" onclick="location.href='@Url.Action("GuestComment", "Guest", new { id = ViewData["CompID"]})'" />
-            @if (ViewData["Status"] == "Ended")
+            @if ((string)ViewData["Status"] == "Ended")
             {
-            <input type="button" class="btn btn-secondary mx-auto" value="View final rankings" />
+                <input type="button" class="btn btn-secondary mx-auto" value="View final rankings" onclick="location.href ='@Url.Action("FinalRanking", "Guest", new { id = ViewData["CompID"] })'" />
             }
         </div>
     </div>

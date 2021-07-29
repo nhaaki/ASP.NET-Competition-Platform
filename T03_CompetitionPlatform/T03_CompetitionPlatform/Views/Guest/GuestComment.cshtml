@@ -32,6 +32,10 @@
     {
         <partial name="~/Views/Judge/_JudgeNav.cshtml" />
     }
+    else if (Context.Session.GetString("Role") == "Competitor")
+    {
+        <partial name="~/Views/Competitor/_CompetitorNavBar.cshtml" />
+    }
 
     <div class="container">
         <div class="row flex-nowrap justify-content-between align-items-center">
