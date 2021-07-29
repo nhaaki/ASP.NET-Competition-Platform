@@ -1767,7 +1767,8 @@ C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_Compe
 C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\AboutUs.cshtml.g.cs
 C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\ContactUs.cshtml.g.cs
-C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\GradeSubmissions.cshtml.g.cs
 C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\ViewSubmission.cshtml.g.cs
 C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\_JudgeIndexNav.cshtml.g.cs
 C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Guest\FinalRanking.cshtml.g.cs
+C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\ViewCompetitorWork.cshtml.g.cs
+C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\ViewScores.cshtml.g.cs

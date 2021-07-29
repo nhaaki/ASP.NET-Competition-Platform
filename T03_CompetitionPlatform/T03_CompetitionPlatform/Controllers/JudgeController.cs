@@ -349,10 +349,10 @@ namespace T03_CompetitionPlatform.Controllers
             return View(currentScore);
         }
 
-        public ActionResult GradeCriterion(int? competitionid, int? competitorid)
-        {
+        //public ActionResult GradeCriterion(int? competitionid, int? competitorid)
+        //{
 
-        }
+        //}
 
 
 

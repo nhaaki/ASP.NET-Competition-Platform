@@ -53,7 +53,24 @@ namespace T03_CompetitionPlatform.Controllers
             ViewData["CompName"] = name;
             ViewData["CompID"] = id;
 
-            
+            List<Competition> competitions = competitionContext.GetAllCompetitions();
+            foreach (Competition x in competitions)
+            {
+                if (x.CompetitionID == id)
+                {
+                    if (DateTime.Now < x.StartDate)
+                    {
+                        ViewData["Status"] = "Not ongoing";
+                    }else if (DateTime.Now > x.EndDate)
+                    {
+                        ViewData["Status"] = "Ended";
+                    }else if (DateTime.Now >= x.StartDate && DateTime.Now <= x.EndDate)
+                    {
+                        ViewData["Status"] = "Ongoing";
+                    }
+                }
+            }
+
             return View(currentSubmissions);
         }
 
