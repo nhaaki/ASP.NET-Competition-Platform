@@ -105,7 +105,7 @@
 
 
                             <td>
-                                @Html.ActionLink("Grade", "GradeCriterion", new { criteriaid = item.CriteriaID, competitorid = item.CompetitorID })
+                                <a class="btn btn-secondary" asp-controller="Judge" asp-action="GradeCriterion" asp-route-competitorID="@item.CompetitorID" asp-route-criteriaid="@item.CriteriaID" asp-route-criterianame="@item.CriteriaName" asp-route-weightage="@item.Weightage">Grade</a>
                             </td>
                         }
                     </tr>

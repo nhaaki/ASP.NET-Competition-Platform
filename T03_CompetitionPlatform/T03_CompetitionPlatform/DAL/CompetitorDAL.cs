@@ -125,7 +125,7 @@ namespace T03_CompetitionPlatform.DAL
                 }
             }
             else
-            { 
+            {
                 emailFound = false;
             }
             reader.Close();
@@ -171,7 +171,7 @@ namespace T03_CompetitionPlatform.DAL
             cmd.CommandText = @"SELECT * FROM Competitor
                     WHERE CompetitorID = @selectedCompetitorID";
 
-            cmd.Parameters.AddWithValue("@selectedCompetitionID", competitorID);
+            cmd.Parameters.AddWithValue("@selectedCompetitorID", competitorID);
 
             //Open a database connection
             conn.Open();
@@ -182,8 +182,14 @@ namespace T03_CompetitionPlatform.DAL
                 //Read the record from database
                 while (reader.Read())
                 {
-                    // Fill staff object with values from the data reader
-                    compt.CompetitorID = competitorID;
+                    // Fill Competitor object with values from the data reader
+
+
+                    compt.CompetitorID = reader.GetInt32(0);
+                    compt.CompetitorName = reader.GetString(1);
+                    compt.Salutation = reader.GetString(2);
+                    compt.EmailAddr = reader.GetString(3);
+                    compt.Password = reader.GetString(4);
                 }
             }
             //Close data reader

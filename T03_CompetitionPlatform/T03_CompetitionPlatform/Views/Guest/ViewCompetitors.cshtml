@@ -48,49 +48,100 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.CompetitorName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FileSubmitted)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateTimeFileUpload)
-                </th>
 
-                <th></th>
-            </tr>
+                    @if (Context.Session.GetString("Role") == "Judge")
+                    {
+                    <th>
+                        @Html.DisplayNameFor(model => model.VoteCount)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Appeal)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ranking)
+                    </th>
+
+                }
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FileSubmitted)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateTimeFileUpload)
+                    </th>
+
+                    <th></th>
+                </tr>
         </thead>
         <tbody>
             @if (Model.ToList().Count > 0)
             {
                 @foreach (var item in Model)
                 {
-                    <tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompetitorID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salutation) @Html.DisplayFor(modelItem => item.CompetitorName)
+                </td>
+
+                @if (Context.Session.GetString("Role") == "Judge")
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VoteCount)
+                    </td>
+
+                    @if (item.Appeal != null)
+                    {
                         <td>
-                            @Html.DisplayFor(modelItem => item.CompetitorID)
+                            @Html.DisplayFor(modelItem => item.Appeal)
                         </td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+
+                    @if (item.Ranking != null)
+                    {
                         <td>
-                            @Html.DisplayFor(modelItem => item.Salutation) @Html.DisplayFor(modelItem => item.CompetitorName)
+                            @Html.DisplayFor(modelItem => item.Ranking)
                         </td>
-                        <td>
-                            @if (item.FileSubmitted != null)
-                            {
-                                <embed src="~/images/@item.FileSubmitted" type="application/pdf" height="100px" width="100px">
-                            }
-                            else
-                            {
-                                <img src="~/images/missingfile.png" height="100px" width="100px">
-                            }
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                }
+                <td>
+                    @if (item.FileSubmitted != null)
+                    {
+                        <embed src="~/images/@item.FileSubmitted" type="application/pdf" height="100px" width="100px">
+                    }
+                    else
+                    {
+                        <img src="~/images/missingfile.png" height="100px" width="100px">
+                    }
 
 
-                        </td>
-                        <td>
-                            @Html.EditorFor(modelItem => item.DateTimeFileUpload, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
-                        </td>
-                        <td>
-                            <a class="btn btn-secondary" asp-controller="Guest" asp-action="ViewCompetitorWork" asp-route-competitorID="@item.CompetitorID" asp-route-competitionID="@item.CompetitionID">View</a>
-                           
-                        </td>
-                    </tr>
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => item.DateTimeFileUpload, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
+                </td>
+                <td>
+                    <a class="btn btn-secondary" asp-controller="Guest" asp-action="ViewCompetitorWork" asp-route-competitorID="@item.CompetitorID" asp-route-competitionID="@item.CompetitionID">View</a>
+                    @if (Context.Session.GetString("Role") == "Judge")
+                    {
+                        <a class="btn btn-secondary" asp-controller="Judge" asp-action="ViewScores" asp-route-competitorID="@item.CompetitorID" asp-route-competitionID="@item.CompetitionID">Scores</a>
+
+                        <a class="btn btn-secondary" asp-controller="Judge" asp-action="ViewScores" asp-route-competitorID="@item.CompetitorID" asp-route-competitionID="@item.CompetitionID">Rank</a>
+
+                    }
+                </td>
+            </tr>
                 }
             }
             else

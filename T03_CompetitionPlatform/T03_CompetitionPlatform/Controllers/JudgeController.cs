@@ -349,10 +349,36 @@ namespace T03_CompetitionPlatform.Controllers
             return View(currentScore);
         }
 
-        //public ActionResult GradeCriterion(int? competitionid, int? competitorid)
-        //{
+        public ActionResult GradeCriterion(int? criteriaid, int? competitorid, string criterianame, int? weightage)
+        {
+            CompetitionScore score = compscoreContext.GetDetails(criteriaid.Value, competitorid.Value);
+            
 
-        //}
+
+
+
+            ViewData["CompetitorName"] = competitorContext.GetDetails(competitorid.Value).Salutation + " " + competitorContext.GetDetails(competitorid.Value).CompetitorName;
+            ViewData["CriteriaName"] = criterianame;
+            ViewData["Weightage"] = weightage.Value;
+
+            return View(score);
+        }
+
+        [HttpPost]
+        public ActionResult GradeCriterion(CompetitionScore updatescore)
+        {
+            if (ModelState.IsValid)
+            {
+                //Add staff record to database
+                compscoreContext.Update(updatescore);
+                //Redirect user to Staff/Index view
+                return RedirectToAction("ViewScores", new { competitionid = updatescore.CompetitionID, competitorid = updatescore.CompetitorID });
+            }
+            else
+            {
+                return RedirectToAction("GradeCriterion", new { competitionid = updatescore.CompetitionID, competitorid = updatescore.CompetitorID });
+            }
+        }
 
 
 
