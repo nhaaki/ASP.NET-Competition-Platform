@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using T03_CompetitionPlatform.DAL;
@@ -15,7 +16,7 @@ namespace T03_CompetitionPlatform.Controllers
         private CompetitionDAL competitionContext = new CompetitionDAL();
         private JudgesDAL judgeContext = new JudgesDAL();
         private CompetitorDAL competitorContext = new CompetitorDAL();
-        private CompetitionSubmissionDAL competitorSubmissionContext = new CompetitionSubmissionDAL();
+        private CompetitionSubmissionDAL competitionSubmissionContext = new CompetitionSubmissionDAL();
         private CriteriaDAL criteriaContext = new CriteriaDAL();
         private CompetitionJudgeDAL compjudgeContext = new CompetitionJudgeDAL();
         private CompetitionScoreDAL compscoreContext = new CompetitionScoreDAL();
@@ -245,7 +246,7 @@ namespace T03_CompetitionPlatform.Controllers
         public ActionResult ViewSubmission()
         {
             int compid = (int)TempData.Peek("CompID");
-            List<CompetitionSubmission> compSubmission = competitorSubmissionContext.GetAllSubmissions();
+            List<CompetitionSubmission> compSubmission = competitionSubmissionContext.GetAllSubmissions();
             List<CompetitionSubmission> specifiedSubmission = new List<CompetitionSubmission>();
             foreach (CompetitionSubmission cs in compSubmission)
             {
@@ -282,7 +283,7 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult ViewCompetitorWork(int? competitorID, int? competitionID)
         {
-            List<CompetitionSubmission> compSubmission = competitorSubmissionContext.GetAllSubmissions();
+            List<CompetitionSubmission> compSubmission = competitionSubmissionContext.GetAllSubmissions();
             foreach (CompetitionSubmission cs in compSubmission)
             {
                 if (cs.CompetitorID == competitorID && cs.CompetitionID == competitionID)
@@ -378,6 +379,126 @@ namespace T03_CompetitionPlatform.Controllers
             {
                 return RedirectToAction("GradeCriterion", new { competitionid = updatescore.CompetitionID, competitorid = updatescore.CompetitorID });
             }
+        }
+
+        public ActionResult Rank(int? competitionid)
+        {
+            
+            List<CompetitionSubmission> compSubmission = competitionSubmissionContext.GetAllSubmissions();
+            List<CompetitionSubmission> specifiedSubmission = new List<CompetitionSubmission>();
+            foreach (CompetitionSubmission cs in compSubmission)
+            {
+                if (cs.CompetitionID == competitionid)
+                {
+                    specifiedSubmission.Add(cs);
+                }
+            }
+
+
+            List<Competitor> competitorList = competitorContext.GetAllCompetitors();
+            List<CompSubmissionViewModel> currentSubmissions = new List<CompSubmissionViewModel>();
+            foreach (Competitor c in competitorList)
+            {
+                foreach (CompetitionSubmission cs in specifiedSubmission)
+                {
+                    if (c.CompetitorID == cs.CompetitorID)
+                    {
+                        CompSubmissionViewModel csVM = MapTocsVM(cs, competitionid);
+                        currentSubmissions.Add(csVM);
+                    }
+                }
+            }
+
+            currentSubmissions = currentSubmissions.OrderBy(o => o.Ranking).ToList();
+
+            // to calculate total marks for each submission (for judges only) -jin yang
+            
+            List <double> totalmarks = new List<double>();
+            
+            List<CompetitionScore> scores = compscoreContext.GetAllScore();
+
+            List<CompetitionScore> specifiedscores = new List<CompetitionScore>();
+            List<Criteria> criteria = criteriaContext.GetAllCriteria();
+
+
+            foreach (CompetitionScore s in scores)
+            {
+                if (s.CompetitionID == competitionid.Value)
+                {
+                    specifiedscores.Add(s);
+                }
+            }
+
+            List<CompetitionScoreViewModel> currentScore = new List<CompetitionScoreViewModel>();
+            foreach (Criteria c in criteria)
+            {
+                foreach (CompetitionScore ss in specifiedscores)
+                {
+                    if (c.CriteriaID == ss.CriteriaID)
+                    {
+                        CompetitionScoreViewModel csVM = MapToScoreVM(ss);
+                        currentScore.Add(csVM);
+                    }
+                }
+            }
+            
+
+            
+            foreach (CompSubmissionViewModel ss in currentSubmissions)
+            {
+                double marks = 0;
+                
+                foreach (CompetitionScoreViewModel cs in currentScore)
+                {
+                    if (ss.CompetitorID == cs.CompetitorID)
+                    {
+                        double realscore = cs.Score;
+
+                        marks = marks + (cs.Weightage * (realscore / 10));
+                        
+                    }
+                    
+                    
+                }
+                totalmarks.Add(marks);
+
+
+
+
+            }
+                
+                
+
+            
+            ViewData["totalmarks"] = totalmarks;
+
+
+
+
+
+            return View(currentSubmissions);
+        }
+
+        [HttpPost]
+        public ActionResult Rank(List<CompSubmissionViewModel> compsubList)
+        {
+
+            
+            foreach(CompSubmissionViewModel csvm in compsubList)
+            {
+                CompetitionSubmission compsub = new CompetitionSubmission();
+                compsub.Appeal = csvm.Appeal;
+                compsub.CompetitionID = csvm.CompetitionID;
+                compsub.CompetitorID = csvm.CompetitorID;
+                compsub.DateTimeFileUpload = csvm.DateTimeFileUpload;
+                compsub.FileSubmitted = csvm.FileSubmitted;
+                compsub.Ranking = csvm.Ranking;
+                compsub.VoteCount = csvm.VoteCount;
+
+                competitionSubmissionContext.UpdateRank(compsub);
+                
+            }
+            return RedirectToAction("ViewCompetitors", "Guest", new { id = TempData.Peek("CompID") });
         }
 
 

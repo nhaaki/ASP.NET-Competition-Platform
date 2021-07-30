@@ -1939,3 +1939,4 @@ C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPl
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\staticwebassets\T03_CompetitionPlatform.StaticWebAssets.xml
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.genruntimeconfig.cache
 C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\GradeCriterion.cshtml.g.cs
+C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\Rank.cshtml.g.cs

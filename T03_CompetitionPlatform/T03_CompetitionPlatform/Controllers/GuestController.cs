@@ -17,6 +17,7 @@ namespace T03_CompetitionPlatform.Controllers
         private CompetitorDAL competitorContext = new CompetitorDAL();
         private CompetitionSubmissionDAL competitionSubmissionContext = new CompetitionSubmissionDAL();
         private CommentDAL commentContext = new CommentDAL();
+        private CompetitionScoreDAL compscoreContext = new CompetitionScoreDAL();
 
         public ActionResult Index()
         {
@@ -71,6 +72,8 @@ namespace T03_CompetitionPlatform.Controllers
                     }
                 }
             }
+
+            
 
             return View(currentSubmissions);
         }

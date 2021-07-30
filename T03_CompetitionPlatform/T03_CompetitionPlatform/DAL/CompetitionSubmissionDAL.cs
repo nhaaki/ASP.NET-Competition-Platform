@@ -119,6 +119,29 @@ namespace T03_CompetitionPlatform.DAL
             return count;
         }
 
+        public int UpdateRank(CompetitionSubmission compsub)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify an UPDATE SQL statement
+            cmd.CommandText = @"UPDATE  CompetitionSubmission SET Ranking = @rank
+            WHERE CompetitionID=@selcompID AND CompetitorID=@selID";
+            //Define the parameters used in SQL statement, value for each parameter
+            //is retrieved from respective class's property.
+            cmd.Parameters.AddWithValue("@selcompID", compsub.CompetitionID);
+            cmd.Parameters.AddWithValue("@selID", compsub.CompetitorID); ;
+            cmd.Parameters.AddWithValue("rank", compsub.Ranking); ;
+
+
+            //Open a database connection
+            conn.Open();
+            //ExecuteNonQuery is used for UPDATE and DELETE
+            int count = cmd.ExecuteNonQuery();
+            //Close the database connection
+            conn.Close();
+            return count;
+        }
+
         public bool checkIfCompetitorSubmissionExists(int theId)
         {
 
