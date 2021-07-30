@@ -32,6 +32,7 @@ namespace T03_CompetitionPlatform.Models
         public int VoteCount { get; set; }
 
         //[Range(1)]
+        
         [Display(Name = "Ranking")]
         public int? Ranking { get; set; }
     }

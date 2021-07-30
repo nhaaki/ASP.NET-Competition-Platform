@@ -146,7 +146,7 @@ namespace T03_CompetitionPlatform.Controllers
             if (ModelState.IsValid && totalweightage <= 100)
             {
 
-                if (criteriaContext.checkIfCriteriaExists(criteria.CriteriaID))
+                if (!criteriaContext.checkIfCriteriaExists(criteria.CriteriaID))
                 {
                     //Add criteria record to database
                     criteria.CriteriaID = criteriaContext.Add(criteria);
@@ -207,7 +207,7 @@ namespace T03_CompetitionPlatform.Controllers
             totalweightage = totalweightage - criteriaContext.GetDetails(criteria.CriteriaID).Weightage + criteria.Weightage;
             if (ModelState.IsValid && totalweightage <= 100)
             {
-                if (criteriaContext.checkIfCriteriaExists(criteria.CriteriaID))
+                if (!criteriaContext.checkIfCriteriaExists(criteria.CriteriaID))
                 {
                     //Add staff record to database
                     criteria.CriteriaID = criteriaContext.Update(criteria);
@@ -340,7 +340,7 @@ namespace T03_CompetitionPlatform.Controllers
 
 
 
-                        if(compscoreContext.checkIfJudgeExists(cs.CompetitorID, cs.CriteriaID))
+                        if(!compscoreContext.checkIfJudgeExists(cs.CompetitorID, cs.CriteriaID))
                         {
                             specifiedscores.Add(cs);
                             compscoreContext.Add(cs);
@@ -403,14 +403,14 @@ namespace T03_CompetitionPlatform.Controllers
             }
         }
 
-        public ActionResult Rank(int? competitionid)
+        public ActionResult Rank(int? id)
         {
             //Get all the participating CompetitionSubmission
             List<CompetitionSubmission> compSubmission = competitionSubmissionContext.GetAllSubmissions();
             List<CompetitionSubmission> specifiedSubmission = new List<CompetitionSubmission>();
             foreach (CompetitionSubmission cs in compSubmission)
             {
-                if (cs.CompetitionID == competitionid)
+                if (cs.CompetitionID == id)
                 {
                     specifiedSubmission.Add(cs);
                 }
@@ -425,7 +425,7 @@ namespace T03_CompetitionPlatform.Controllers
                 {
                     if (c.CompetitorID == cs.CompetitorID)
                     {
-                        CompSubmissionViewModel csVM = MapTocsVM(cs, competitionid);
+                        CompSubmissionViewModel csVM = MapTocsVM(cs, id);
                         currentSubmissions.Add(csVM);
                     }
                 }
@@ -445,7 +445,7 @@ namespace T03_CompetitionPlatform.Controllers
             //geting all the participating competition score view models
             foreach (CompetitionScore s in scores)
             {
-                if (s.CompetitionID == competitionid.Value)
+                if (s.CompetitionID == id)
                 {
                     specifiedscores.Add(s);
                 }
@@ -493,8 +493,9 @@ namespace T03_CompetitionPlatform.Controllers
 
             
             ViewData["totalmarks"] = totalmarks;
+            ViewData["CompName"] = competitionContext.GetDetails(id.Value).CompetitionName;
+            ViewData["CompEnd"] = competitionContext.GetDetails(id.Value).EndDate;
 
-            
 
 
 
@@ -592,8 +593,35 @@ namespace T03_CompetitionPlatform.Controllers
             }
             List<CompetitionSubmission> csList = new List<CompetitionSubmission>();
 
+            for (int i = 0; i < compsubList.Count; i++)
+            {
+                Debug.WriteLine(compsubList.Count);
+                
 
-            foreach (CompSubmissionViewModel csvm in compsubList)
+                if (compsubList[i].Ranking == null)
+                {
+                    Debug.WriteLine("hi" + compsubList[i].CompetitorID);
+
+                    CompetitionSubmission compsub = new CompetitionSubmission();
+                    compsub.Appeal = compsubList[i].Appeal;
+                    compsub.CompetitionID = compsubList[i].CompetitionID;
+                    compsub.CompetitorID = compsubList[i].CompetitorID;
+                    compsub.DateTimeFileUpload = compsubList[i].DateTimeFileUpload;
+                    compsub.FileSubmitted = compsubList[i].FileSubmitted;
+                    compsub.Ranking = compsubList[i].Ranking;
+                    compsub.VoteCount = compsubList[i].VoteCount;
+                    competitionSubmissionContext.UpdateRank(compsub);
+                    compsubList.RemoveAt(i);
+                    i = i - 1;
+
+                }
+                if(compsubList.Count == 0){
+                    return RedirectToAction("ViewCompetitors", "Guest", new { id = TempData.Peek("CompID") });
+                }
+            }
+
+
+                foreach (CompSubmissionViewModel csvm in compsubList)
             {
                 CompetitionSubmission compsub = new CompetitionSubmission();
                 compsub.Appeal = csvm.Appeal;
@@ -606,10 +634,22 @@ namespace T03_CompetitionPlatform.Controllers
 
                 csList.Add(compsub);
 
-
-
             }
-            
+
+            csList = csList.OrderBy(o => o.Ranking).ToList();
+
+            for(int i= 0; i < csList.Count; i++)
+            {
+                
+                
+                   csList[i].Ranking = i + 1;
+                
+
+                
+            }
+
+
+
 
             foreach (CompetitionSubmission cs in csList)
             {

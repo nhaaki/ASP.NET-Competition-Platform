@@ -31,10 +31,13 @@
                         <td>@item.CriteriaName</td>
                         <td>@item.Weightage.ToString()%</td>
                         <td>
-                            <a asp-action="EditCriteria"
-                               asp-route-id="@item.CriteriaID">Edit</a> ||
-                            <a asp-action="DeleteCriteria"
+
+                            <a class="btn btn-secondary" asp-action="EditCriteria"
+                               asp-route-id="@item.CriteriaID">Edit</a>
+
+                            <a class="btn btn-secondary" asp-action="DeleteCriteria"
                                asp-route-id="@item.CriteriaID">Delete</a>
+                            
                         </td>
 
                     </tr>

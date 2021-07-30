@@ -64,19 +64,24 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-action="ViewCompetitors" asp-controller="Guest" asp-route-id="@TempData.Peek("CompID")" 
+                    <a class="nav-link" asp-action="ViewCompetitors" asp-controller="Guest" asp-route-id="@TempData.Peek("CompID")"
                        asp-route-name="@ViewData["CompName"]" style="font-size: 20px;color: white;">View Submissions</a>
                 </li>
 
-                
-                
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Rank" asp-controller="Judge" asp-route-id="@TempData.Peek("CompID")"
+                       asp-route-name="@ViewData["CompName"]" style="font-size: 20px;color: white;">Rank Competitors</a>
+                </li>
+
+
+
             </ul>
             <!-- Links that are aligned to the right,
                 ml-auto: left margin auto-adjusted -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <!-- A link for logging out user -->
-                    <a class="nav-link" href="~/Home/judgeLogout">Log Out</a>
+                    <a class="nav-link" href="~/Home/judgeLogout" style="font-size: 20px;color: white;">Log Out</a>
                 </li>
             </ul>
         </div>

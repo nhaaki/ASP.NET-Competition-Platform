@@ -130,7 +130,8 @@ namespace T03_CompetitionPlatform.DAL
             //is retrieved from respective class's property.
             cmd.Parameters.AddWithValue("@selcompID", compsub.CompetitionID);
             cmd.Parameters.AddWithValue("@selID", compsub.CompetitorID); ;
-            cmd.Parameters.AddWithValue("rank", compsub.Ranking); ;
+            cmd.Parameters.AddWithValue("@rank", compsub.Ranking ?? (object)DBNull.Value); 
+            
 
 
             //Open a database connection

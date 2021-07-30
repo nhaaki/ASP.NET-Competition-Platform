@@ -3,8 +3,12 @@
 @{
     ViewData["Title"] = "Rank";
 }
+<partial name="~/Views/Judge/_JudgeNav.cshtml" model="@Model" />
 
-<h1>Rank</h1>
+
+<h1 style="text-align:center; padding-top:30px;">@ViewData["CompName"]</h1>
+
+<h5 style="text-align: center; padding-top:30px;">Rank Competitors</h5>
 
 
 
@@ -32,11 +36,11 @@
                         <th>
                             VoteCount
                         </th>
+
+                        <th>Total Marks</th>
                         <th>
                             Ranking
                         </th>
-                        <th>Total Marks</th>
-                        <th></th>
                     </tr>
                 </thead>
 
@@ -67,16 +71,7 @@
                                 @Model[i].VoteCount
                             </td>
 
-                            @if (Model[i].Ranking != null)
-                            {
-                                <td>
-                                    @Model[i].Ranking
-                                </td>
-                            }
-                            else
-                            {
-                                <td>-</td>
-                            }
+
 
 
 
@@ -87,80 +82,88 @@
                             <td>@marks[i]</td>
 
                             <td>
-                                <div>
-                                    <label asp-for="@Model[i].Ranking"></label>
-                                    @Html.EditorFor(m=> m[i].Ranking)
-                                    <span asp-validation-for="@Model[i].Ranking"
-                                          class="text-danger"></span>
-                                </div>
+                                @if ((DateTime)ViewData["CompEnd"] > DateTime.Now )
+                                {
+                                    <div>
+                                        
+                                        @Html.EditorFor(m => m[i].Ranking)
+                                        <span asp-validation-for="@Model[i].Ranking"
+                                              class="text-danger"></span>
+                                    </div>
 
-                                <div>
+                                    <div>
 
-                                    @Html.HiddenFor(model => Model[i].CompetitionID)
+                                        @Html.HiddenFor(model => Model[i].CompetitionID)
 
-                                </div>
+                                    </div>
 
-                                <div>
+                                    <div>
 
-                                    @Html.HiddenFor(model => Model[i].CompetitorID)
+                                        @Html.HiddenFor(model => Model[i].CompetitorID)
 
-                                </div>
+                                    </div>
 
-                                <div>
+                                    <div>
 
-                                    @Html.HiddenFor(model => Model[i].FileSubmitted)
+                                        @Html.HiddenFor(model => Model[i].FileSubmitted)
 
-                                </div>
+                                    </div>
 
-                                <div>
+                                    <div>
 
-                                    @Html.HiddenFor(model => Model[i].DateTimeFileUpload)
+                                        @Html.HiddenFor(model => Model[i].DateTimeFileUpload)
 
-                                </div>
+                                    </div>
 
-                                <div>
+                                    <div>
 
-                                    @Html.HiddenFor(model => Model[i].Appeal)
+                                        @Html.HiddenFor(model => Model[i].Appeal)
 
-                                </div>
+                                    </div>
 
-                                <div>
+                                    <div>
 
-                                    @Html.HiddenFor(model => Model[i].VoteCount)
+                                        @Html.HiddenFor(model => Model[i].VoteCount)
 
-                                </div>
+                                    </div>
 
 
 
-                                <div>
+                                    <div>
 
-                                    @Html.HiddenFor(model => Model[i].Salutation)
+                                        @Html.HiddenFor(model => Model[i].Salutation)
 
-                                </div>
+                                    </div>
 
-                                <div>
+                                    <div>
 
-                                   @Html.HiddenFor(model => Model[i].CompetitorName)
+                                        @Html.HiddenFor(model => Model[i].CompetitorName)
 
-                                </div>
+                                    </div>
 
-                                <div>
+                                    <div>
 
-                                    @Html.HiddenFor(model => Model[i].CompetitionName)
+                                        @Html.HiddenFor(model => Model[i].CompetitionName)
 
-                                </div>
+                                    </div>
 
-                                <div>
+                                    <div>
 
-                                    @Html.HiddenFor(model => Model[i].StartDate)
+                                        @Html.HiddenFor(model => Model[i].StartDate)
 
-                                </div>
+                                    </div>
 
-                                <div>
+                                    <div>
 
-                                    @Html.HiddenFor(model => Model[i].EndDate)
-                                    
-                                </div>
+                                        @Html.HiddenFor(model => Model[i].EndDate)
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    @Model[i].Ranking
+                                }
+
 
 
                             </td>
@@ -171,11 +174,14 @@
             </table>
 
         </fieldset>
-        <div>
-            <div style="width:91.31px; margin-left:auto; margin-top:20px; margin-right:auto">
-                <input type="submit" value="Finalise"
-                       class="btn btn-primary" />
+        @if ((DateTime) ViewData["CompEnd"] > DateTime.Now )
+        {
+            <div>
+                <div style="width:91.31px; margin-left:auto; margin-top:20px; margin-right:auto">
+                    <input type="submit" value="Finalise"
+                           class="btn btn-primary" />
+                </div>
             </div>
-        </div>
+        }
     </form>
 </div>
