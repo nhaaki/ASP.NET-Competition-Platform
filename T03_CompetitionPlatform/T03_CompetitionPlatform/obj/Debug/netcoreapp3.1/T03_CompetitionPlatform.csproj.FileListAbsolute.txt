@@ -1773,9 +1773,6 @@ C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_Compe
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.csprojAssemblyReference.cache
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.AssemblyInfoInputs.cache
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.AssemblyInfo.cs
-C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.csproj.CoreCompileInputs.cache
-C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.RazorAssemblyInfo.cache
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.RazorAssemblyInfo.cs
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.dll
@@ -1912,7 +1909,6 @@ C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPl
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\AboutUs.cshtml.g.cs
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\ContactUs.cshtml.g.cs
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\JudgeRegister.cshtml.g.cs
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Home\Register.cshtml.g.cs
@@ -1940,3 +1936,7 @@ C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPl
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.genruntimeconfig.cache
 C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\GradeCriterion.cshtml.g.cs
 C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\Rank.cshtml.g.cs
+C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Judge\JudgeRegister.cshtml.g.cs
+C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.csproj.CoreCompileInputs.cache
+C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Ng Hung Meng\Source\Repos\pop\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.MvcApplicationPartsAssemblyInfo.cache

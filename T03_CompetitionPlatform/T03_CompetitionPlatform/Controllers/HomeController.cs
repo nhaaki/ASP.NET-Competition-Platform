@@ -24,7 +24,7 @@ namespace T03_CompetitionPlatform.Controllers
     public class HomeController : Controller
     {
         private JudgesDAL judgeContext = new JudgesDAL();
-        private AreaInterestDAL areaContext = new AreaInterestDAL();
+        
         private CompetitorDAL competitorContext = new CompetitorDAL();
         private CompetitionDAL competitionContext = new CompetitionDAL();
 
@@ -311,49 +311,6 @@ namespace T03_CompetitionPlatform.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult judgeRegister()
-        {
-            List<SelectListItem> aoiList = new List<SelectListItem>();
-
-            foreach(var item in GetAllAOI())
-            {
-                aoiList.Add(new SelectListItem
-                {
-                    Value = Convert.ToString(item.AreaInterestID),
-                    Text = item.Name
-
-
-                }); ;
-            }
-
-            ViewData["AOIList"] = aoiList;
-
-
-
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult judgeRegister(Judge judge)
-        {
-            ViewData["AOIList"] = GetAllAOI();
-
-            if (ModelState.IsValid)
-            {
-                //Add staff record to database
-                judge.JudgeID = judgeContext.Add(judge);
-                //Redirect user to Home/Index view
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                //Input validation fails, return to the Create view
-                //to display error message
-                
-
-                return View(judge);
-            }
-        }
 
 
 
@@ -367,23 +324,13 @@ namespace T03_CompetitionPlatform.Controllers
             return View();
         }
 
-        private List<AreaInterest> GetAllAOI()
-        {
-            
-            
-            // Get a list of branches from database
-            List<AreaInterest> aoiList = areaContext.GetAllArea();
-            // Adding a select prompt at the first row of the branch list
-            
-            return aoiList;
-        }
-
-        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
     }
 }

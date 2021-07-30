@@ -174,5 +174,47 @@ namespace T03_CompetitionPlatform.DAL
 
 
         }
+
+        public bool checkIfCriteriaExists(int criId)
+        {
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement
+            cmd.CommandText = @"SELECT * FROM Criteria ORDER BY CriteriaID";
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            //Read all records until the end, save data into a staff list
+            List<Criteria> criList = new List<Criteria>();
+            while (reader.Read())
+            {
+                criList.Add(
+                new Criteria
+                {
+                    CriteriaID = reader.GetInt32(0),
+                    CompetitionID = reader.GetInt32(1),
+                    CriteriaName = reader.GetString(2),
+                    Weightage = reader.GetInt32(3),
+                }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            bool itExists = false;
+            foreach (Criteria criteria in criList)
+            {
+                if (criteria.CriteriaID == criId)
+                {
+                    itExists = true;
+                }
+            }
+
+            return itExists;
+        }
     }
 }

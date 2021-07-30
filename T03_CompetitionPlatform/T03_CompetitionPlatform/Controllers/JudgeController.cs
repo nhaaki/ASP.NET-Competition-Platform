@@ -20,6 +20,7 @@ namespace T03_CompetitionPlatform.Controllers
         private CriteriaDAL criteriaContext = new CriteriaDAL();
         private CompetitionJudgeDAL compjudgeContext = new CompetitionJudgeDAL();
         private CompetitionScoreDAL compscoreContext = new CompetitionScoreDAL();
+        private AreaInterestDAL areaContext = new AreaInterestDAL();
 
 
 
@@ -144,10 +145,19 @@ namespace T03_CompetitionPlatform.Controllers
             totalweightage = totalweightage + criteria.Weightage;
             if (ModelState.IsValid && totalweightage <= 100)
             {
-                //Add criteria record to database
-                criteria.CriteriaID = criteriaContext.Add(criteria);
-                //Redirect user to Judge/ViewCriteria/ view
-                return RedirectToAction("ViewCriteria");
+
+                if (criteriaContext.checkIfCriteriaExists(criteria.CriteriaID))
+                {
+                    //Add criteria record to database
+                    criteria.CriteriaID = criteriaContext.Add(criteria);
+                    //Redirect user to Judge/ViewCriteria/ view
+                    return RedirectToAction("ViewCriteria");
+                }
+                else
+                {
+                    return RedirectToAction("ViewCriteria");
+                }
+                    
             }
             else
             {
@@ -197,10 +207,17 @@ namespace T03_CompetitionPlatform.Controllers
             totalweightage = totalweightage - criteriaContext.GetDetails(criteria.CriteriaID).Weightage + criteria.Weightage;
             if (ModelState.IsValid && totalweightage <= 100)
             {
-                //Add staff record to database
-                criteria.CriteriaID = criteriaContext.Update(criteria);
-                //Redirect user to Staff/Index view
-                return RedirectToAction("ViewCriteria");
+                if (criteriaContext.checkIfCriteriaExists(criteria.CriteriaID))
+                {
+                    //Add staff record to database
+                    criteria.CriteriaID = criteriaContext.Update(criteria);
+                    //Redirect user to Staff/Index view
+                    return RedirectToAction("ViewCriteria");
+                }
+                else
+                {
+                    return RedirectToAction("ViewCriteria");
+                }
             }
             else
             {
@@ -323,8 +340,11 @@ namespace T03_CompetitionPlatform.Controllers
 
 
 
-                        specifiedscores.Add(cs);
-                        compscoreContext.Add(cs);
+                        if(compscoreContext.checkIfJudgeExists(cs.CompetitorID, cs.CriteriaID))
+                        {
+                            specifiedscores.Add(cs);
+                            compscoreContext.Add(cs);
+                        }
                     }
                 }
             }
@@ -345,6 +365,8 @@ namespace T03_CompetitionPlatform.Controllers
             }
 
             ViewData["Compend"] = competitionContext.GetDetails(competitionid.Value).EndDate;
+            ViewData["CompName"] = competitionContext.GetDetails(competitionid.Value).CompetitionName;
+            ViewData["CompetitorName"] = competitorContext.GetDetails(competitorid.Value).Salutation + " " + competitorContext.GetDetails(competitorid.Value).CompetitorName;
             
 
             return View(currentScore);
@@ -383,7 +405,7 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult Rank(int? competitionid)
         {
-            
+            //Get all the participating CompetitionSubmission
             List<CompetitionSubmission> compSubmission = competitionSubmissionContext.GetAllSubmissions();
             List<CompetitionSubmission> specifiedSubmission = new List<CompetitionSubmission>();
             foreach (CompetitionSubmission cs in compSubmission)
@@ -411,7 +433,7 @@ namespace T03_CompetitionPlatform.Controllers
 
             currentSubmissions = currentSubmissions.OrderBy(o => o.Ranking).ToList();
 
-            // to calculate total marks for each submission (for judges only) -jin yang
+            // to calculate total marks for each submission (for judges only) 
             
             List <double> totalmarks = new List<double>();
             
@@ -420,7 +442,7 @@ namespace T03_CompetitionPlatform.Controllers
             List<CompetitionScore> specifiedscores = new List<CompetitionScore>();
             List<Criteria> criteria = criteriaContext.GetAllCriteria();
 
-
+            //geting all the participating competition score view models
             foreach (CompetitionScore s in scores)
             {
                 if (s.CompetitionID == competitionid.Value)
@@ -472,6 +494,8 @@ namespace T03_CompetitionPlatform.Controllers
             
             ViewData["totalmarks"] = totalmarks;
 
+            
+
 
 
 
@@ -483,8 +507,93 @@ namespace T03_CompetitionPlatform.Controllers
         public ActionResult Rank(List<CompSubmissionViewModel> compsubList)
         {
 
-            
-            foreach(CompSubmissionViewModel csvm in compsubList)
+            //Get all the participating CompetitionSubmission
+            List<CompetitionSubmission> compSubmission = competitionSubmissionContext.GetAllSubmissions();
+            List<CompetitionSubmission> specifiedSubmission = new List<CompetitionSubmission>();
+            foreach (CompetitionSubmission cs in compSubmission)
+            {
+                if (cs.CompetitionID == compsubList[0].CompetitionID)
+                {
+                    specifiedSubmission.Add(cs);
+                }
+            }
+
+
+            List<Competitor> competitorList = competitorContext.GetAllCompetitors();
+            List<CompSubmissionViewModel> currentSubmissions = new List<CompSubmissionViewModel>();
+            foreach (Competitor c in competitorList)
+            {
+                foreach (CompetitionSubmission cs in specifiedSubmission)
+                {
+                    if (c.CompetitorID == cs.CompetitorID)
+                    {
+                        CompSubmissionViewModel csVM = MapTocsVM(cs, compsubList[0].CompetitionID);
+                        currentSubmissions.Add(csVM);
+                    }
+                }
+            }
+
+            currentSubmissions = currentSubmissions.OrderBy(o => o.Ranking).ToList();
+
+            // to calculate total marks for each submission (for judges only) 
+
+            List<double> totalmarks = new List<double>();
+
+            List<CompetitionScore> scores = compscoreContext.GetAllScore();
+
+            List<CompetitionScore> specifiedscores = new List<CompetitionScore>();
+            List<Criteria> criteria = criteriaContext.GetAllCriteria();
+
+            //geting all the participating competition score view models
+            foreach (CompetitionScore s in scores)
+            {
+                if (s.CompetitionID == compsubList[0].CompetitionID)
+                {
+                    specifiedscores.Add(s);
+                }
+            }
+
+            List<CompetitionScoreViewModel> currentScore = new List<CompetitionScoreViewModel>();
+            foreach (Criteria c in criteria)
+            {
+                foreach (CompetitionScore ss in specifiedscores)
+                {
+                    if (c.CriteriaID == ss.CriteriaID)
+                    {
+                        CompetitionScoreViewModel csVM = MapToScoreVM(ss);
+                        currentScore.Add(csVM);
+                    }
+                }
+            }
+
+
+
+            foreach (CompSubmissionViewModel ss in currentSubmissions)
+            {
+                double marks = 0;
+
+                foreach (CompetitionScoreViewModel cs in currentScore)
+                {
+                    if (ss.CompetitorID == cs.CompetitorID)
+                    {
+                        double realscore = cs.Score;
+
+                        marks = marks + (cs.Weightage * (realscore / 10));
+
+                    }
+
+
+                }
+                totalmarks.Add(marks);
+
+
+
+
+            }
+            List<CompetitionSubmission> csList = new List<CompetitionSubmission>();
+
+
+            foreach (CompSubmissionViewModel csvm in compsubList)
             {
                 CompetitionSubmission compsub = new CompetitionSubmission();
                 compsub.Appeal = csvm.Appeal;
@@ -495,11 +604,80 @@ namespace T03_CompetitionPlatform.Controllers
                 compsub.Ranking = csvm.Ranking;
                 compsub.VoteCount = csvm.VoteCount;
 
-                competitionSubmissionContext.UpdateRank(compsub);
-                
+                csList.Add(compsub);
+
+
+
             }
+            
+
+            foreach (CompetitionSubmission cs in csList)
+            {
+                competitionSubmissionContext.UpdateRank(cs);
+            }
+
             return RedirectToAction("ViewCompetitors", "Guest", new { id = TempData.Peek("CompID") });
         }
+
+        public ActionResult judgeRegister()
+        {
+            List<SelectListItem> aoiList = new List<SelectListItem>();
+
+            foreach (var item in GetAllAOI())
+            {
+                aoiList.Add(new SelectListItem
+                {
+                    Value = Convert.ToString(item.AreaInterestID),
+                    Text = item.Name
+
+
+                }); ;
+            }
+
+            ViewData["AOIList"] = aoiList;
+            ViewData["SalutationList"] = GetSalutations();
+
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult judgeRegister(Judge judge)
+        {
+            ViewData["AOIList"] = GetAllAOI();
+
+            if (ModelState.IsValid)
+            {
+                //Add staff record to database
+                judge.JudgeID = judgeContext.Add(judge);
+                //Redirect user to Home/Index view
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                //Input validation fails, return to the Create view
+                //to display error message
+
+
+                return View(judge);
+            }
+        }
+
+        private List<AreaInterest> GetAllAOI()
+        {
+
+
+            // Get a list of branches from database
+            List<AreaInterest> aoiList = areaContext.GetAllArea();
+            // Adding a select prompt at the first row of the branch list
+
+            return aoiList;
+        }
+
+
+
+        
 
 
 
@@ -580,5 +758,16 @@ namespace T03_CompetitionPlatform.Controllers
             };
             return scoreVM;
         }
-}
+        private List<SelectListItem> GetSalutations()
+        {
+            List<SelectListItem> salutations = new List<SelectListItem>();
+            salutations.Add(new SelectListItem { Value = "Dr", Text = "Dr" });
+            salutations.Add(new SelectListItem { Value = "Mr", Text = "Mr" });
+            salutations.Add(new SelectListItem { Value = "Ms", Text = "Ms" });
+            salutations.Add(new SelectListItem { Value = "Mrs", Text = "Mrs" });
+            salutations.Add(new SelectListItem { Value = "Mdm", Text = "Mdm" });
+
+            return salutations;
+        }
+    }
 }

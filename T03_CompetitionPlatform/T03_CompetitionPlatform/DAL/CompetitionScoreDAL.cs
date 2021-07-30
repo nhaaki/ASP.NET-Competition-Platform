@@ -151,7 +151,48 @@ namespace T03_CompetitionPlatform.DAL
             conn.Close();
             return count;
         }
-    }
 
+        public bool checkIfJudgeExists(int scoreId, int criId)
+        {
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement
+            cmd.CommandText = @"SELECT * FROM CompetitionScore  ORDER BY CompetitorID";
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            //Read all records until the end, save data into a staff list
+            List<CompetitionScore> scoreList = new List<CompetitionScore>();
+            while (reader.Read())
+            {
+                scoreList.Add(
+                new CompetitionScore
+                {
+                    CriteriaID = reader.GetInt32(0),
+                    CompetitorID = reader.GetInt32(1),
+                    CompetitionID = reader.GetInt32(2),
+                    Score = reader.GetInt32(3)
+                }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            bool itExists = false;
+            foreach (CompetitionScore score in scoreList)
+            {
+                if ( score.CompetitorID == scoreId && score.CriteriaID == criId)
+                {
+                    itExists = true;
+                }
+            }
+
+            return itExists;
+        }
+    }
 
 }

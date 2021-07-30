@@ -36,7 +36,16 @@
 
             </div>
             <div class="my-auto mr-5">
-                <a class="btn btn-info" asp-action="ViewCompetitors" asp-route-name="@item.CompetitionName" asp-route-id="@item.CompetitionID">View</a>
+
+
+                @if (Context.Session.GetString("Role") == "Judge")
+                {
+                    <a class="btn btn-info" asp-action="ViewCriteria" asp-route-id="@item.CompetitionID" asp-controller="Judge">View</a>
+                }
+                else
+                {
+                    <a class="btn btn-info" asp-action="ViewCompetitors" asp-route-name="@item.CompetitionName" asp-route-id="@item.CompetitionID">View</a>
+                }
             </div>
         </div>
     }

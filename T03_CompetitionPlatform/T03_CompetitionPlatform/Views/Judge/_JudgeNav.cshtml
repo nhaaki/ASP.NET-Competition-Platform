@@ -39,8 +39,8 @@
     <!-- A grey navbar that expands horizontally at medium device -->
     <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
         <!-- The brand(or icon) of the navbar -->
-        <a class="navbar-brand" href="~/Home/StaffMain"
-           style="font-size:32px; font-weight:bold; color:#3399FF;">
+        <a class="navbar-brand"
+           style="font-size:32px; font-weight:bold; color:darkorange;">
             CJP
         </a>
         <!-- Toggle/collapsible Button, also known as hamburger button -->
@@ -54,15 +54,18 @@
             mr-auto: right margin auto-adjusted -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="~/Judge/ViewCriteria">
+                    <a class="nav-link" href="~/Judge/Index" style="font-size: 20px;color: white;">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Judge/ViewCriteria" style="font-size: 20px;color: white;">
                         View Criteria
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="~/Judge/CreateCriteria">Create Criterion</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-action="ViewCompetitors" asp-controller="Guest" asp-route-id="@TempData.Peek("CompID")" asp-route-name="@ViewData["CompName"]">View Submissions</a>
+                    <a class="nav-link" asp-action="ViewCompetitors" asp-controller="Guest" asp-route-id="@TempData.Peek("CompID")" 
+                       asp-route-name="@ViewData["CompName"]" style="font-size: 20px;color: white;">View Submissions</a>
                 </li>
 
                 
