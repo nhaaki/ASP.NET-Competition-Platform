@@ -50,7 +50,7 @@
                 <tr style="text-align:center; align-content:center; align-items:center;">
                     <th>Competitor ID</th>
                     <th>Competitor Name</th>
-                    @if (Context.Session.GetString("Role") == "Judge")
+                    @if (Context.Session.GetString("Role") == "Judge" || Context.Session.GetString("Role") == "Admin")
                     {
                         <th>
                             @Html.DisplayNameFor(model => model.VoteCount)
@@ -78,7 +78,7 @@
                         <tr style="text-align:center; align-content:center; align-items:center;">
                             <td>@item.CompetitorID.ToString()</td>
                             <td>@item.Salutation.ToString() @item.CompetitorName.ToString()</td>
-                            @if (Context.Session.GetString("Role") == "Judge")
+                            @if (Context.Session.GetString("Role") == "Judge" || Context.Session.GetString("Role") == "Admin")
                             {
                                 <td>
                                     @Html.DisplayFor(modelItem => item.VoteCount)
