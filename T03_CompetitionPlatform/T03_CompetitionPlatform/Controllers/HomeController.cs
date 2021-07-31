@@ -70,7 +70,7 @@ namespace T03_CompetitionPlatform.Controllers
             // Read inputs from textboxes
             // Email address converted to lowercase
             
-            string loginID = formData["txtLoginID"].ToString().ToLower();
+            string loginID = formData["txtLoginID"].ToString();
             string password = formData["txtPassword"].ToString();
             List<Judge> judgeList = judgeContext.GetAllJudges();
             List<Competitor> competitorList = competitorContext.GetAllCompetitors();

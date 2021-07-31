@@ -7005,19 +7005,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nhaak\\.nuget\\packages\\": {}
+    "C:\\Users\\Drake\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nhaak\\source\\repos\\web2021apr_p0_t(2)\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+      "projectUniqueName": "C:\\Users\\Drake\\Desktop\\School\\Web\\week15probably\\pulled31july\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
       "projectName": "T03_CompetitionPlatform",
-      "projectPath": "C:\\Users\\nhaak\\source\\repos\\web2021apr_p0_t(2)\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
-      "packagesPath": "C:\\Users\\nhaak\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nhaak\\source\\repos\\web2021apr_p0_t(2)\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
+      "projectPath": "C:\\Users\\Drake\\Desktop\\School\\Web\\week15probably\\pulled31july\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+      "packagesPath": "C:\\Users\\Drake\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Drake\\Desktop\\School\\Web\\week15probably\\pulled31july\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\nhaak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Drake\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7025,6 +7025,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Users\\Drake\\Downloads": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
