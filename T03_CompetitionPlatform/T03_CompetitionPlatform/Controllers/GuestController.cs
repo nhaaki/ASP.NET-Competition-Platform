@@ -137,6 +137,12 @@ namespace T03_CompetitionPlatform.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult addComment(Comment comment)
         {
+            if (!ModelState.IsValid) // validation fails
+            {
+                TempData["InputEmpty"] = "Your comment can't be empty!";
+                return RedirectToAction("PostComment", "Guest", new { id = comment.CompetitionID }); // returns the view with errors
+            }
+
             comment.CommentID = commentContext.Add(comment);
             return RedirectToAction("GuestComment", new { id = comment.CompetitionID });
         }

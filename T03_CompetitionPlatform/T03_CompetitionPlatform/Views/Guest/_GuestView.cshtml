@@ -12,7 +12,7 @@
 {
     @foreach (var item in Model)
     {
-        <div class="d-flex flex-row justify-content-between" style="border: 2px; border-color:black; border-style:solid; border-radius:18px; margin-bottom:20px">
+        <div class="d-flex flex-row flex-wrap justify-content-between" style="border: 2px; border-color:black; border-style:solid; border-radius:18px; margin-bottom:20px">
             <div class="my-auto ml-4">
                 <p class="font-weight-bold">@item.CompetitionName</p>
                 <p>@item.StartDate?.ToString("dddd, dd MMMM yyyy") to @item.EndDate?.ToString("dddd, dd MMMM yyyy")</p>
@@ -35,7 +35,7 @@
                 }
 
             </div>
-            <div class="my-auto mr-5">
+            <div class="my-auto ml-5 mr-5">
 
 
                 @if (Context.Session.GetString("Role") == "Judge")

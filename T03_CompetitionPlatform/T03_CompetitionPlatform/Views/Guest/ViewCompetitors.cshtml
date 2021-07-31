@@ -140,7 +140,7 @@
     </div>
 
     <div class="container">
-        <div class="row flex-nowrap align-items-center">
+        <div class="row flex-wrap align-items-center">
             <input type="button" class="btn btn-info mx-auto" value="View Comments" onclick="location.href='@Url.Action("GuestComment", "Guest", new { id = ViewData["CompID"]})'" />
             @if ((string)ViewData["Status"] == "Ended")
             {
