@@ -14,7 +14,7 @@ namespace T03_CompetitionPlatform.Models
 
         [Display(Name = "Competitor Name")]
         [StringLength(50)]
-        [Required(ErrorMessage ="Please enter a name!")]
+        [Required(ErrorMessage = "Please enter a name!")]
         public string CompetitorName { get; set; }
 
         [Display(Name = "Salutation")]

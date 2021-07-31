@@ -8,10 +8,12 @@ namespace T03_CompetitionPlatform.Models
 {
     public class CompetitionSubmission
     {
+#nullable enable
+
         [Required] // No need for error message(?)
         [Display(Name = "Competition ID")]
         public int CompetitionID { get; set; }
-        
+
         [Required] // No need for error message(?)
         [Display(Name = "Competitor ID")]
         public int CompetitorID { get; set; }
@@ -21,8 +23,8 @@ namespace T03_CompetitionPlatform.Models
         public string? FileSubmitted { get; set; }
 
         [Display(Name = "DateTime File Upload")]
-        [DisplayFormat(DataFormatString ="{yyyy-MM-dd:0}")]
-        public DateTime? DateTimeFileUpload { get; set; } 
+        [DisplayFormat(DataFormatString = "{yyyy-MM-dd:0}", NullDisplayText = "No File Upload DateTime")]
+        public DateTime? DateTimeFileUpload { get; set; }
 
         [StringLength(255)]
         [Display(Name = "Appeal")]
@@ -32,7 +34,7 @@ namespace T03_CompetitionPlatform.Models
         public int VoteCount { get; set; }
 
         //[Range(1)]
-        
+
         [Display(Name = "Ranking")]
         public int? Ranking { get; set; }
     }

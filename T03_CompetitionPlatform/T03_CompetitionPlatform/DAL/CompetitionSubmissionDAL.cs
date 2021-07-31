@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Data.SqlClient;
 using T03_CompetitionPlatform.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace T03_CompetitionPlatform.DAL
 {
@@ -68,17 +69,16 @@ namespace T03_CompetitionPlatform.DAL
             return competitionSubmissionList;
         }
 
-        public CompetitionSubmission GetDetails(int competitiorID)
+        public List<CompetitionSubmission> GetDetails(int competitiorID)
         {
-            CompetitionSubmission competitionSubmission = new CompetitionSubmission();
+            List<CompetitionSubmission> comptSubList = new List<CompetitionSubmission>();
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SELECT SQL statement that
-            //retrieves all attributes of a staff record.
+            //retrieves all attributes of a competitionSubmission record.
             cmd.CommandText = @"SELECT * FROM CompetitionSubmission
                     WHERE CompetitorID = @selectedCompetitiorID";
-            //Define the parameter used in SQL statement, value for the
-            //parameter is retrieved from the method parameter “areainterestId”.
+
             cmd.Parameters.AddWithValue("@selectedCompetitiorID", competitiorID);
             //Open a database connection
             conn.Open();
@@ -86,23 +86,63 @@ namespace T03_CompetitionPlatform.DAL
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
-                //Read the record from database
                 while (reader.Read())
                 {
-                    competitionSubmission.CompetitionID = reader.GetInt32(0);
-                    competitionSubmission.CompetitorID = reader.GetInt32(1);
-                    competitionSubmission.FileSubmitted = !reader.IsDBNull(2) ? reader.GetString(2) : null;
-                    competitionSubmission.DateTimeFileUpload = !reader.IsDBNull(3) ? reader.GetDateTime(3) : (DateTime?)null;
-                    competitionSubmission.Appeal = !reader.IsDBNull(4) ? reader.GetString(4) : null;
-                    competitionSubmission.VoteCount = reader.GetInt32(5);
-                    competitionSubmission.Ranking = !reader.IsDBNull(6) ? reader.GetInt32(6) : (int?)null;
+                    comptSubList.Add(
+                         new CompetitionSubmission
+                         {
+                             CompetitionID = reader.GetInt32(0),
+                             CompetitorID = reader.GetInt32(1),
+                             FileSubmitted = !reader.IsDBNull(2) ? reader.GetString(2) : null,
+                             DateTimeFileUpload = !reader.IsDBNull(3) ? reader.GetDateTime(3) : (DateTime?)null,
+                             Appeal = !reader.IsDBNull(4) ? reader.GetString(4) : null,
+                             VoteCount = reader.GetInt32(5),
+                             Ranking = !reader.IsDBNull(6) ? reader.GetInt32(6) : (int?)null,
+                         }
+                     );
                 }
             }
             //Close data reader
             reader.Close();
             //Close database connection
             conn.Close();
-            return competitionSubmission;
+            return comptSubList;
+        }
+
+        public CompetitionSubmission GetSingleDetails(int competitionID, int competitorID)
+        {
+            CompetitionSubmission comptSub = new CompetitionSubmission();
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a competitionSubmission record.
+            cmd.CommandText = @"SELECT * FROM CompetitionSubmission
+                    WHERE CompetitorID = @selectedCompetitiorID";
+
+            cmd.Parameters.AddWithValue("@selectedCompetitiorID", competitorID);
+            //Open a database connection
+            conn.Open();
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    comptSub.CompetitionID = reader.GetInt32(0);
+                    comptSub.CompetitorID = reader.GetInt32(1);
+                    comptSub.FileSubmitted = !reader.IsDBNull(2) ? reader.GetString(2) : null;
+                    comptSub.DateTimeFileUpload = !reader.IsDBNull(3) ? reader.GetDateTime(3) : (DateTime?)null;
+                    comptSub.Appeal = !reader.IsDBNull(4) ? reader.GetString(4) : null;
+                    comptSub.VoteCount = reader.GetInt32(5);
+                    comptSub.Ranking = !reader.IsDBNull(6) ? reader.GetInt32(6) : (int?)null;
+                }
+            }
+            //Close data reader
+            reader.Close();
+            //Close database connection
+            conn.Close();
+            return comptSub;
         }
 
         public int AddVote(int id, int compID)
@@ -130,8 +170,8 @@ namespace T03_CompetitionPlatform.DAL
             //is retrieved from respective class's property.
             cmd.Parameters.AddWithValue("@selcompID", compsub.CompetitionID);
             cmd.Parameters.AddWithValue("@selID", compsub.CompetitorID); ;
-            cmd.Parameters.AddWithValue("@rank", compsub.Ranking ?? (object)DBNull.Value); 
-            
+            cmd.Parameters.AddWithValue("@rank", compsub.Ranking ?? (object)DBNull.Value);
+
 
 
             //Open a database connection
