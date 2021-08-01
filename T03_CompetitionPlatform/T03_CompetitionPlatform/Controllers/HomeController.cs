@@ -98,7 +98,7 @@ namespace T03_CompetitionPlatform.Controllers
 
                 foreach (var item in judgeList)
                 {
-                    if (loginID == item.EmailAddr.ToLower() && password == item.Password)
+                    if (loginID == item.EmailAddr && password == item.Password)
                     {
                         Debug.WriteLine("My debug string here");
 
@@ -125,7 +125,7 @@ namespace T03_CompetitionPlatform.Controllers
                 };
                 foreach (var item2 in competitorList)
                 {
-                    if (loginID == item2.EmailAddr.ToLower() && password == item2.Password)
+                    if (loginID == item2.EmailAddr && password == item2.Password)
                     {
                         //Store login ID in session with the key "LoginID"
                         HttpContext.Session.SetString("LoginID", loginID);
@@ -217,6 +217,7 @@ namespace T03_CompetitionPlatform.Controllers
                         DateTime.Now.ToString());
 
                         isJudge = true;
+                        TempData["Loggedin"] = item2.EmailAddr;
                     }
 
                 };
@@ -232,7 +233,7 @@ namespace T03_CompetitionPlatform.Controllers
                 if (isJudge == true)
                 {
                     theRedirect = "Judge";
-
+                    
                 }
 
                 List<Competition> competitionList = competitionContext.GetAllCompetitions();
