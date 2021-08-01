@@ -67,7 +67,7 @@ namespace T03_CompetitionPlatform.DAL
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
             //Specify an INSERT SQL statement which will
-            //return the auto-generated StaffID after insertion
+            
             cmd.CommandText = @"INSERT INTO Criteria (CompetitionID, CriteriaName, Weightage)
             OUTPUT INSERTED.CriteriaID
             VALUES(@CompetitionID, @CriteriaName, @Weightage)";
@@ -94,7 +94,7 @@ namespace T03_CompetitionPlatform.DAL
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SELECT SQL statement that
-            //retrieves all attributes of a staff record.
+            //retrieves all attributes of a Criteriea record.
             cmd.CommandText = @"SELECT * FROM Criteria
                     WHERE CriteriaID = @selectedCriteriaID";
             //Define the parameter used in SQL statement, value for the

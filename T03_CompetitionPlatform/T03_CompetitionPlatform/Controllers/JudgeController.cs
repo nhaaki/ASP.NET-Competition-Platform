@@ -29,8 +29,16 @@ namespace T03_CompetitionPlatform.Controllers
         // GET: JudgeController
         public ActionResult Index()
         {
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
 
+            //Getting list competitions judge is assigned to
             List<Competition> compList = competitionContext.GetAllCompetitions();
 
             List<CompetitionJudge> compjudgelist = compjudgeContext.GetAllCompetitionJudge();
@@ -40,8 +48,6 @@ namespace T03_CompetitionPlatform.Controllers
             Judge userlogged = judgeContext.Getlogin(loggedin);
 
             List<int> compinvolvedID = new List<int>();
-
-
 
             for (int i = 0; i < compjudgelist.Count; i++)
             {
@@ -77,7 +83,13 @@ namespace T03_CompetitionPlatform.Controllers
         public ActionResult ViewCriteria(int? id)
         {
             // Stop accessing the action if not logged in
-            // or account not in the "Staff" role
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             CompetitionViewModel compVM = new CompetitionViewModel();
             compVM.compList = competitionContext.GetAllCompetitions();
 
@@ -91,7 +103,7 @@ namespace T03_CompetitionPlatform.Controllers
 
 
                 ViewData["selectedCompID"] = id.Value;
-                // Get list of staff working in the branch
+                // Get list of Criteria belonging to competition
                 compVM.criteriaList = competitionContext.GetCompCriteria(id.Value);
             }
             else
@@ -102,7 +114,7 @@ namespace T03_CompetitionPlatform.Controllers
 
 
                 ViewData["selectedCompID"] = newid;
-                // Get list of staff working in the branch
+                // Get list of Criteria belonging to competition
                 compVM.criteriaList = competitionContext.GetCompCriteria(newid);
             };
 
@@ -115,6 +127,14 @@ namespace T03_CompetitionPlatform.Controllers
         // GET: JudgeController/CreateCriteria
         public ActionResult CreateCriteria()
         {
+
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             int id = (int)TempData.Peek("CompID");
 
 
@@ -135,6 +155,15 @@ namespace T03_CompetitionPlatform.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateCriteria(Criteria criteria)
         {
+
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             int id = (int)TempData.Peek("CompID");
             List<Criteria> compcriteira = competitionContext.GetCompCriteria(id);
             int totalweightage = 0;
@@ -174,13 +203,21 @@ namespace T03_CompetitionPlatform.Controllers
         // GET: JudgeController/Edit/5
         public ActionResult EditCriteria(int? id)
         {
+
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             int compid = (int)TempData.Peek("CompID");
 
 
             Competition competition = competitionContext.GetDetails(compid);
             ViewData["CompName"] = competition.CompetitionName;
 
-
+            //Getting Criteria details
             Criteria criteria = criteriaContext.GetDetails(id.Value);
             criteria.CriteriaID = id.Value;
             if (criteria == null)
@@ -197,6 +234,14 @@ namespace T03_CompetitionPlatform.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditCriteria(Criteria criteria)
         {
+
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             int id = (int)TempData.Peek("CompID");
             List<Criteria> compcriteria = competitionContext.GetCompCriteria(id);
             int totalweightage = 0;
@@ -204,12 +249,13 @@ namespace T03_CompetitionPlatform.Controllers
             {
                 totalweightage += compcriteria[i].Weightage;
             }
+            //checking if total weightage is <= 100
             totalweightage = totalweightage - criteriaContext.GetDetails(criteria.CriteriaID).Weightage + criteria.Weightage;
             if (ModelState.IsValid && totalweightage <= 100)
             {
                 if (!criteriaContext.checkIfCriteriaExists(criteria.CriteriaID))
                 {
-                    //Add staff record to database
+                    //Update Criteria record to database
                     criteria.CriteriaID = criteriaContext.Update(criteria);
                     //Redirect user to Staff/Index view
                     return RedirectToAction("ViewCriteria");
@@ -233,13 +279,21 @@ namespace T03_CompetitionPlatform.Controllers
         // GET: JudgeController/Delete/5
         public ActionResult DeleteCriteria(int? id)
         {
+
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             int compid = (int)TempData.Peek("CompID");
 
 
             Competition competition = competitionContext.GetDetails(compid);
             ViewData["CompName"] = competition.CompetitionName;
 
-
+            //getting criteria info
             Criteria criteria = criteriaContext.GetDetails(id.Value);
             if (criteria == null)
             {
@@ -254,6 +308,14 @@ namespace T03_CompetitionPlatform.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteCriteria(Criteria criteria)
         {
+
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             // Delete the criteria record from database
             criteriaContext.Delete(criteria.CriteriaID);
             return RedirectToAction("ViewCriteria");
@@ -262,9 +324,18 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult ViewSubmission()
         {
+
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             int compid = (int)TempData.Peek("CompID");
             List<CompetitionSubmission> compSubmission = competitionSubmissionContext.GetAllSubmissions();
             List<CompetitionSubmission> specifiedSubmission = new List<CompetitionSubmission>();
+            // Getting list of Criteria belonging to competition
             foreach (CompetitionSubmission cs in compSubmission)
             {
                 if (cs.CompetitionID == compid)
@@ -273,7 +344,7 @@ namespace T03_CompetitionPlatform.Controllers
                 }
             }
 
-
+            // Mapping competitor to correct competition submission
             List<Competitor> competitorList = competitorContext.GetAllCompetitors();
             List<CompSubmissionViewModel> currentSubmissions = new List<CompSubmissionViewModel>();
             foreach (Competitor c in competitorList)
@@ -300,6 +371,14 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult ViewCompetitorWork(int? competitorID, int? competitionID)
         {
+
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             List<CompetitionSubmission> compSubmission = competitionSubmissionContext.GetAllSubmissions();
             foreach (CompetitionSubmission cs in compSubmission)
             {
@@ -313,11 +392,19 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult ViewScores(int? competitionid, int? competitorid)
         {
+
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             List<CompetitionScore> scores = compscoreContext.GetAllScore();
             List<CompetitionScore> specifiedscores = new List<CompetitionScore>();
             List<Criteria> criteria = criteriaContext.GetAllCriteria();
 
-
+            //getting list of scores belonging to selected competitor
             foreach (CompetitionScore s in scores)
             {
                 if (s.CompetitorID == competitorid.Value && s.CompetitionID == competitionid.Value)
@@ -325,7 +412,7 @@ namespace T03_CompetitionPlatform.Controllers
                     specifiedscores.Add(s);
                 }
             }
-
+            //If competitor does not have any scores in the database
             if (specifiedscores.Count == 0)
             {
                 foreach (Criteria c in criteria)
@@ -350,7 +437,7 @@ namespace T03_CompetitionPlatform.Controllers
             }
 
 
-            
+            //Maping scores to correct Criteria
             List<CompetitionScoreViewModel> currentScore = new List<CompetitionScoreViewModel>();
             foreach (Criteria c in criteria)
             {
@@ -374,6 +461,14 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult GradeCriterion(int? criteriaid, int? competitorid, string criterianame, int? weightage)
         {
+
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             CompetitionScore score = compscoreContext.GetDetails(criteriaid.Value, competitorid.Value);
             
 
@@ -390,11 +485,19 @@ namespace T03_CompetitionPlatform.Controllers
         [HttpPost]
         public ActionResult GradeCriterion(CompetitionScore updatescore)
         {
+
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
-                //Add staff record to database
+                //Update score record to database
                 compscoreContext.Update(updatescore);
-                //Redirect user to Staff/Index view
+                //Redirect user to Judge/ViewScores view
                 return RedirectToAction("ViewScores", new { competitionid = updatescore.CompetitionID, competitorid = updatescore.CompetitorID });
             }
             else
@@ -405,6 +508,13 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult Rank(int? id)
         {
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             //Get all the participating CompetitionSubmission
             List<CompetitionSubmission> compSubmission = competitionSubmissionContext.GetAllSubmissions();
             List<CompetitionSubmission> specifiedSubmission = new List<CompetitionSubmission>();
@@ -508,6 +618,14 @@ namespace T03_CompetitionPlatform.Controllers
         public ActionResult Rank(List<CompSubmissionViewModel> compsubList)
         {
 
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             //Get all the participating CompetitionSubmission
             List<CompetitionSubmission> compSubmission = competitionSubmissionContext.GetAllSubmissions();
             List<CompetitionSubmission> specifiedSubmission = new List<CompetitionSubmission>();
@@ -591,6 +709,8 @@ namespace T03_CompetitionPlatform.Controllers
 
 
             }
+
+            //Removing competition submissions with a null ranking value after updating it to the database
             List<CompetitionSubmission> csList = new List<CompetitionSubmission>();
 
             for (int i = 0; i < compsubList.Count; i++)
@@ -620,8 +740,8 @@ namespace T03_CompetitionPlatform.Controllers
                 }
             }
 
-
-                foreach (CompSubmissionViewModel csvm in compsubList)
+            //getting List of all the remaining competition submissions
+            foreach (CompSubmissionViewModel csvm in compsubList)
             {
                 CompetitionSubmission compsub = new CompetitionSubmission();
                 compsub.Appeal = csvm.Appeal;
@@ -633,12 +753,14 @@ namespace T03_CompetitionPlatform.Controllers
                 compsub.VoteCount = csvm.VoteCount;
 
                 csList.Add(compsub);
-
             }
 
+
+            //Sorting the List in descending order of Ranking value
             csList = csList.OrderBy(o => o.Ranking).ToList();
 
-            for(int i= 0; i < csList.Count; i++)
+            //Validation for if Ranking values are not consecutive
+            for (int i= 0; i < csList.Count; i++)
             {
                 
                 
@@ -689,7 +811,7 @@ namespace T03_CompetitionPlatform.Controllers
 
             if (ModelState.IsValid)
             {
-                //Add staff record to database
+                //Add Judge record to database
                 judge.JudgeID = judgeContext.Add(judge);
                 //Redirect user to Home/Index view
                 return RedirectToAction("Index", "Home");
@@ -708,9 +830,9 @@ namespace T03_CompetitionPlatform.Controllers
         {
 
 
-            // Get a list of branches from database
+            // Get a list of Area of interest from database
             List<AreaInterest> aoiList = areaContext.GetAllArea();
-            // Adding a select prompt at the first row of the branch list
+            
 
             return aoiList;
         }

@@ -66,8 +66,7 @@ namespace T03_CompetitionPlatform.DAL
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
-            //Specify an INSERT SQL statement which will
-            //return the auto-generated StaffID after insertion
+            
             cmd.CommandText = @"INSERT INTO CompetitionScore (CriteriaID, CompetitorID, CompetitionID, Score)
             VALUES(@criteriaid, @competitiorid, @competitionid, @score)";
             //Define the parameters used in SQL statement, value for each parameter
@@ -82,7 +81,7 @@ namespace T03_CompetitionPlatform.DAL
             //ExecuteScalar is used to retrieve the auto-generated
             cmd.ExecuteScalar();
 
-            //CriteriaID after executing the INSERT SQL statement
+            
 
             //A connection should be closed after operations.
             conn.Close();
