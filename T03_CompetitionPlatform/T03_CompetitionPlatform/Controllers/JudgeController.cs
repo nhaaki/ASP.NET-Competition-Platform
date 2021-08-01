@@ -692,7 +692,7 @@ namespace T03_CompetitionPlatform.Controllers
                 //Add staff record to database
                 judge.JudgeID = judgeContext.Add(judge);
                 //Redirect user to Home/Index view
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             else
             {
