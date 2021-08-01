@@ -8,7 +8,8 @@ namespace T03_CompetitionPlatform.Models
 {
     public class CompetitionSubmission
     {
-#nullable enable
+        // This allows Nullable content
+        #nullable enable
 
         [Required]
         [Display(Name = "Competition ID")]

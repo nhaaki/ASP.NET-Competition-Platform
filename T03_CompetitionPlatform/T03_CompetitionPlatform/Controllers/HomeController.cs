@@ -133,7 +133,7 @@ namespace T03_CompetitionPlatform.Controllers
                         //Store login ID in session with the key "CompetitorID"
                         HttpContext.Session.SetInt32("CompetitorID", item2.CompetitorID);
 
-                        //Store user role "Judge" as a string in session with the key "Role"
+                        //Store user role "Competitor" as a string in session with the key "Role"
                         HttpContext.Session.SetString("Role", "Competitor");
 
                         List<Competition> competitionList = competitionContext.GetAllCompetitions();
@@ -189,7 +189,7 @@ namespace T03_CompetitionPlatform.Controllers
                         //Store login ID in session with the key "CompetitorID"
                         HttpContext.Session.SetInt32("CompetitorID", item2.CompetitorID);
 
-                        //Store user role "Judge" as a string in session with the key "Role"
+                        //Store user role "Competitor" as a string in session with the key "Role"
                         HttpContext.Session.SetString("Role", "Competitor");
 
                         HttpContext.Session.SetString("LoggedInTime",
