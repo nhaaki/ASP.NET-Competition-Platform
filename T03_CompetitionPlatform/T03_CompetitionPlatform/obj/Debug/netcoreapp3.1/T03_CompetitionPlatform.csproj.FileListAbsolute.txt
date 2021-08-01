@@ -2452,3 +2452,5 @@ C:\Users\Ng Hung Meng\Source\Repos\help\T03_CompetitionPlatform\T03_CompetitionP
 C:\Users\Ng Hung Meng\Source\Repos\help\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.dll
 C:\Users\Ng Hung Meng\Source\Repos\help\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.pdb
 C:\Users\Ng Hung Meng\Source\Repos\help\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\T03_CompetitionPlatform.genruntimeconfig.cache
+C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Competitor\UploadPhoto.cshtml.g.cs
+C:\Users\nhaak\source\repos\web2021apr_p0_t(2)\T03_CompetitionPlatform\T03_CompetitionPlatform\obj\Debug\netcoreapp3.1\Razor\Views\Competitor\ViewJoinedCompetitions.cshtml.g.cs

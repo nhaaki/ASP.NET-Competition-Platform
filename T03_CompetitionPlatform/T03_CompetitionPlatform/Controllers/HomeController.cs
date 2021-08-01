@@ -82,9 +82,11 @@ namespace T03_CompetitionPlatform.Controllers
                 //Store user role "Admin" as a string in session with the key "Role"
                 HttpContext.Session.SetString("Role", "Admin");
 
+                //Get a list of competitions using CompetitionDAL
                 List<Competition> competitionList = competitionContext.GetAllCompetitions();
                 foreach (Competition c in competitionList)
                 {
+                    //Assign a value of 0 as an int in session with the key of each competition ID, to indicate that this user has not voted for any comps.
                     string compID = c.CompetitionID.ToString();
                     HttpContext.Session.SetInt32(compID, 0);
                 }
@@ -110,9 +112,11 @@ namespace T03_CompetitionPlatform.Controllers
 
                         TempData["Loggedin"] = item.EmailAddr;
 
+                        //Get a list of competitions using CompetitionDAL
                         List<Competition> competitionList = competitionContext.GetAllCompetitions();
                         foreach (Competition c in competitionList)
                         {
+                            //Assign a value of 0 as an int in session with the key of each competition ID, to indicate that this user has not voted for any comps.
                             string compID = c.CompetitionID.ToString();
                             HttpContext.Session.SetInt32(compID, 0);
                         }
@@ -136,13 +140,14 @@ namespace T03_CompetitionPlatform.Controllers
                         //Store user role "Competitor" as a string in session with the key "Role"
                         HttpContext.Session.SetString("Role", "Competitor");
 
+                        //Get a list of competitions using CompetitionDAL
                         List<Competition> competitionList = competitionContext.GetAllCompetitions();
                         foreach (Competition c in competitionList)
                         {
+                            //Assign a value of 0 as an int in session with the key of each competition ID, to indicate that this user has not voted for any comps.
                             string compID = c.CompetitionID.ToString();
                             HttpContext.Session.SetInt32(compID, 0);
                         }
-
                         // Redirect user to the "Index" view through an action
                         return RedirectToAction("Index", "Competitor");
                     }
@@ -197,31 +202,32 @@ namespace T03_CompetitionPlatform.Controllers
 
                         isCompetitor = true;
                     }
-
                 };
-
-                foreach (var item2 in judgeList)
+                if (isCompetitor != true)
                 {
-                    if (item2.EmailAddr == eMail)
+                    foreach (var item2 in judgeList)
                     {
-                        //Store login ID in session with the key "LoginID"
-                        HttpContext.Session.SetString("LoginID", eMail);
+                        if (item2.EmailAddr == eMail)
+                        {
+                            //Store login ID in session with the key "LoginID"
+                            HttpContext.Session.SetString("LoginID", eMail);
 
-                        //Store login ID in session with the key "CompetitorID"
-                        HttpContext.Session.SetInt32("JudgeID", item2.JudgeID);
+                            //Store login ID in session with the key "CompetitorID"
+                            HttpContext.Session.SetInt32("JudgeID", item2.JudgeID);
 
-                        //Store user role "Judge" as a string in session with the key "Role"
-                        HttpContext.Session.SetString("Role", "Judge");
+                            //Store user role "Judge" as a string in session with the key "Role"
+                            HttpContext.Session.SetString("Role", "Judge");
 
-                        HttpContext.Session.SetString("LoggedInTime",
-                        DateTime.Now.ToString());
+                            HttpContext.Session.SetString("LoggedInTime",
+                            DateTime.Now.ToString());
 
-                        isJudge = true;
-                        TempData["Loggedin"] = item2.EmailAddr;
-                    }
+                            isJudge = true;
+                            TempData["Loggedin"] = item2.EmailAddr;
+                        }
 
-                };
-
+                    };
+                }
+                
                 string theRedirect = "";
 
                 if (isCompetitor == true)
@@ -236,9 +242,11 @@ namespace T03_CompetitionPlatform.Controllers
 
                 }
 
+                //Get a list of competitions using CompetitionDAL
                 List<Competition> competitionList = competitionContext.GetAllCompetitions();
                 foreach (Competition c in competitionList)
                 {
+                    //Assign a value of 0 as an int in session with the key of each competition ID, to indicate that this user has not voted for any comps.
                     string compID = c.CompetitionID.ToString();
                     HttpContext.Session.SetInt32(compID, 0);
                 }
@@ -273,13 +281,15 @@ namespace T03_CompetitionPlatform.Controllers
         [HttpPost]
         public ActionResult GuestLogin()
         {
+            //Get a list of competitions using CompetitionDAL
             List<Competition> competitionList = competitionContext.GetAllCompetitions();
             foreach (Competition c in competitionList)
             {
+                //Assign a value of 0 as an int in session with the key of each competition ID, to indicate that this user has not voted for any comps.
                 string compID = c.CompetitionID.ToString();
                 HttpContext.Session.SetInt32(compID, 0);
             }
-            
+
 
             //Store user role "Guest" in session with the key "Role"
             HttpContext.Session.SetString("Role", "Guest");
@@ -291,6 +301,7 @@ namespace T03_CompetitionPlatform.Controllers
 
         public ActionResult guestLogout()
         {
+            // Clear all session values, such as 'Role' and competition vote values
             HttpContext.Session.Clear();
 
             return RedirectToAction("Index");
