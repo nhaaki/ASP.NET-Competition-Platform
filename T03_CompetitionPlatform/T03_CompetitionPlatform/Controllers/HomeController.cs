@@ -233,7 +233,7 @@ namespace T03_CompetitionPlatform.Controllers
                 if (isJudge == true)
                 {
                     theRedirect = "Judge";
-                    
+
                 }
 
                 List<Competition> competitionList = competitionContext.GetAllCompetitions();
@@ -243,14 +243,30 @@ namespace T03_CompetitionPlatform.Controllers
                     HttpContext.Session.SetInt32(compID, 0);
                 }
 
+                if (theRedirect == "")
+                {
+                    // Clear authentication cookie
+                    await HttpContext.SignOutAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    HttpContext.Session.Clear();
+
+                    theRedirect = "Home";
+                }
+
                 // Redirect user to the "Index" view through an action
                 return RedirectToAction("Index", theRedirect);
             }
 
             catch (Exception e)
             {
+                // Clear authentication cookie
+                await HttpContext.SignOutAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme);
+
+                HttpContext.Session.Clear();
+                return RedirectToAction("Index");
                 // Token ID is may be tempered with, force user to logout
-                return View("Login");
             }
         }
 
