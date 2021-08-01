@@ -17,7 +17,6 @@ namespace T03_CompetitionPlatform.Models
         [ValidateCompetitionNameExists]
         public string CompetitionName { get; set; }
 
-        // CHANGE IF NECCESSARY IN THE FUTURE
         [DataType(DataType.DateTime)]
         public DateTime? StartDate { get; set; }
 

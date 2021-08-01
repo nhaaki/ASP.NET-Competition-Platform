@@ -10,11 +10,11 @@ namespace T03_CompetitionPlatform.Models
     {
 #nullable enable
 
-        [Required] // No need for error message(?)
+        [Required]
         [Display(Name = "Competition ID")]
         public int CompetitionID { get; set; }
 
-        [Required] // No need for error message(?)
+        [Required]
         [Display(Name = "Competitor ID")]
         public int CompetitorID { get; set; }
 

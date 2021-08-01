@@ -7005,19 +7005,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ng Hung Meng\\.nuget\\packages\\": {}
+    "C:\\Users\\Boon Halpert\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ng Hung Meng\\Source\\Repos\\help\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+      "projectUniqueName": "F:\\1) Ngee Ann Poly\\Year 2 Sem 1\\Web Application Development\\Updated Assg Repo\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
       "projectName": "T03_CompetitionPlatform",
-      "projectPath": "C:\\Users\\Ng Hung Meng\\Source\\Repos\\help\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
-      "packagesPath": "C:\\Users\\Ng Hung Meng\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ng Hung Meng\\Source\\Repos\\help\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
+      "projectPath": "F:\\1) Ngee Ann Poly\\Year 2 Sem 1\\Web Application Development\\Updated Assg Repo\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\T03_CompetitionPlatform.csproj",
+      "packagesPath": "C:\\Users\\Boon Halpert\\.nuget\\packages\\",
+      "outputPath": "F:\\1) Ngee Ann Poly\\Year 2 Sem 1\\Web Application Development\\Updated Assg Repo\\T03_CompetitionPlatform\\T03_CompetitionPlatform\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Ng Hung Meng\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Boon Halpert\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7029,6 +7029,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -7040,6 +7041,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Google.Apis.Auth.AspNetCore3": {
             "target": "Package",
@@ -7076,7 +7078,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.411\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
